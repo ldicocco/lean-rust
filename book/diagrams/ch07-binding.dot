@@ -1,0 +1,27 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.4];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#c2410c", fillcolor="#ffedd5", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // The syntax tree of  λx. λy. x (y x)
+  lx  [label="λx"];
+  ly  [label="λy"];
+  a1  [label="application", fillcolor="#f1f5f9", color="#475569"];
+  x1  [label="x   (index 1)"];
+  a2  [label="application", fillcolor="#f1f5f9", color="#475569"];
+  y1  [label="y   (index 0)"];
+  x2  [label="x   (index 1)"];
+
+  lx -> ly -> a1;
+  a1 -> x1;
+  a1 -> a2;
+  a2 -> y1;
+  a2 -> x2;
+
+  // Binding arrows: from each occurrence to its binder.
+  edge [style=dashed, color="#1d4ed8", constraint=false, arrowsize=0.6];
+  x1 -> lx [label=" bound by"];
+  y1 -> ly;
+  x2 -> lx;
+}

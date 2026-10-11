@@ -1,0 +1,10 @@
+error[E0599]: no method named `query` found for struct `Connection<Connected>` in the current scope
+  --> compile_fail/ch25_wrong_state.rs:32:10
+   |
+10 | pub struct Connection<S> {
+   | ------------------------ method `query` not found for this struct
+...
+32 |     conn.query("SELECT * FROM samples")
+   |          ^^^^^ method not found in `Connection<Connected>`
+   |
+   = note: the method was found for `Connection<Authenticated>`

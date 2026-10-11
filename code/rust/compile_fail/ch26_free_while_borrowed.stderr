@@ -1,0 +1,17 @@
+error[E0505]: cannot move out of `x` because it is borrowed
+  --> compile_fail/ch26_free_while_borrowed.rs:9:10
+   |
+ 7 |     let x = Box::new(42);
+   |         - binding `x` declared here
+ 8 |     let y = &*x;
+   |             --- borrow of `*x` occurs here
+ 9 |     drop(x);
+   |          ^ move out of `x` occurs here
+10 |     *y
+   |     -- borrow later used here
+   |
+help: consider cloning the value if the performance cost is acceptable
+   |
+ 8 -     let y = &*x;
+ 8 +     let y = &x.clone();
+   |

@@ -1,0 +1,10 @@
+error[E0599]: no method named `head` found for struct `Vect<i32, Z>` in the current scope
+  --> compile_fail/ch30_head_of_empty.rs:18:12
+   |
+ 7 | pub struct Vect<T, N>(Vec<T>, PhantomData<N>);
+   | --------------------- method `head` not found for this struct
+...
+18 |     *empty.head()
+   |            ^^^^ method not found in `Vect<i32, Z>`
+   |
+   = note: the method was found for `Vect<T, S<N>>`

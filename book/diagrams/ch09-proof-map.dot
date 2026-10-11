@@ -1,0 +1,38 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // Definitions (terms and operations)
+  rename  [label="rename, shift\n(Syntax)", fillcolor="#ffedd5", color="#c2410c"];
+  subst   [label="subst, instantiate\n(Syntax)", fillcolor="#ffedd5", color="#c2410c"];
+
+  // Lemmas
+  canon   [label="canonical forms\nbool, nat, σ → τ", fillcolor="#dbeafe", color="#1d4ed8"];
+  weak    [label="rename_typing\n(weakening)", fillcolor="#dbeafe", color="#1d4ed8"];
+  substl  [label="subst_typing", fillcolor="#dbeafe", color="#1d4ed8"];
+  inst    [label="instantiate_typing\n(substitution lemma)", fillcolor="#dbeafe", color="#1d4ed8"];
+  nostep  [label="Value.no_step", fillcolor="#dbeafe", color="#1d4ed8"];
+
+  // Theorems
+  prog    [label="progress", fillcolor="#dbeafe", color="#1d4ed8", penwidth=2.2];
+  pres    [label="preservation", fillcolor="#dbeafe", color="#1d4ed8", penwidth=2.2];
+  det     [label="Step.deterministic", fillcolor="#dbeafe", color="#1d4ed8", penwidth=2.2];
+  presn   [label="preservation_steps", fillcolor="#dbeafe", color="#1d4ed8"];
+  safety  [label="safety\nno run reaches a stuck term", fillcolor="#dcfce7", color="#15803d", penwidth=2.2];
+  uniq    [label="Steps.value_unique\nat most one result", fillcolor="#dcfce7", color="#15803d", penwidth=2.2];
+
+  rename -> weak [style=dashed];
+  subst -> substl [style=dashed];
+  weak -> substl;
+  substl -> inst;
+  inst -> pres;
+  canon -> prog;
+  pres -> presn;
+  prog -> safety;
+  presn -> safety;
+  nostep -> det;
+  det -> uniq;
+  nostep -> uniq;
+}

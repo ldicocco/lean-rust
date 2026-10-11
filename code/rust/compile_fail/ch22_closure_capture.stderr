@@ -1,0 +1,23 @@
+error[E0382]: use of moved value: `msg`
+  --> compile_fail/ch22_closure_capture.rs:14:9
+   |
+12 | fn capture(c: Conn, msg: String) -> (impl FnOnce() -> Conn, String) {
+   |                     --- move occurs because `msg` has type `String`, which does not implement the `Copy` trait
+13 |     let f = || send(c, msg);
+   |             --         --- variable moved due to use in closure
+   |             |
+   |             value moved into closure here
+14 |     (f, msg)
+   |         ^^^ value used here after move
+   |
+note: consider changing this parameter type in function `send` to borrow instead if owning the value isn't necessary
+  --> compile_fail/ch22_closure_capture.rs:6:23
+   |
+ 6 | fn send(c: Conn, msg: String) -> Conn {
+   |    ----               ^^^^^^ this parameter takes ownership of the value
+   |    |
+   |    in this function
+help: consider cloning the value if the performance cost is acceptable
+   |
+13 |     let f = || send(c, msg.clone());
+   |                           ++++++++

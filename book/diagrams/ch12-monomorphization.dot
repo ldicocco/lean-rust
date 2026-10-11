@@ -1,0 +1,25 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  src  [label="fn largest<T: PartialOrd + Copy>\n(source: one definition)", fillcolor="#ffedd5", color="#c2410c"];
+
+  subgraph cluster_mono {
+    label="monomorphization (Rust)"; fontname="Helvetica"; fontsize=10; color="#b91c1c"; style="rounded";
+    i32  [label="largest::<i32>", fillcolor="#fee2e2", color="#b91c1c"];
+    chr  [label="largest::<char>", fillcolor="#fee2e2", color="#b91c1c"];
+    f64  [label="largest::<f64>", fillcolor="#fee2e2", color="#b91c1c"];
+  }
+
+  subgraph cluster_uniform {
+    label="uniform representation (dyn, Java, OCaml)"; fontname="Helvetica"; fontsize=10; color="#475569"; style="rounded";
+    one  [label="one copy:\nboxed values + table of functions"];
+  }
+
+  src -> i32 [label="T := i32"];
+  src -> chr [label="T := char"];
+  src -> f64 [label="T := f64"];
+  src -> one [style=dashed, label="all T"];
+}

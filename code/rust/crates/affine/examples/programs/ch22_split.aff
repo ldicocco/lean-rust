@@ -1,0 +1,4 @@
+fn split(p: (String, File)) -> (String, (String, File)) {
+    let s = p.0;
+    (s, p)
+}

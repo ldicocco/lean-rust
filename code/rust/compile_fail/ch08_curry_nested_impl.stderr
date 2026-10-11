@@ -1,0 +1,8 @@
+error[E0562]: `impl Trait` is not allowed in the return type of `Fn` trait bounds
+ --> compile_fail/ch08_curry_nested_impl.rs:8:20
+  |
+8 | ) -> impl Fn(A) -> impl Fn(B) -> C {
+  |                    ^^^^^^^^^^^^^^^
+  |
+  = note: `impl Trait` is only allowed in arguments and return types of functions and methods
+  = note: see issue #99697 <https://github.com/rust-lang/rust/issues/99697> for more information

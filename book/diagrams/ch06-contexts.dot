@@ -1,0 +1,13 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  list  [label=<<b>list</b> [A, B, A]<br/>order and multiplicity matter<br/><font point-size="10" color="#475569">ordered logic</font>>, fillcolor="#dbeafe", color="#1d4ed8"];
+  mset  [label=<<b>multiset</b> {A, A, B}<br/>multiplicity matters<br/><font point-size="10" color="#475569">linear and affine logic</font>>, fillcolor="#dbeafe", color="#1d4ed8"];
+  set   [label=<<b>set</b> {A, B}<br/>only membership matters<br/><font point-size="10" color="#475569">intuitionistic, classical logic</font>>, fillcolor="#dbeafe", color="#1d4ed8"];
+
+  list -> mset [label="  exchange:\n  forget order"];
+  mset -> set  [label="  contraction:\n  forget multiplicity"];
+}

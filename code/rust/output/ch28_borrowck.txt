@@ -1,0 +1,32 @@
+== twice (Δ = {'a})
+T-LetPair  r: &'a mut Int ⊢ let (r1, u1) = … in … : Unit
+│ split: Γ₁ = r | Γ₂ = ·
+├─ T-Reborrow  r: &'a mut Int ⊢ borrow y1 = &'b1 mut *r in … : &'a mut Int ⊗ Unit
+│  │ split: Γ₁ = r | Γ₂ = ·
+│  │ fresh: 'b1 ∉ Δ = {'a}
+│  │ escape check: 'b1 ∉ flv(Unit)
+│  ├─ T-Var  r: &'a mut Int ⊢ r : &'a mut Int
+│  └─ T-Assign  y1: &'b1 mut Int ⊢ *y1 := 1 : Unit
+│     │ split: Γ₁ = y1 | Γ₂ = ·
+│     ├─ T-Var  y1: &'b1 mut Int ⊢ y1 : &'b1 mut Int
+│     └─ T-Int  · ⊢ 1 : Int
+└─ T-LetPair  r1: &'a mut Int, u1: Unit ⊢ let (r2, u2) = … in () : Unit
+   │ split: Γ₁ = r1 | Γ₂ = u1
+   ├─ T-Reborrow  r1: &'a mut Int ⊢ borrow y2 = &'b2 mut *r1 in … : &'a mut Int ⊗ Unit
+   │  │ split: Γ₁ = r1 | Γ₂ = ·
+   │  │ fresh: 'b2 ∉ Δ = {'a}
+   │  │ escape check: 'b2 ∉ flv(Unit)
+   │  ├─ T-Var  r1: &'a mut Int ⊢ r1 : &'a mut Int
+   │  └─ T-Assign  y2: &'b2 mut Int ⊢ *y2 := 2 : Unit
+   │     │ split: Γ₁ = y2 | Γ₂ = ·
+   │     ├─ T-Var  y2: &'b2 mut Int ⊢ y2 : &'b2 mut Int
+   │     └─ T-Int  · ⊢ 2 : Int
+   └─ T-Unit  u1: Unit, r2: &'a mut Int, u2: Unit ⊢ () : Unit
+
+== aliasing (Δ = {})
+error: `v` is used while it is borrowed
+  in: borrow f = &'a v in …
+  `v` is needed by the borrowed owner and by the body of the borrow,
+  but `v: Box Int` is not Copy, so the split Γ = Γ₁ ⊎ Γ₂
+  of T-Borrow can give it to only one of them
+

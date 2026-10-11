@@ -1,0 +1,6 @@
+fn send(c: Conn, msg: String) -> Conn;
+
+fn capture(c: Conn, msg: String) -> (FnOnce(()) -> Conn, String) {
+    let f = |u: ()| send(c, msg);
+    (f, msg)
+}

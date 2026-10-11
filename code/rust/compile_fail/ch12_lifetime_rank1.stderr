@@ -1,0 +1,18 @@
+error[E0597]: `lowered` does not live long enough
+  --> compile_fail/ch12_lifetime_rank1.rs:11:10
+   |
+ 6 | fn normalized_len<'a, F>(text: &str, pick: F) -> usize
+   |                   -- lifetime `'a` defined here
+...
+10 |     let lowered = text.to_lowercase();
+   |         ------- binding `lowered` declared here
+11 |     pick(&lowered).len()
+   |     -----^^^^^^^^-
+   |     |    |
+   |     |    borrowed value does not live long enough
+   |     argument requires that `lowered` is borrowed for `'a`
+12 | }
+   | - `lowered` dropped here while still borrowed
+   |
+note: requirement that the value outlives `'a` introduced here
+  --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:76:33

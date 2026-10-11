@@ -1,0 +1,35 @@
+// Functions provided by the environment. A call consumes its arguments.
+fn send(c: Conn, msg: String) -> Conn;
+fn ship(c: Conn, o: Order) -> Conn;
+fn refund(c: Conn, r: Refund) -> Conn;
+fn buy_coffee(c: Coin) -> Coffee;
+fn buy_tea(c: Coin) -> Tea;
+
+// ⊗: take the pair apart, and build it again the other way round.
+fn swap(p: (String, File)) -> (File, String) {
+    let (s, f) = p;
+    (f, s)
+}
+
+// Weakening: `f` is never used.
+fn first(s: String, f: File) -> String {
+    s
+}
+
+// &: both alternatives may spend the coin, because only one will be chosen.
+fn offer(c: Coin) -> With<Coffee, Tea> {
+    with(buy_coffee(c), buy_tea(c))
+}
+
+// ⊕: both arms may use the connection, because only one arm runs.
+fn settle(m: Either<Order, Refund>, c: Conn) -> Conn {
+    match m {
+        Left(o) => ship(c, o),
+        Right(r) => refund(c, r),
+    }
+}
+
+// ⊸: the closure captures `c` and `msg`; it can be called once.
+fn later(c: Conn, msg: String) -> FnOnce(()) -> Conn {
+    |u: ()| send(c, msg)
+}

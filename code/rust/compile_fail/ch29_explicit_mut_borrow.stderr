@@ -1,0 +1,8 @@
+error[E0502]: cannot borrow `counts` as immutable because it is also borrowed as mutable
+ --> compile_fail/ch29_explicit_mut_borrow.rs:8:28
+  |
+8 |     Vec::push(&mut counts, counts.len());
+  |     --------- -----------  ^^^^^^ immutable borrow occurs here
+  |     |         |
+  |     |         mutable borrow occurs here
+  |     mutable borrow later used by call

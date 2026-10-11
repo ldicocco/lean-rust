@@ -1,0 +1,59 @@
+ok: fn swap(p: (String, File)) -> (File, String)
+[A-LetPair] p: (String, File) ⊢ let (s, f) = p; (f, s) : (File, String)
+  [A-Var] p: (String, File) ⊢ p : (String, File)
+  [A-Pair] s: String, f: File ⊢ (f, s) : (File, String)
+    [A-Var] f: File ⊢ f : File
+    [A-Var] s: String ⊢ s : String
+ok: fn first(s: String, f: File) -> String
+[A-Var] s: String ⊢ s : String
+    (discarded without use: f)
+ok: fn offer(c: Coin) -> With<Coffee, Tea>
+[A-With] c: Coin ⊢ with(buy_coffee(c), buy_tea(c)) : With<Coffee, Tea>
+  [Call] c: Coin ⊢ buy_coffee(c) : Coffee
+    [A-Var] c: Coin ⊢ c : Coin
+  [Call] c: Coin ⊢ buy_tea(c) : Tea
+    [A-Var] c: Coin ⊢ c : Coin
+ok: fn settle(m: Either<Order, Refund>, c: Conn) -> Conn
+[A-Case] m: Either<Order, Refund>, c: Conn ⊢ match m { Left(o) => …, Right(r) => … } : Conn
+  [A-Var] m: Either<Order, Refund> ⊢ m : Either<Order, Refund>
+  [Call] c: Conn, o: Order ⊢ ship(c, o) : Conn
+    [A-Var] c: Conn ⊢ c : Conn
+    [A-Var] o: Order ⊢ o : Order
+  [Call] c: Conn, r: Refund ⊢ refund(c, r) : Conn
+    [A-Var] c: Conn ⊢ c : Conn
+    [A-Var] r: Refund ⊢ r : Refund
+ok: fn later(c: Conn, msg: String) -> FnOnce(()) -> Conn
+[A-Abs] c: Conn, msg: String ⊢ |u: ()| send(c, msg) : FnOnce(()) -> Conn
+  [Call] c: Conn, msg: String, u: () ⊢ send(c, msg) : Conn
+    [A-Var] c: Conn ⊢ c : Conn
+    [A-Var] msg: String ⊢ msg : String
+
+ok: fn upload(conn: Conn, file: File) -> Conn
+[A-LetPair] conn: Conn, file: File ⊢ let (data, opened) = read_all(file); … : Conn
+  [Call] file: File ⊢ read_all(file) : (String, File)
+    [A-Var] file: File ⊢ file : File
+  [A-Let] conn: Conn, data: String, opened: File ⊢ let sent = send(conn, data); … : Conn
+    [Call] conn: Conn, data: String ⊢ send(conn, data) : Conn
+      [A-Var] conn: Conn ⊢ conn : Conn
+      [A-Var] data: String ⊢ data : String
+    [A-Let] opened: File, sent: Conn ⊢ close_file(opened); sent : Conn
+      [Call] opened: File ⊢ close_file(opened) : ()
+        [A-Var] opened: File ⊢ opened : File
+      [A-Var] sent: Conn ⊢ sent : Conn
+ok: fn upload_leaky(conn: Conn, file: File) -> Conn
+[A-LetPair] conn: Conn, file: File ⊢ let (data, opened) = read_all(file); … : Conn
+  [Call] file: File ⊢ read_all(file) : (String, File)
+    [A-Var] file: File ⊢ file : File
+  [Call] conn: Conn, data: String, opened: File ⊢ send(conn, data) : Conn
+    [A-Var] conn: Conn ⊢ conn : Conn
+    [A-Var] data: String ⊢ data : String
+    (discarded without use: opened)
+error[E0382]: use of moved value: `data`
+  --> ch22_upload.aff:16:39
+   |
+15 |     let (data, opened) = read_all(file);
+   |          ---- move occurs because `data` has type `String`, which does not implement the `Copy` trait
+16 |     let sent = send(send(conn, data), data);
+   |                                ----   ^^^^ value used here after move
+   |                                |
+   |                                value moved here

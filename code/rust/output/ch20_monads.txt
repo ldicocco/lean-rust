@@ -1,0 +1,16 @@
+-- Option: ?, and_then and match agree --
+      12: read_qty = Some(12), boxes = Some(6)
+  twelve: read_qty = None, boxes = None
+     500: read_qty = None, boxes = None
+-- Result: ? converts errors with From --
+      12: Ok(6)
+  twelve: Err(BadNumber(ParseIntError { kind: InvalidDigit }))
+     500: Err(OutOfRange(500))
+-- Vec: flat_map is bind --
+   bolts: [("Hamburg", "DHL"), ("Hamburg", "UPS"), ("Lyon", "Geodis")]
+    nuts: [("Lyon", "Geodis")]
+  screws: []
+-- the monad laws hold on every sample --
+-- State: a monad of closures, and &mut --
+label     : [(100, "bolts"), (101, "nuts"), (102, "washers")], counter = 103
+label_mut : same lines, counter = 103

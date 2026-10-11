@@ -1,0 +1,21 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.5, ranksep=0.9, rankdir=LR];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=12];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  A   [label="A"];
+  MB  [label="M B"];
+  MMC [label="M (M C)"];
+  MC  [label="M C"];
+
+  A -> MB [label="f", color="#c2410c", fontcolor="#c2410c"];
+  MB -> MMC [label="M g  (map g)"];
+  MMC -> MC [label="μ  (join)"];
+  A -> MC [label="Kleisli composite: f, then g", style=dashed, color="#7e22ce", fontcolor="#7e22ce", constraint=false];
+
+  B   [label="B"];
+  MC2 [label="M C"];
+  B -> MC2 [label="g", color="#c2410c", fontcolor="#c2410c"];
+  {rank=same; A; B}
+  {rank=same; MB; MC2}
+}

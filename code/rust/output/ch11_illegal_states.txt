@@ -1,0 +1,11 @@
+connected: false  role: None          legal    -> Down
+connected: false  role: Some(Reader)  ILLEGAL
+connected: false  role: Some(Writer)  ILLEGAL
+connected: false  role: Some(Admin)   ILLEGAL
+connected: true   role: None          ILLEGAL
+connected: true   role: Some(Reader)  legal    -> Up(Reader)
+connected: true   role: Some(Writer)  legal    -> Up(Writer)
+connected: true   role: Some(Admin)   legal    -> Up(Admin)
+LinkFlags: 8 states, 4 legal, 4 illegal
+Link:      4 states
+legal LinkFlags ≅ Link: both round trips checked

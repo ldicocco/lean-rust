@@ -1,0 +1,20 @@
+error[E0308]: mismatched types
+ --> compile_fail/ch13_closure_not_generic.rs:9:22
+  |
+9 |     let s = identity("five");
+  |             -------- ^^^^^^ expected integer, found `&str`
+  |             |
+  |             arguments to this function are incorrect
+  |
+note: expected because the closure was earlier called with an argument of type `{integer}`
+ --> compile_fail/ch13_closure_not_generic.rs:8:22
+  |
+8 |     let n = identity(5);
+  |             -------- ^ expected because this argument is of type `{integer}`
+  |             |
+  |             in this closure call
+note: closure parameter defined here
+ --> compile_fail/ch13_closure_not_generic.rs:7:21
+  |
+7 |     let identity = |x| x;
+  |                     ^

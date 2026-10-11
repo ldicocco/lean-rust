@@ -1,0 +1,27 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.55];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  hilbert [label="Hilbert systems\nmany axioms, one rule (→E)\nshort to define", fillcolor="#dbeafe", color="#1d4ed8"];
+  nd      [label="Natural deduction\nintroduction + elimination\nper connective", fillcolor="#dbeafe", color="#1d4ed8"];
+  sc      [label="Sequent calculus\nleft + right rules\nper connective, plus Cut", fillcolor="#dbeafe", color="#1d4ed8"];
+
+  norm [label="normalization:\ndetours can be removed"];
+  cut  [label="cut elimination:\nCut can be removed"];
+
+  lam    [label="typed λ-calculus\n(Chapters 8–10)", fillcolor="#ffedd5", color="#c2410c"];
+  search [label="proof search, substructural\nlogics (Chapter 21)", fillcolor="#ffedd5", color="#c2410c"];
+
+  {rank=same; hilbert; nd; sc;}
+  {rank=same; norm; cut;}
+  {rank=same; lam; search;}
+  hilbert -> nd [label=" same theorems ", dir=both, style=dashed];
+  nd -> sc [label=" same theorems ", dir=both, style=dashed];
+  nd -> norm;
+  sc -> cut;
+  norm -> cut [label=" detours ↔ cuts ", dir=both, style=dashed];
+  norm -> lam [label=" proofs are programs"];
+  cut -> search [label=" rules read bottom-up"];
+}

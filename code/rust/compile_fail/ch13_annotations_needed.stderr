@@ -1,0 +1,10 @@
+error[E0282]: type annotations needed for `Vec<_>`
+ --> compile_fail/ch13_annotations_needed.rs:7:9
+  |
+7 |     let entries = Vec::new();
+  |         ^^^^^^^   ---------- type must be known at this point
+  |
+help: consider giving `entries` an explicit type, where the type for type parameter `T` is specified
+  |
+7 |     let entries: Vec<T> = Vec::new();
+  |                ++++++++

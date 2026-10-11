@@ -1,0 +1,15 @@
+error[E0644]: closure/coroutine type that references itself
+  --> compile_fail/ch08_closure_takes_itself.rs:11:16
+   |
+11 |     self_apply(|_me| println!("called"));
+   |                ^^^^^ recursive type with infinite-size name
+   |
+   = note: closures cannot capture themselves or take themselves as argument;
+           this error may be the result of a recent compiler bug-fix,
+           see issue #46062 <https://github.com/rust-lang/rust/issues/46062>
+           for more information
+note: required by a bound in `self_apply`
+  --> compile_fail/ch08_closure_takes_itself.rs:6:18
+   |
+ 6 | fn self_apply<F: Fn(&F)>(f: F) {
+   |                  ^^^^^^ required by this bound in `self_apply`

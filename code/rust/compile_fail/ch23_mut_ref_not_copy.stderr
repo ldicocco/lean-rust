@@ -1,0 +1,9 @@
+error[E0382]: use of moved value: `w`
+ --> compile_fail/ch23_mut_ref_not_copy.rs:7:13
+  |
+5 | fn writers(w: &mut String) -> (&mut String, &mut String) {
+  |            - move occurs because `w` has type `&mut String`, which does not implement the `Copy` trait
+6 |     let a = w;
+  |             - value moved here
+7 |     let b = w;
+  |             ^ value used here after move

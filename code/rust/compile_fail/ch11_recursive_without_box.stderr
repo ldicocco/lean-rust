@@ -1,0 +1,13 @@
+error[E0072]: recursive type `List` has infinite size
+ --> compile_fail/ch11_recursive_without_box.rs:5:1
+  |
+5 | enum List<T> {
+  | ^^^^^^^^^^^^
+6 |     Nil,
+7 |     Cons(T, List<T>),
+  |             ------- recursive without indirection
+  |
+help: insert some indirection (e.g., a `Box`, `Rc`, or `&`) to break the cycle
+  |
+7 |     Cons(T, Box<List<T>>),
+  |             ++++       +

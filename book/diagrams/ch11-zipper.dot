@@ -1,0 +1,22 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // The expression (x * (y + (z * 1))) with the cursor on (z * 1).
+  mul   [label="*", fillcolor="#dcfce7", color="#15803d"];
+  x     [label="x"];
+  plus  [label="+", fillcolor="#dcfce7", color="#15803d"];
+  y     [label="y"];
+  focus [label="z * 1\n(focus)", fillcolor="#ffedd5", color="#c2410c", penwidth=2];
+
+  mul  -> x     [label="  kept in frame 1", style=dashed];
+  mul  -> plus  [label="  MulRight(x)", penwidth=2.2, color="#15803d", fontcolor="#15803d"];
+  plus -> y     [label="  kept in frame 2", style=dashed];
+  plus -> focus [label="  AddRight(y)", penwidth=2.2, color="#15803d", fontcolor="#15803d"];
+
+  path [shape=plaintext, style="", label="path = [MulRight(x), AddRight(y)]\ncontext = (x * (y + [ ]))", fontsize=10];
+  {rank=same; plus; path}
+  plus -> path [style=invis];
+}

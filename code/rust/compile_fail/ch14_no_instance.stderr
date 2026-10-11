@@ -1,0 +1,18 @@
+error[E0277]: the trait bound `bool: Monoid` is not satisfied
+  --> compile_fail/ch14_no_instance.rs:16:13
+   |
+16 |     mconcat(flags)
+   |     ------- ^^^^^ the trait `Monoid` is not implemented for `bool`
+   |     |
+   |     required by a bound introduced by this call
+   |
+help: this trait has no implementations, consider adding one
+  --> compile_fail/ch14_no_instance.rs:5:1
+   |
+ 5 | trait Monoid {
+   | ^^^^^^^^^^^^
+note: required by a bound in `mconcat`
+  --> compile_fail/ch14_no_instance.rs:10:15
+   |
+10 | fn mconcat<M: Monoid>(items: Vec<M>) -> M {
+   |               ^^^^^^ required by this bound in `mconcat`

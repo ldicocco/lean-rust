@@ -1,0 +1,25 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.5, rankdir=BT];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // Inhabitants of Prop: propositions
+  props [label="propositions\n2 + 2 = 4,  p ∧ q,  False\n∃ n, n > 3,  3 ≤ 5", fillcolor="#dbeafe", color="#1d4ed8"];
+  // Inhabitants of Type: data types
+  types [label="data types\nℕ,  Bool,  ℕ × Bool\n{ n // n > 3 },  (n : ℕ) × Fin n", fillcolor="#dcfce7", color="#15803d"];
+
+  Prop  [label="Prop  (= Sort 0)\nproofs are irrelevant", fillcolor="#f3e8ff", color="#7e22ce"];
+  Type0 [label="Type  (= Sort 1)\nvalues are data", fillcolor="#f3e8ff", color="#7e22ce"];
+  Type1 [label="Type 1  (= Sort 2)", fillcolor="#f3e8ff", color="#7e22ce"];
+
+  props -> Prop [label=" :"];
+  types -> Type0 [label=" :"];
+  Prop -> Type0 [label=" :"];
+  Type0 -> Type1 [label=" :"];
+
+  {rank=same; props; types}
+  {rank=same; Prop; Type0}
+
+  props -> types [label=" no match on a proof\n to produce data", style=dashed, color="#b91c1c", fontcolor="#b91c1c", constraint=false];
+}

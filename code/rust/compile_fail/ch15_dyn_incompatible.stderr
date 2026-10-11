@@ -1,0 +1,21 @@
+error[E0038]: the trait `Mergeable` is not dyn compatible
+  --> compile_fail/ch15_dyn_incompatible.rs:17:30
+   |
+17 | fn store(items: &mut Vec<Box<dyn Mergeable>>) {}
+   |                              ^^^^^^^^^^^^^ `Mergeable` is not dyn compatible
+   |
+note: for a trait to be dyn compatible it needs to allow building a vtable
+      for more information, visit <https://doc.rust-lang.org/reference/items/traits.html#dyn-compatibility>
+  --> compile_fail/ch15_dyn_incompatible.rs:13:28
+   |
+11 | trait Mergeable {
+   |       --------- this trait is not dyn compatible...
+12 |     fn total(&self) -> u32;
+13 |     fn merge(&self, other: &Self) -> Self;
+   |                            ^^^^^     ^^^^ ...because method `merge` references the `Self` type in its return type
+   |                            |
+   |                            ...because method `merge` references the `Self` type in this parameter
+14 |     fn accept<V: Visitor>(&self, visitor: &mut V);
+   |        ^^^^^^ ...because method `accept` has generic type parameters
+   = help: consider moving `merge` to another trait
+   = help: consider moving `accept` to another trait

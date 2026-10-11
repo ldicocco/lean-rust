@@ -1,0 +1,13 @@
+error[E0308]: mismatched types
+  --> compile_fail/ch15_opaque_type.rs:27:27
+   |
+22 | fn make_counter() -> impl Counter {
+   |                      ------------ the found opaque type
+...
+27 |     let counter: Simple = make_counter();
+   |                  ------   ^^^^^^^^^^^^^^ expected `Simple`, found opaque type
+   |                  |
+   |                  expected due to this
+   |
+   = note:   expected struct `Simple`
+           found opaque type `impl Counter`

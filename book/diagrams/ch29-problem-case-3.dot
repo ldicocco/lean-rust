@@ -1,0 +1,20 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.35, rankdir=TB];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  b0 [label="bb0: L0 = &mut *cache\n_3 = get_mut(..)\nloan L0 flows into _3", fillcolor="#fee2e2", color="#b91c1c"];
+  b1 [label="bb1: match _3", fillcolor="#fee2e2", color="#b91c1c"];
+  b2 [label="bb2 (Some): value = (_3 as Some).0\n_0 = value   L0 flows into 'r", fillcolor="#fee2e2", color="#b91c1c"];
+  b3 [label="bb3–bb8 (None): insert, get_mut\n&mut *cache again", style="rounded,filled,dashed"];
+  b9 [label="bb9: return _0   ('r: the caller's region)", fillcolor="#fee2e2", color="#b91c1c"];
+
+  b0 -> b1;
+  b1 -> b2 [label=" Some"];
+  b1 -> b3 [label=" None"];
+  b2 -> b9;
+  b3 -> b9;
+
+  legend [shape=plaintext, style="", label="NLL: L0 is in scope in every block (its region ⊇ 'r ⊇ every point)\nPolonius: L0 is live only in the red blocks; on the dashed path\nno live origin contains it, so the second &mut *cache is fine"];
+}

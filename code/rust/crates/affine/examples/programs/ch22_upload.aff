@@ -1,0 +1,25 @@
+fn read_all(file: File) -> (String, File);
+fn send(conn: Conn, msg: String) -> Conn;
+fn close_file(file: File);
+
+// Read a file, send its contents, close the file, keep the connection.
+fn upload(conn: Conn, file: File) -> Conn {
+    let (data, opened) = read_all(file);
+    let sent = send(conn, data);
+    close_file(opened);
+    sent
+}
+
+// A bug: the data is sent twice.
+fn upload_twice(conn: Conn, file: File) -> Conn {
+    let (data, opened) = read_all(file);
+    let sent = send(send(conn, data), data);
+    close_file(opened);
+    sent
+}
+
+// Another bug, which the affine discipline accepts: the file is never closed.
+fn upload_leaky(conn: Conn, file: File) -> Conn {
+    let (data, opened) = read_all(file);
+    send(conn, data)
+}

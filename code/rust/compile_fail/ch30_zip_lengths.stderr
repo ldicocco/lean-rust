@@ -1,0 +1,15 @@
+error[E0308]: mismatched types
+  --> compile_fail/ch30_zip_lengths.rs:17:28
+   |
+17 |     let _pairs = names.zip(ages);
+   |                        --- ^^^^ expected `Vect<_, S<S<Z>>>`, found `Vect<u32, S<Z>>`
+   |                        |
+   |                        arguments to this method are incorrect
+   |
+   = note: expected struct `Vect<_, S<S<Z>>>`
+              found struct `Vect<u32, S<Z>>`
+note: method defined here
+  --> compile_fail/ch30_zip_lengths.rs:10:12
+   |
+10 |     pub fn zip<U>(self, other: Vect<U, N>) -> Vect<(T, U), N> {
+   |            ^^^          -----------------

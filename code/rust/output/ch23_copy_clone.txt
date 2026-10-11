@@ -1,0 +1,15 @@
+a = 5, b = 5, t = report
+Point { x: 1, y: 2 } Point { x: 1, y: 2 }, and p is still Point { x: 1, y: 2 }
+same bits: true, same place: false
+two references, one String: true
+cloned strings equal: true, same buffer: false
+specimens 7 and 7: 2 clones so far
+count after new: 1
+count after 2 clones: 3
+one allocation: true
+count after 2 drops: 1
+[20, 40, 60], count back to 1
+log: ["first", "second"]
+ada: channel 3 = 130
+ada: channel 3 = 131
+device used 2 times

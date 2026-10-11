@@ -1,0 +1,14 @@
+error[E0382]: use of moved value: `r`
+  --> compile_fail/ch28_no_reborrow.rs:11:13
+   |
+ 9 | pub fn twice_generic(r: &mut i32) {
+   |                      - move occurs because `r` has type `&mut i32`, which does not implement the `Copy` trait
+10 |     consume(r);
+   |             - value moved here
+11 |     consume(r);
+   |             ^ value used here after move
+   |
+help: consider creating a fresh reborrow of `r` here
+   |
+10 |     consume(&mut *r);
+   |             ++++++

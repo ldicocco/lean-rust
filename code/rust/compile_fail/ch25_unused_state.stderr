@@ -1,0 +1,8 @@
+error[E0392]: type parameter `S` is never used
+ --> compile_fail/ch25_unused_state.rs:6:23
+  |
+6 | pub struct Connection<S> {
+  |                       ^ unused type parameter
+  |
+  = help: consider removing `S`, referring to it in a field, or using a marker such as `PhantomData`
+  = help: if you intended `S` to be a const parameter, use `const S: /* Type */` instead

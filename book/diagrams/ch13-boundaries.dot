@@ -1,0 +1,29 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.5, ranksep=0.6];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // Inference regions (function bodies) are orange; the declared signature,
+  // which inference never touches, is red.
+  subgraph cluster_caller {
+    label="body of main: inference here"; labeljust=l; fontname="Helvetica"; fontsize=11; color="#c2410c"; style="rounded,dashed";
+    call [label="let ports = parse_ports(line);\nports.len()", fillcolor="#ffedd5", color="#c2410c"];
+    v1   [label="ports : ?T\n?T := Vec<u16>", fillcolor="#ffedd5", color="#c2410c"];
+    { rank=same; call; v1; }
+    call -> v1 [style=dotted, arrowhead=none];
+  }
+
+  sig [label="fn parse_ports(text: &str) -> Vec<u16>\n(declared, never inferred)", fillcolor="#fee2e2", color="#b91c1c", penwidth=1.8];
+
+  subgraph cluster_callee {
+    label="body of parse_ports: inference here"; labeljust=l; labelloc=b; fontname="Helvetica"; fontsize=11; color="#c2410c"; style="rounded,dashed";
+    body [label="text.split(',')\n  .map(parse_one)\n  .collect()", fillcolor="#ffedd5", color="#c2410c"];
+    v2   [label="collect::<?C>\n?C := Vec<u16>", fillcolor="#ffedd5", color="#c2410c"];
+    { rank=same; body; v2; }
+    body -> v2 [style=dotted, arrowhead=none];
+  }
+
+  call -> sig [label="  uses only the signature"];
+  sig -> body [dir=back, label="  must produce the declared type"];
+}

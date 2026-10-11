@@ -1,0 +1,40 @@
+L0 = &'?3 mut _2 at bb1[2]
+L1 = &'?4 mut (*_3) at bb2[2]
+L2 = &'?5 mut _2 at bb4[2]
+tail (_3) live at {bb1[3..=7], bb2[0..=2]}
+constraint '?3: '?0 at bb1[2]
+constraint '?4: '?1 at bb2[2]
+constraint '?0: '?4 at bb2[2]
+constraint '?5: '?2 at bb4[2]
+log.push(2) borrows `log` at bb4[2]
+NLL:
+  region of L0 = {bb1[2..=7], bb2[0..=3]}
+  loans in scope at bb4[2]: {}
+  0 error(s)
+lexical:
+  region of L0 = {bb1[2..=7], bb2[0..=3], bb3[0..=3], bb4[0..=3], bb5[0..=3], bb6[0..=3]}
+  loans in scope at bb4[2]: {L0}
+  2 error(s)
+error[E0499]: cannot borrow `log` as mutable more than once at a time
+  --> examples/ch29_nll_accepts.rs:59:9
+   |
+55 |     let tail = &mut log;
+   |                -------- first mutable borrow occurs here
+...
+59 |         log.push(2);
+   |         ^^^ second mutable borrow occurs here
+...
+62 | }
+   | - first borrow ends here
+error[E0505]: cannot move out of `log` because it is borrowed
+  --> examples/ch29_nll_accepts.rs:61:5
+   |
+54 |     let mut log = Vec::new();
+   |             --- binding `log` declared here
+55 |     let tail = &mut log;
+   |                -------- borrow of `log` occurs here
+...
+61 |     log
+   |     ^^^ move out of `log` occurs here
+62 | }
+   | - borrow ends here

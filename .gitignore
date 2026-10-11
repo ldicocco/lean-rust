@@ -1,0 +1,15 @@
+# Cargo build output
+target/
+
+# Lake build output and downloaded packages (Mathlib)
+.lake/
+
+# Book build intermediates (tools/pdf_build.py)
+/book/.build/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store

@@ -1,0 +1,10 @@
+Point { x: 3, y: 4 } Point { x: 3, y: 10 } Point { x: 6, y: 8 }
+ping
+read retries
+write 3 to retries
+remove retries
+[1, 3, 4, 5, 9]
+[sensor] boiler: 74 °C
+[list] boiler: 74 °C
+Ok(2024) Err(NotADigit('O'))
+14

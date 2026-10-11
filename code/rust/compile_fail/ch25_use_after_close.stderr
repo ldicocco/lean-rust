@@ -1,0 +1,15 @@
+error[E0382]: borrow of moved value: `conn`
+  --> compile_fail/ch25_use_after_close.rs:31:5
+   |
+29 | pub fn finish(mut conn: Connection<Connected>) -> Connection<Closed> {
+   |               -------- move occurs because `conn` has type `Connection<Connected>`, which does not implement the `Copy` trait
+30 |     let closed = conn.close();
+   |                       ------- `conn` moved due to this method call
+31 |     conn.send("QUIT");
+   |     ^^^^ value borrowed here after move
+   |
+note: `Connection::<Connected>::close` takes ownership of the receiver `self`, which moves `conn`
+  --> compile_fail/ch25_use_after_close.rs:20:18
+   |
+20 |     pub fn close(self) -> Connection<Closed> {
+   |                  ^^^^

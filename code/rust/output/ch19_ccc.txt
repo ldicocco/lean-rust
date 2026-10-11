@@ -1,0 +1,13 @@
+pair(price_of, label_of)(7) = (700, "item-7")
+curry(total)(250)(4) = 1000
+eval((curry(total)(99), 3)) = 297
+beta and eta hold on all samples
+braid((1, "a")) = ("a", 1)
+associate(((1, 2), 3)) = (1, (2, 3))
+unit_right((5, ())) = 5
+curry_once: Hello, Alice
+diagonal(payload):
+  (cloning a payload of 1024 bytes)
+pair(len, first_byte)(payload):
+  (cloning a payload of 1024 bytes)
+  = (1024, 0)

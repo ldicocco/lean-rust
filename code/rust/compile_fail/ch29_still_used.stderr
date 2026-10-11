@@ -1,0 +1,9 @@
+error[E0502]: cannot borrow `readings` as mutable because it is also borrowed as immutable
+ --> compile_fail/ch29_still_used.rs:8:5
+  |
+7 |     let first = &readings[0];
+  |                  -------- immutable borrow occurs here
+8 |     readings.push(40);
+  |     ^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+9 |     println!("first = {first}");
+  |                        ----- immutable borrow later used here

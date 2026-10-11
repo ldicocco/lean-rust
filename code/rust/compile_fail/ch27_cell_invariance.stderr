@@ -1,0 +1,17 @@
+error[E0521]: borrowed data escapes outside of function
+ --> compile_fail/ch27_cell_invariance.rs:9:5
+  |
+8 | pub fn set_label(slot: &Cell<&'static str>, label: &str) {
+  |                  ----                       -----  - let's call the lifetime of this reference `'1`
+  |                  |                          |
+  |                  |                          `label` is a reference that is only valid in the function body
+  |                  `slot` declared here, outside of the function body
+9 |     slot.set(label);
+  |     ^^^^^^^^^^^^^^^
+  |     |
+  |     `label` escapes the function body here
+  |     argument requires that `'1` must outlive `'static`
+  |
+  = note: requirement occurs because of the type `Cell<&str>`, which makes the generic argument `&str` invariant
+  = note: the struct `Cell<T>` is invariant over the parameter `T`
+  = help: see <https://doc.rust-lang.org/nomicon/subtyping.html> for more information about variance

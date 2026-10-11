@@ -1,0 +1,7 @@
+generic:    3 30
+impl Trait: 3
+dyn Trait:  [3, 3, 30]
+module:     5
+cps:        simple  ->  3  (hidden type ch15_existentials::Simple)
+cps:        logged  ->  3  (hidden type ch15_existentials::Logged)
+cps:        stride  -> 30  (hidden type ch15_existentials::Stride)

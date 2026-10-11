@@ -1,0 +1,21 @@
+mem::forget and Box::leak:
+  end of scope, still holding kept
+  drop kept
+a forgotten Vec::drain:
+  after forgetting the drain: [10]
+a tree with Weak parent pointers:
+  lab  : strong = 1, weak = 1
+  probe: strong = 2, weak = 0
+  probe's parent: Some("lab")
+  drop node lab
+  probe's parent after drop(lab): None
+  probe: strong = 1, weak = 0
+  drop node probe
+a cycle of strong pointers:
+  a: strong = 2, weak = 0
+  b: strong = 2, weak = 0
+  end of scope
+thread::scope:
+  sums: 9 + 22 = 31
+  samples still owned here: [3, 1, 4, 1, 5, 9, 2, 6]
+end of main

@@ -1,0 +1,17 @@
+error[E0507]: cannot move out of `customer`, a captured variable in an `FnMut` closure
+  --> compile_fail/ch20_option_bind_fnmut.rs:17:39
+   |
+16 | pub fn ticket(id: Option<u32>, customer: String) -> Option<(u32, String)> {
+   |                                --------  ------ move occurs because `customer` has type `String`, which does not implement the `Copy` trait
+   |                                |
+   |                                captured outer variable
+17 |     bind_option(id, move |n| Some((n, customer)))
+   |                     --------          ^^^^^^^^ `customer` is moved here
+   |                     |
+   |                     captured by this `FnMut` closure
+   |
+help: `Fn` and `FnMut` closures require captured values to be able to be consumed multiple times, but `FnOnce` closures may consume them only once
+  --> compile_fail/ch20_option_bind_fnmut.rs:8:8
+   |
+ 8 |     F: FnMut(A) -> Option<B>,
+   |        ^^^^^^^^^^^^^^^^^^^^^

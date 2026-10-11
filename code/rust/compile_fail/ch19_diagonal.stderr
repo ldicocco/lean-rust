@@ -1,0 +1,21 @@
+error[E0382]: use of moved value: `a`
+ --> compile_fail/ch19_diagonal.rs:7:9
+  |
+6 | fn diagonal<A>(a: A) -> (A, A) {
+  |                - move occurs because `a` has type `A`, which does not implement the `Copy` trait
+7 |     (a, a)
+  |      -  ^ value used here after move
+  |      |
+  |      value moved here
+  |
+help: if `A` implemented `Clone`, you could clone the value
+ --> compile_fail/ch19_diagonal.rs:6:13
+  |
+6 | fn diagonal<A>(a: A) -> (A, A) {
+  |             ^ consider constraining this type parameter with `Clone`
+7 |     (a, a)
+  |      - you could clone this value
+help: consider restricting type parameter `A` with trait `Copy`
+  |
+6 | fn diagonal<A: Copy>(a: A) -> (A, A) {
+  |              ++++++

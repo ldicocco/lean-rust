@@ -1,0 +1,17 @@
+error[E0373]: closure may outlive the current function, but it borrows `readings`, which is owned by the current function
+  --> compile_fail/ch26_spawn_borrow.rs:10:32
+   |
+10 |     let handle = thread::spawn(|| readings.len());
+   |                                ^^ -------- `readings` is borrowed here
+   |                                |
+   |                                may outlive borrowed value `readings`
+   |
+note: function requires argument type to outlive `'static`
+  --> compile_fail/ch26_spawn_borrow.rs:10:18
+   |
+10 |     let handle = thread::spawn(|| readings.len());
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: to force the closure to take ownership of `readings` (and any other referenced variables), use the `move` keyword
+   |
+10 |     let handle = thread::spawn(move || readings.len());
+   |                                ++++

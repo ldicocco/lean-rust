@@ -1,0 +1,39 @@
+// Instance resolution as proof search: the goal `(Sum, Max): Monoid` is proved
+// by the pair instance from two smaller goals, and the proof is the dictionary.
+// Read it like a derivation: premises above, conclusion below.
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.5, rankdir=TB];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // Instances used (axioms).
+  i_sum  [label="impl Monoid for Sum", fillcolor="#fee2e2", color="#b91c1c"];
+  i_max  [label="impl Monoid for Max", fillcolor="#fee2e2", color="#b91c1c"];
+
+  // Goals (propositions about types).
+  g_sum  [label="Sum: Monoid", fillcolor="#dbeafe", color="#1d4ed8"];
+  g_max  [label="Max: Monoid", fillcolor="#dbeafe", color="#1d4ed8"];
+  g_pair [label="(Sum, Max): Monoid", fillcolor="#dbeafe", color="#1d4ed8"];
+
+  // Evidence (dictionaries).
+  d_sum  [label="sum_dict()", fillcolor="#ffedd5", color="#c2410c"];
+  d_max  [label="max_dict()", fillcolor="#ffedd5", color="#c2410c"];
+  d_pair [label="pair_dict(sum_dict(), max_dict())", fillcolor="#ffedd5", color="#c2410c"];
+
+  i_sum -> g_sum [label=" axiom"];
+  i_max -> g_max [label=" axiom"];
+  g_sum -> g_pair;
+  g_max -> g_pair [label=" impl<A: Monoid, B: Monoid>\l Monoid for (A, B)\l"];
+
+  // Dashed lines connect each goal to its evidence.
+  d_sum -> g_sum [style=dashed, arrowhead=none, minlen=2];
+  g_max -> d_max [style=dashed, arrowhead=none, minlen=2];
+  g_pair -> d_pair [style=dashed, arrowhead=none, minlen=2];
+  g_sum -> g_max [style=invis];
+  i_sum -> i_max [style=invis];
+
+  { rank=same; i_sum; i_max; }
+  { rank=same; d_sum; g_sum; g_max; d_max; }
+  { rank=same; g_pair; d_pair; }
+}

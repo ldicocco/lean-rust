@@ -1,0 +1,34 @@
+// A `Box<dyn Counter>` is an existential package in memory: a pointer to the
+// value of the hidden type and a pointer to the vtable of (Stride, Counter).
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.5, ranksep=0.7, rankdir=LR];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=11];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  fat [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" COLOR="#b91c1c" BGCOLOR="#fee2e2">
+      <TR><TD><B>Box&lt;dyn Counter&gt;</B> (2 words)</TD></TR>
+      <TR><TD PORT="data">data pointer</TD></TR>
+      <TR><TD PORT="vt">vtable pointer</TD></TR>
+    </TABLE>>];
+
+  value [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" COLOR="#15803d" BGCOLOR="#dcfce7">
+      <TR><TD PORT="top"><B>Stride</B> (heap, 8 bytes)</TD></TR>
+      <TR><TD>value: u32 = 10</TD></TR>
+      <TR><TD>by: u32 = 10</TD></TR>
+    </TABLE>>];
+
+  vtable [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" COLOR="#c2410c" BGCOLOR="#ffedd5">
+      <TR><TD PORT="top"><B>vtable for (Stride, Counter)</B></TD></TR>
+      <TR><TD>drop_in_place::&lt;Stride&gt;</TD></TR>
+      <TR><TD>size = 8</TD></TR>
+      <TR><TD>align = 4</TD></TR>
+      <TR><TD>&lt;Stride as Counter&gt;::step</TD></TR>
+      <TR><TD>&lt;Stride as Counter&gt;::get</TD></TR>
+    </TABLE>>];
+
+  fat:data -> value:top;
+  fat:vt -> vtable:top;
+}

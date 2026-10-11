@@ -1,0 +1,9 @@
+list     = Cons(3, Cons(4, Cons(5, Nil)))
+unrolled = Some((3, Cons(4, Cons(5, Nil))))
+length   = 3
+sum      = 12
+map      = Cons(10, Cons(20, Nil))
+size_of::<List<u64>>() = 16
+unwrap_long   = 2024
+unwrap_short  = 1999
+factorial(10) = 3628800

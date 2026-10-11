@@ -1,0 +1,22 @@
+Ω = (λx. x x) (λx. x x)
+  one step later: (λx. x x) (λx. x x)   (the same term: true)
+  out of fuel after 1000 steps
+
+(λx. λy. y) ((λx. x x) (λx. x x))
+  normal order   λy. y   (1 step)
+  call-by-name   λy. y   (1 step)
+  call-by-value  out of fuel after 1000 steps
+
+(λx. x x) ((λy. y) z)
+  normal order   z z   (3 steps)
+  call-by-name   z ((λy. y) z)   (2 steps)
+  call-by-value  z z   (2 steps)
+
+λx. (λy. y) x
+  normal order   λx. x   (1 step)
+  call-by-name   λx. (λy. y) x   (0 steps)
+  call-by-value  λx. (λy. y) x   (0 steps)
+
+factorial of 3 under call-by-value:
+  with Y: out of fuel after 200 steps; the term grew from 141 to 23536 nodes
+  with Z: a value after 175 steps; normalizing it gives the numeral 6

@@ -1,0 +1,21 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.5, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_vars {
+    label="variables and their types"; fontname="Helvetica"; fontsize=10; color="#cbd5e1"; style="rounded";
+    x [label="x : ref ρ0", fillcolor="#dcfce7", color="#15803d"];
+    y [label="y : ref ρ0", fillcolor="#dcfce7", color="#15803d"];
+  }
+  subgraph cluster_heap {
+    label="heap"; fontname="Helvetica"; fontsize=10; color="#cbd5e1"; style="rounded";
+    cell [label="cell 0 = 42\n(region ρ0)", fillcolor="#ffedd5", color="#c2410c"];
+  }
+  live [label="live regions Δ\nρ0 ✓  →  after free x: ρ0 ✗", shape=box, fillcolor="#fee2e2", color="#b91c1c"];
+
+  x -> cell;
+  y -> cell [label="  copy y x"];
+  cell -> live [style=dashed, arrowhead=none];
+}

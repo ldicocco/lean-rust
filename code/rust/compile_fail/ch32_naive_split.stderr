@@ -1,0 +1,14 @@
+error[E0499]: cannot borrow `*slice` as mutable more than once at a time
+ --> compile_fail/ch32_naive_split.rs:8:30
+  |
+6 | pub fn naive_split_at_mut<T>(slice: &mut [T], mid: usize) -> (&mut [T], &mut [T]) {
+  |                                     - let's call the lifetime of this reference `'1`
+7 |     let len = slice.len();
+8 |     (&mut slice[..mid], &mut slice[mid..len])
+  |     -------------------------^^^^^-----------
+  |     |     |                  |
+  |     |     |                  second mutable borrow occurs here
+  |     |     first mutable borrow occurs here
+  |     returning this value requires that `*slice` is borrowed for `'1`
+  |
+  = help: use `.split_at_mut(position)` to obtain two mutable non-overlapping sub-slices

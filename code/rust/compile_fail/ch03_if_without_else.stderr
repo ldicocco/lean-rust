@@ -1,0 +1,11 @@
+error[E0317]: `if` may be missing an `else` clause
+ --> compile_fail/ch03_if_without_else.rs:7:17
+  |
+7 |     let extra = if points > 100 { 10 };
+  |                 ^^^^^^^^^^^^^^^^^^--^^
+  |                 |                 |
+  |                 |                 found here
+  |                 expected integer, found `()`
+  |
+  = note: `if` expressions without `else` evaluate to `()`
+  = help: consider adding an `else` block that evaluates to the expected type

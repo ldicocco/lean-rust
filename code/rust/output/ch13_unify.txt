@@ -1,0 +1,52 @@
+(1) ?0 -> Int  ~  Bool -> ?1
+  unify ?0 -> Int  ~  Bool -> ?1
+    unify ?0  ~  Bool
+      ?0 := Bool
+    unify Int  ~  ?1
+      ?1 := Int
+  unifier: ?0 = Bool, ?1 = Int
+  both sides become Bool -> Int
+(2) ?0 -> ?0  ~  Int -> ?1
+  unify ?0 -> ?0  ~  Int -> ?1
+    unify ?0  ~  Int
+      ?0 := Int
+    unify Int  ~  ?1
+      ?1 := Int
+  unifier: ?0 = Int, ?1 = Int
+  both sides become Int -> Int
+(3) List ?0 -> ?1  ~  ?1 -> List Int
+  unify List ?0 -> ?1  ~  ?1 -> List Int
+    unify List ?0  ~  ?1
+      ?1 := List ?0
+    unify List ?0  ~  List Int
+      unify ?0  ~  Int
+        ?0 := Int
+  unifier: ?0 = Int, ?1 = List Int
+  both sides become List Int -> List Int
+(4) Int -> ?0  ~  Bool -> ?0
+  unify Int -> ?0  ~  Bool -> ?0
+    unify Int  ~  Bool
+      clash: Int is not Bool
+  fails: Int and Bool clash
+(5) ?0  ~  ?0 -> ?1
+  unify ?0  ~  ?0 -> ?1
+    occurs check: ?0 occurs in ?0 -> ?1
+  fails: ?0 occurs in ?0 -> ?1
+
+algorithm W on: fun f x -> f (f x)
+  fun f -> ..      f : ?0
+  fun x -> ..      x : ?1
+  (f x)            unify ?0 ~ ?1 -> ?2  =>  ?0 := ?1 -> ?2
+  f (f x)          unify ?1 -> ?2 ~ ?2 -> ?3  =>  ?1 := ?2, ?2 := ?3
+  (program)        result forall a. (a -> a) -> a -> a
+principal type: forall a. (a -> a) -> a -> a
+
+algorithm W on: let id = fun x -> x in (id 1, id true)
+  fun x -> ..      x : ?0
+  let id = ..      generalize id : forall a. a -> a
+  id               instantiate forall a. a -> a as ?1 -> ?1
+  id 1             unify ?1 -> ?1 ~ Int -> ?2  =>  ?1 := Int, ?2 := Int
+  id               instantiate forall a. a -> a as ?3 -> ?3
+  id true          unify ?3 -> ?3 ~ Bool -> ?4  =>  ?3 := Bool, ?4 := Bool
+  (program)        result Int * Bool
+principal type: Int * Bool

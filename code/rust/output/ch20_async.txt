@@ -1,0 +1,4 @@
+quote([("bolts", 2), ("nuts", 3)]) = Ok(80) after 3 polls
+quote([("bolts", 2), ("screws", 1), ("nuts", 3)]) = Err(UnknownItem("screws")) after 3 polls
+  (stopped at "screws": the line after it was never priced)
+and_then(ready(20), |n| ready(n + 1)) = 21 after 1 poll

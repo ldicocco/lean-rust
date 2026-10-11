@@ -1,0 +1,21 @@
+L0 = &'?2 mut _1 at bb1[3], two-phase, activated at bb2[1]
+L1 = &'?3 _1 at bb1[6]
+record_count, NLL, no 2PB: 1 error(s)
+error[E0502]: cannot borrow `counts` as immutable because it is also borrowed as mutable
+  --> examples/ch29_nll_accepts.rs:45:17
+   |
+45 |     counts.push(counts.len());
+   |     ------ ---- ^^^^^^ immutable borrow occurs here
+   |     |      |
+   |     |      mutable borrow later used by call
+   |     mutable borrow occurs here
+record_count, NLL: 0 error(s)
+rotate_top, NLL: 1 error(s)
+error[E0499]: cannot borrow `*stack` as mutable more than once at a time
+ --> compile_fail/ch29_two_phase_limit.rs:6:16
+  |
+6 |     stack.push(stack.pop().unwrap());
+  |     ----- ---- ^^^^^ second mutable borrow occurs here
+  |     |     |
+  |     |     first borrow later used by call
+  |     first mutable borrow occurs here

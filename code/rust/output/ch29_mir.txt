@@ -1,0 +1,51 @@
+fn maybe_archive(_1: bool) -> () {
+    debug urgent => _1;
+    debug job => _2;
+    let _0: ();
+    let _2: String;
+    let _3: bool;
+    let _4: usize;
+    let _5: String;
+
+    bb0: {
+        StorageLive(_2);
+        _2 = String::from(const "backup") -> bb1;
+    }
+
+    bb1: {
+        FakeRead(ForLet, _2);
+        StorageLive(_3);
+        _3 = copy _1;
+        switchInt(move _3) -> [0: bb4, otherwise: bb2];
+    }
+
+    bb2: {
+        StorageLive(_4);
+        StorageLive(_5);
+        _5 = move _2;
+        _4 = archive(move _5) -> bb3;
+    }
+
+    bb3: {
+        StorageDead(_5);
+        StorageDead(_4);
+        _0 = const ();
+        goto -> bb5;
+    }
+
+    bb4: {
+        _0 = const ();
+        goto -> bb5;
+    }
+
+    bb5: {
+        StorageDead(_3);
+        drop(_2) -> bb6;
+    }
+
+    bb6: {
+        StorageDead(_2);
+        return;
+    }
+}
+edges: bb0->bb1 bb1->bb4 bb1->bb2 bb2->bb3 bb3->bb5 bb4->bb5 bb5->bb6

@@ -1,0 +1,27 @@
+exchange:
+  exchange("order #17", 42) = (42, "order #17")
+  evaluate left
+  evaluate right
+  open db.internal
+  open cache.internal
+  end of scope
+  close cache.internal
+  close db.internal
+weakening:
+  open audit.internal
+  close audit.internal
+  weaken returned 250
+  open metrics.internal
+  close metrics.internal
+  after drop
+contraction:
+  contract_clone gave coupon SPRING-10 and coupon SPRING-10
+  contract_copy(7) = (7, 7)
+  two references to the same coupon SPRING-10: true
+loops:
+  open orders.internal
+  send order 101 via orders.internal
+  send order 102 via orders.internal
+  send order 103 via orders.internal
+  done sending
+  close orders.internal

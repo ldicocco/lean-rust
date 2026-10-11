@@ -1,0 +1,13 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=1.6, ranksep=0.9];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=12];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  { rank=same; FA [label="F A\nVec<i32>"]; GA [label="G A\nOption<i32>"]; }
+  { rank=same; FB [label="F B\nVec<String>"]; GB [label="G B\nOption<String>"]; }
+
+  FA -> GA [label="  η_A = first::<i32>  ", color="#c2410c", fontcolor="#c2410c"];
+  FB -> GB [label="  η_B = first::<String>  ", color="#c2410c", fontcolor="#c2410c"];
+  FA -> FB [label="  F f = map(f)  "];
+  GA -> GB [label="  G f = Option::map(f)  "];
+}

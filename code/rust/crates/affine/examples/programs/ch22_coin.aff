@@ -1,0 +1,6 @@
+fn buy_coffee(c: Coin) -> Coffee;
+fn buy_tea(c: Coin) -> Tea;
+
+fn both(c: Coin) -> (Coffee, Tea) {
+    (buy_coffee(c), buy_tea(c))
+}

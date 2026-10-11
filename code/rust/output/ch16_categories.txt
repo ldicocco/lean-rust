@@ -1,0 +1,15 @@
+functions: laws hold on 4 samples
+functions: (double ∘ len)("hello") = 10
+divisibility: (12 ⟶ 36) ∘ (3 ⟶ 12) = Some(Divides { from: 3, to: 36 })
+divisibility: 203 equations checked
+strings: "cat" ∘ "con" = "concat"
+strings: 72 equations checked
+protocol: sign_out ∘ sign_in = [Connect, Login, Logout, Close]
+protocol: sign_in ∘ sign_in = None
+protocol: 27 equations checked
+product: pair(square, label)(7) = (49, "#7")
+coproduct: number 42
+coproduct: word hello
+terminal: to_unit maps 2 strings to [(), ()]
+initial: absurd maps no values to []
+effects: same outputs, but noisy ran 3 times

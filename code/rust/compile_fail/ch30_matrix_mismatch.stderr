@@ -1,0 +1,8 @@
+error[E0308]: mismatched types
+  --> compile_fail/ch30_matrix_mismatch.rs:20:18
+   |
+20 |     let _c = a * b;
+   |                  ^ expected `3`, found `2`
+   |
+   = note: expected struct `Matrix<3, _>`
+              found struct `Matrix<2, 3>`

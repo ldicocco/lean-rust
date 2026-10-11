@@ -1,0 +1,25 @@
+error[E0382]: use of moved value: `conn`
+  --> compile_fail/ch06_move_in_loop.rs:16:14
+   |
+14 | pub fn send_all(conn: Connection, orders: Vec<u32>) {
+   |                 ---- move occurs because `conn` has type `Connection`, which does not implement the `Copy` trait
+15 |     for order in orders {
+   |     ------------------- inside of this loop
+16 |         send(conn, order);
+   |              ^^^^ value moved here, in previous iteration of loop
+   |
+note: consider changing this parameter type in function `send` to borrow instead if owning the value isn't necessary
+  --> compile_fail/ch06_move_in_loop.rs:9:19
+   |
+ 9 | pub fn send(conn: Connection, order: u32) {
+   |        ----       ^^^^^^^^^^ this parameter takes ownership of the value
+   |        |
+   |        in this function
+note: if `Connection` implemented `Clone`, you could clone the value
+  --> compile_fail/ch06_move_in_loop.rs:5:1
+   |
+ 5 | pub struct Connection {
+   | ^^^^^^^^^^^^^^^^^^^^^ consider implementing `Clone` for this type
+...
+16 |         send(conn, order);
+   |              ---- you could clone this value

@@ -1,0 +1,6 @@
+dynamic, URL forgotten: Err(MissingUrl)
+dynamic, complete:      Get /samples (timeout 30000 ms)
+typestate, method first: Post /samples (timeout 500 ms, content-type: application/json)
+typestate, URL first:    Get /samples/42 (timeout 30000 ms)
+size of RequestBuilder<NoMethod, NoUrl>: 32 bytes
+size of RequestBuilder<Method, Url>:     64 bytes

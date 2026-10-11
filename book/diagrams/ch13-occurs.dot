@@ -1,0 +1,31 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_graph {
+    label="?0 = ?0 → ?1 as a graph: a cycle"; fontname="Helvetica"; fontsize=11; color="#cbd5e1"; style=rounded;
+    g  [label="→", fillcolor="#dcfce7", color="#15803d"];
+    g1 [label="?1"];
+    g -> g [label=" arg"];
+    g -> g1 [label=" result"];
+  }
+
+  subgraph cluster_tree {
+    label="unfolded: an infinite tree"; fontname="Helvetica"; fontsize=11; color="#cbd5e1"; style=rounded;
+    t0 [label="→", fillcolor="#dcfce7", color="#15803d"];
+    t1 [label="→", fillcolor="#dcfce7", color="#15803d"];
+    t2 [label="→", fillcolor="#dcfce7", color="#15803d"];
+    t3 [label="⋮", shape=plaintext, style=""];
+    a0 [label="?1"];
+    a1 [label="?1"];
+    a2 [label="?1"];
+    t0 -> t1 [label=" arg"];
+    t0 -> a0 [label=" result"];
+    t1 -> t2 [label=" arg"];
+    t1 -> a1;
+    t2 -> t3 [label=" arg"];
+    t2 -> a2;
+  }
+}

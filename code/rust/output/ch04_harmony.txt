@@ -1,0 +1,26 @@
+A ∧ B ⊢ B ∧ A                      →E
+├─ A ∧ B ⊢ A ∧ B → B ∧ A           →I x
+│  └─ A ∧ B, A ∧ B ⊢ B ∧ A         ∧I
+│     ├─ A ∧ B, A ∧ B ⊢ B          ∧E2
+│     │  └─ A ∧ B, A ∧ B ⊢ A ∧ B   Hyp x
+│     └─ A ∧ B, A ∧ B ⊢ A          ∧E1
+│        └─ A ∧ B, A ∧ B ⊢ A ∧ B   Hyp x
+└─ A ∧ B ⊢ A ∧ B                   Hyp u
+not subformulas: {A ∧ B → B ∧ A}
+
+reductions: ["→I/→E"]
+A ∧ B ⊢ B ∧ A         ∧I
+├─ A ∧ B ⊢ B          ∧E2
+│  └─ A ∧ B ⊢ A ∧ B   Hyp u
+└─ A ∧ B ⊢ A          ∧E1
+   └─ A ∧ B ⊢ A ∧ B   Hyp u
+not subformulas: {}
+
+error in tonk-E at root:
+  this rule is not part of intuitionistic natural deduction
+⊢ ⊥             tonk-E
+└─ ⊢ ⊤ tonk ⊥   tonk-I
+   └─ ⊢ ⊤       ⊤I
+accepted: ⊢ A ∧ ¬A
+truth tables for tonk: 4 fit tonk-I, 4 fit tonk-E, 0 fit both
+reductions: [], stuck: ["tonk-I/tonk-E"]

@@ -1,0 +1,14 @@
+placed   #1 alice buys 10 @ 100.50
+placed   #2 bob sells 5 @ 101.25
+placed   #3 carol buys 7 @ 100.75
+placed   #4 dave sells 8 @ 101.25
+placed   #5 gina sells 4 @ 102.00
+rejected erin: would cross the best price 101.25
+rejected frank: quantity must be positive
+best bid 100.75, best ask 101.25, spread 0.50
+volume: 17 to buy, 17 to sell
+sell depth at 101.25: 13
+sell depth at 102.00: 4
+cancelled #3 carol buys 7 @ 100.75
+rejected cancel: no order #3
+best bid now 100.50

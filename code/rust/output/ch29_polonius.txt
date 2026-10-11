@@ -1,0 +1,32 @@
+L0 = &'?9 mut (*_1) at bb0[2]
+NLL: region of L0 = {every point, end('r)}
+NLL: 2 errors; the first one:
+error[E0499]: cannot borrow `*cache` as mutable more than once at a time
+  --> compile_fail/ch29_problem_case_3.rs:12:13
+   |
+ 8 | fn get_default<'r>(cache: &'r mut HashMap<u32, String>, key: u32) -> &'r mut String {
+   |                -- lifetime `'r` defined here
+ 9 |     match cache.get_mut(&key) {
+   |           ----- first mutable borrow occurs here
+10 |         Some(value) => value,
+   |                        ----- returning this value requires that `*cache` is borrowed for `'r`
+11 |         None => {
+12 |             cache.insert(key, String::new());
+   |             ^^^^^ second mutable borrow occurs here
+Polonius: live origins containing L0, on entry to each block
+  bb0: -     StorageLive(_3);
+  bb1: '?1   StorageDead(_5);
+  bb2: '?1   StorageLive(_7);
+  bb3: -     StorageLive(_8);
+  bb4: -     _8 = HashMap::insert(move _9, copy _2, move _10) -> bb5;
+  bb5: -     StorageDead(_10);
+  bb6: -     StorageDead(_8);
+  bb7: -     StorageDead(_13);
+  bb8: -     StorageDead(_11);
+  bb9: 'r    StorageDead(_3);
+Polonius: inside bb2 (the `Some` arm)
+  bb2[1]: '?1   _7 = move (_3 as Some).0;
+  bb2[2]: '?4   _0 = move _7;
+  bb2[3]: 'r    StorageDead(_7);
+  bb2[4]: 'r    goto -> bb9;
+Polonius: 0 errors

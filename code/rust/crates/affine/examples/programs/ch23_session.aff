@@ -1,0 +1,26 @@
+#[derive(Clone, Copy)]
+struct Sample { channel: i32, value: i32 }
+
+fn measure(dev: Dev, ch: i32) -> (Sample, Dev);
+fn label(op: String, s: Sample) -> Rec;
+
+// Measure one channel twice; label both samples with the operator's name.
+fn session(dev: Dev, ch: i32, op: String) -> ((Rec, Rec), Dev) {
+    let (a, dev2) = measure(dev, ch);
+    let (b, dev3) = measure(dev2, ch);
+    ((label(op.clone(), a), label(op, b)), dev3)
+}
+
+// Forgot the clone.
+fn session_unlabeled(dev: Dev, ch: i32, op: String) -> ((Rec, Rec), Dev) {
+    let (a, dev2) = measure(dev, ch);
+    let (b, dev3) = measure(dev2, ch);
+    ((label(op, a), label(op, b)), dev3)
+}
+
+// Measured with the old device.
+fn session_stale(dev: Dev, ch: i32, op: String) -> ((Rec, Rec), Dev) {
+    let (a, dev2) = measure(dev, ch);
+    let (b, dev3) = measure(dev, ch);
+    ((label(op.clone(), a), label(op, b)), dev3)
+}

@@ -1,0 +1,37 @@
+A × 1 ≅ A                  ok: 3 values each side
+A + 0 ≅ A                  ok: 4 values each side
+A × (B + C) ≅ A×B + A×C    ok: 8 values each side
+Option A ≅ 1 + A           ok: 3 values each side
+bool ≅ 1 + 1               ok: 2 values each side
+1 + (A + E) ≅ (1 + A) + E  ok: 4 values each side
+C^(A×B) ≅ (C^B)^A          ok: agree on 100 arguments
+
+|(bool, Option<bool>)|      = 6
+|Either<bool, ()>|          = 3
+|bool -> Option<bool>|      = 9
+|Option<bool> -> bool|      = 8
+|Void -> bool|              = 1
+|bool -> Void|              = 0
+|Void -> Void|              = 1
+
+type                          values  bytes
+()                                 1      0
+Void                               0      0
+bool                               2      1
+Option<bool>                       3      1
+Option<Option<bool>>               4      1
+u32                             2^32      4
+Option<u32>                   1+2^32      8
+NonZeroU32                    2^32-1      4
+Option<NonZeroU32>              2^32      4
+char                         1112064      4
+Option<char>                 1112065      4
+&u8                                       8
+Option<&u8>                               8
+Box<u64>                                  8
+Option<Box<u64>>                          8
+Vec<u8>                                  24
+Option<Vec<u8>>                          24
+Result<u32, Infallible>         2^32      4
+(u8, u32)                       2^40      8
+Option<(u8, u32)>             1+2^40     12

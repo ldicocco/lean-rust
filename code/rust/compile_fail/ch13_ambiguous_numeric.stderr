@@ -1,0 +1,10 @@
+error[E0689]: can't call method `pow` on ambiguous numeric type `{integer}`
+ --> compile_fail/ch13_ambiguous_numeric.rs:8:24
+  |
+8 |     let squared = side.pow(2);
+  |                        ^^^
+  |
+help: you must specify a type for this binding, like `i32`
+  |
+7 |     let side: i32 = 12;
+  |             +++++

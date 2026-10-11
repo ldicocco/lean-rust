@@ -1,0 +1,15 @@
+error[E0382]: use of moved value: `v`
+  --> compile_fail/ch22_voucher_both.rs:26:18
+   |
+25 | pub fn both(v: Voucher) -> (Coffee, Tea) {
+   |             - move occurs because `v` has type `Voucher`, which does not implement the `Copy` trait
+26 |     (v.coffee(), v.tea())
+   |        --------  ^ value used here after move
+   |        |
+   |        `v` moved due to this method call
+   |
+note: `Voucher::coffee` takes ownership of the receiver `self`, which moves `v`
+  --> compile_fail/ch22_voucher_both.rs:15:19
+   |
+15 |     pub fn coffee(self) -> Coffee {
+   |                   ^^^^

@@ -1,0 +1,17 @@
+# The book's Lean project. It depends on Mathlib, pinned to the release that
+# matches the toolchain in lean-toolchain. Before the first build, download the
+# prebuilt library (under 1 GB to download, about 8 GB on disk) with
+#   lake exe cache get
+# otherwise Lake would compile Mathlib from source, which takes hours.
+name = "book"
+version = "0.1.0"
+defaultTargets = ["Book"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.34.1"
+
+[[lean_lib]]
+name = "Book"
+globs = ["Book.+"]

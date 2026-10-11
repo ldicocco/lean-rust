@@ -1,0 +1,9 @@
+error[E0204]: the trait `Copy` cannot be implemented for this type
+ --> compile_fail/ch23_copy_string_field.rs:6:8
+  |
+5 | #[derive(Clone, Copy)]
+  |                 ---- in this derive macro expansion
+6 | struct Reading {
+  |        ^^^^^^^
+7 |     sensor: String,
+  |     -------------- this field does not implement `Copy`

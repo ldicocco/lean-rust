@@ -1,0 +1,21 @@
+models with at most 3 worlds and 2 atoms: 564
+
+excluded middle   P ∨ ¬P
+  2 worlds, 0≤1, P@{1} Q@{}, fails at 0
+double negation   ¬¬P → P
+  2 worlds, 0≤1, P@{1} Q@{}, fails at 0
+Peirce            ((P → Q) → P) → P
+  2 worlds, 0≤1, P@{1} Q@{}, fails at 0
+De Morgan         ¬(P ∧ Q) → ¬P ∨ ¬Q
+  3 worlds, 0≤1 0≤2, P@{1} Q@{2}, fails at 0
+weak excl. middle ¬P ∨ ¬¬P
+  3 worlds, 0≤1 0≤2, P@{1} Q@{}, fails at 0
+linearity         (P → Q) ∨ (Q → P)
+  3 worlds, 0≤1 0≤2, P@{1} Q@{2}, fails at 0
+
+holds in all 564 models: ¬¬(P ∨ ¬P)
+holds in all 564 models: P → ¬¬P
+holds in all 564 models: ¬¬¬P → ¬P
+holds in all 564 models: ¬(P ∨ Q) → ¬P ∧ ¬Q
+holds in all 564 models: ¬P ∨ ¬Q → ¬(P ∧ Q)
+holds in all 564 models: (P → Q) ∧ (P → ¬Q) → ¬P

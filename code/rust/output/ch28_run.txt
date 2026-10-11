@@ -1,0 +1,21 @@
+type: Int
+ 1  E-New          ℓ0 ↦ 0
+ 2  E-Let          ℓ0 ↦ 0
+ 3  E-BorrowMut    ℓ0 ↦ 0 [mut]
+ 4  E-Reborrow     ℓ0 ↦ 0 [mut]
+ 5  E-Assign       ℓ0 ↦ 1 [mut]
+ 6  E-EndReborrow  ℓ0 ↦ 1 [mut]
+ 7  E-LetPair      ℓ0 ↦ 1 [mut]
+ 8  E-Reborrow     ℓ0 ↦ 1 [mut]
+ 9  E-Assign       ℓ0 ↦ 2 [mut]
+10  E-EndReborrow  ℓ0 ↦ 2 [mut]
+11  E-LetPair      ℓ0 ↦ 2 [mut]
+12  E-EndBorrow    ℓ0 ↦ 2
+13  E-LetPair      ℓ0 ↦ 2
+14  E-Borrow       ℓ0 ↦ 2 [shared]
+15  E-Deref        ℓ0 ↦ 2 [shared]
+16  E-EndBorrow    ℓ0 ↦ 2
+17  E-LetPair      ℓ0 ↦ 2
+18  E-Drop         ∅
+19  E-Let          ∅
+value: 2

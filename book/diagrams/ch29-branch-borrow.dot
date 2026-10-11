@@ -1,0 +1,25 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.3, rankdir=TB];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  p0 [label="0: _3 = &'L mut _2   (tail = &mut log)", fillcolor="#fee2e2", color="#b91c1c"];
+  p1 [label="1: switchInt(verbose)", fillcolor="#fee2e2", color="#b91c1c"];
+  p2 [label="2: _7 = &mut (*_3)   (tail.push)", fillcolor="#fee2e2", color="#b91c1c"];
+  p3 [label="3: Vec::push(move _7, 1)", fillcolor="#fee2e2", color="#b91c1c"];
+  p4 [label="4: _9 = &mut _2   (log.push)\nlexical: E0499", style="rounded,filled,dashed"];
+  p5 [label="5: Vec::push(move _9, 2)", style="rounded,filled,dashed"];
+  p6 [label="6: _0 = move _2   (log)\nlexical: E0505", style="rounded,filled,dashed"];
+  p7 [label="7: StorageDead(_3)   (})", style="rounded,filled,dashed"];
+  p8 [label="8: return"];
+
+  p0 -> p1;
+  p1 -> p2 [label=" then"];
+  p1 -> p4 [label=" else"];
+  p2 -> p3 -> p6;
+  p4 -> p5 -> p6;
+  p6 -> p7 -> p8;
+
+  legend [shape=plaintext, style="", label="red: the NLL region of 'L\nred + dashed: the lexical region of 'L"];
+}

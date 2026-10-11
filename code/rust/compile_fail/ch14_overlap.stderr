@@ -1,0 +1,8 @@
+error[E0119]: conflicting implementations of trait `Log` for type `i32`
+  --> compile_fail/ch14_overlap.rs:18:1
+   |
+12 | impl<T: Display> Log for T {
+   | -------------------------- first implementation here
+...
+18 | impl Log for i32 {
+   | ^^^^^^^^^^^^^^^^ conflicting implementation for `i32`

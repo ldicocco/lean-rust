@@ -1,0 +1,15 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.8, ranksep=0.9];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.14,0.08"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7, dir=both];
+
+  logic [label="Logic\nintuitionistic propositional logic\nA and B,  A implies B,  true", fillcolor="#dbeafe", color="#1d4ed8"];
+  types [label="Type theory\nsimply typed λ-calculus\nA × B,  A → B,  unit", fillcolor="#ffedd5", color="#c2410c"];
+  cats  [label="Category theory\ncartesian closed categories\nproducts,  exponentials,  terminal object", fillcolor="#f3e8ff", color="#7e22ce"];
+
+  { rank=same; logic; types; }
+  logic -> types [label="  Curry–Howard  "];
+  types -> cats  [label="  Lambek  "];
+  logic -> cats  [label="  Heyting algebras  "];
+}

@@ -1,0 +1,11 @@
+error[E0121]: the placeholder `_` is not allowed within types on item signatures for return types
+ --> compile_fail/ch13_signature_placeholder.rs:6:22
+  |
+6 | fn double(x: i32) -> _ {
+  |                      ^ not allowed in type signatures
+  |
+help: replace with the correct return type
+  |
+6 - fn double(x: i32) -> _ {
+6 + fn double(x: i32) -> i32 {
+  |

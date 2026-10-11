@@ -1,0 +1,18 @@
+error[E0603]: tuple struct constructor `Percent` is private
+  --> compile_fail/ch30_private_constructor.rs:19:14
+   |
+ 4 |     pub struct Percent(u8);
+   |                        -- a constructor is private if any of the fields is private
+...
+19 |     percent::Percent(250)
+   |              ^^^^^^^ private tuple struct constructor
+   |
+note: the tuple struct constructor `Percent` is defined here
+  --> compile_fail/ch30_private_constructor.rs:4:5
+   |
+ 4 |     pub struct Percent(u8);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+help: consider making the field publicly accessible
+   |
+ 4 |     pub struct Percent(pub u8);
+   |                        +++

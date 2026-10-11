@@ -1,0 +1,8 @@
+PUMP 3: Deref::deref ran 1 time(s)
+&[i32; 3]: 8 bytes, &[i32]: 16 bytes
+Box<Valve>: 8 bytes, Box<dyn Describe>: 16 bytes (valve open: true)
+fn item: 0 bytes, fn pointer: 8 bytes, both give 42
+&'static str -> &str: 16 bytes -> 16 bytes, same address: true
+shorten_all: ["alpha", "beta"]
+as_strs: ["gamma", "delta"]
+weaken: 10

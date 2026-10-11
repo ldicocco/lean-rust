@@ -1,0 +1,19 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.4, ranksep=0.5];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#b91c1c", fillcolor="#fee2e2", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  item    [label="fn item type\nfn(u32) -> u32 {add_one}\nsize 0, one per function"];
+  closure [label="closure type\n{closure@...}\nsize = its captures"];
+  ptr     [label="fn pointer\nfn(u32) -> u32\nsize 8: a code address"];
+  traits  [label="Fn / FnMut / FnOnce\ntraits", fillcolor="#dcfce7", color="#15803d"];
+  dyn     [label="Box<dyn Fn(u32) -> u32>\nsize 16: data + vtable"];
+
+  item -> ptr     [label=" coerces"];
+  closure -> ptr  [label=" coerces if it\n captures nothing"];
+  item -> traits  [label=" implements"];
+  closure -> traits [label=" implements"];
+  ptr -> traits   [label=" implements"];
+  traits -> dyn   [label=" any implementor\n can be boxed"];
+}

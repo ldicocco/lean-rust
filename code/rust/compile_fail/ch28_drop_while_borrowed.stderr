@@ -1,0 +1,16 @@
+error[E0505]: cannot move out of `b` because it is borrowed
+  --> compile_fail/ch28_drop_while_borrowed.rs:9:10
+   |
+ 7 |     let b = Box::new(5);
+   |         - binding `b` declared here
+ 8 |     let r: &i32 = &b;
+   |                   -- borrow of `b` occurs here
+ 9 |     drop(b);
+   |          ^ move out of `b` occurs here
+10 |     *r
+   |     -- borrow later used here
+   |
+help: consider cloning the value if the performance cost is acceptable
+   |
+ 8 |     let r: &i32 = &b.clone();
+   |                     ++++++++

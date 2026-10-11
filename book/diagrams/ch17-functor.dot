@@ -1,0 +1,17 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=1.0, ranksep=0.8];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=12, fontcolor="#15803d"];
+  edge  [color="#c2410c", fontname="Helvetica", fontsize=10, arrowsize=0.7, fontcolor="#c2410c"];
+
+  { rank=same; S [label="String"]; N [label="ℕ"]; B [label="Bool"]; }
+  { rank=same; OS [label="Option String"]; ON [label="Option ℕ"]; OB [label="Option Bool"]; }
+
+  S -> N [label="len"];
+  N -> B [label="isEven"];
+  OS -> ON [label="map len"];
+  ON -> OB [label="map isEven"];
+
+  S -> OS [style=dashed, color="#7e22ce", fontcolor="#7e22ce", label="Option"];
+  N -> ON [style=dashed, color="#7e22ce", fontcolor="#7e22ce", label="Option"];
+  B -> OB [style=dashed, color="#7e22ce", fontcolor="#7e22ce", label="Option"];
+}

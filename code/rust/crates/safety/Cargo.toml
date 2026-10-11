@@ -1,0 +1,7 @@
+[package]
+name = "safety"
+description = "Small-step semantics for the simply typed lambda calculus and property tests of progress and preservation."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true

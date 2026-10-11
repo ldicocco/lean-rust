@@ -1,0 +1,21 @@
+error[E0382]: use of moved value: `f`
+ --> compile_fail/ch20_vec_bind_fnonce.rs:8:20
+  |
+5 | pub fn bind_vec<A, B, F: FnOnce(A) -> Vec<B>>(m: Vec<A>, f: F) -> Vec<B> {
+  |                                                          - move occurs because `f` has type `F`, which does not implement the `Copy` trait
+6 |     let mut out = Vec::new();
+7 |     for a in m {
+  |     ---------- inside of this loop
+8 |         out.extend(f(a));
+  |                    ^---
+  |                    |
+  |                    `f` moved due to this call, in previous iteration of loop
+  |
+note: `FnOnce` closures can only be called once
+ --> compile_fail/ch20_vec_bind_fnonce.rs:5:26
+  |
+5 | pub fn bind_vec<A, B, F: FnOnce(A) -> Vec<B>>(m: Vec<A>, f: F) -> Vec<B> {
+  |                          ^^^^^^^^^^^^^^^^^^^ `F` is made to be an `FnOnce` closure here
+...
+8 |         out.extend(f(a));
+  |                    ---- this value implements `FnOnce`, which causes it to be moved when called

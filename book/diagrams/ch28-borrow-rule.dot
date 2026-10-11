@@ -1,0 +1,21 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  ctx    [label="Δ; Γ\nthe context of the borrow"];
+  owner  [label="Δ; Γ₁ ⊢ e₁ : Box τ\nthe owner, consumed", fillcolor="#dbeafe", color="#1d4ed8"];
+  body   [label="Δ, α; Γ₂, y : &'α mut τ ⊢ e₂ : σ\nthe body, with the lent reference", fillcolor="#ffedd5", color="#c2410c"];
+  fresh  [label="α ∉ Δ\nfresh lifetime", fillcolor="#fee2e2", color="#b91c1c"];
+  escape [label="α ∉ flv(σ)\nescape check", fillcolor="#fee2e2", color="#b91c1c"];
+  result [label="Box τ ⊗ σ\nthe owner comes back", fillcolor="#dcfce7", color="#15803d"];
+
+  ctx -> owner [label=" Γ₁"];
+  ctx -> body [label=" Γ₂"];
+  owner -> body [label=" lends y", style=dashed];
+  fresh -> body [style=dotted, arrowhead=none];
+  body -> escape -> result [label=" σ"];
+  owner -> result [label=" given back"];
+  { rank=same; owner; fresh; }
+}

@@ -1,0 +1,31 @@
+⊢ A ∧ B → B ∧ A          →I u
+└─ A ∧ B ⊢ B ∧ A         ∧I
+   ├─ A ∧ B ⊢ B          ∧E2
+   │  └─ A ∧ B ⊢ A ∧ B   Hyp u
+   └─ A ∧ B ⊢ A          ∧E1
+      └─ A ∧ B ⊢ A ∧ B   Hyp u
+
+⊢ (A → B) → A ∨ C → B ∨ C                →I g
+└─ A → B ⊢ A ∨ C → B ∨ C                 →I d
+   └─ A → B, A ∨ C ⊢ B ∨ C               ∨E a c
+      ├─ A → B, A ∨ C ⊢ A ∨ C            Hyp d
+      ├─ A → B, A ∨ C, A ⊢ B ∨ C         ∨I1
+      │  └─ A → B, A ∨ C, A ⊢ B          →E
+      │     ├─ A → B, A ∨ C, A ⊢ A → B   Hyp g
+      │     └─ A → B, A ∨ C, A ⊢ A       Hyp a
+      └─ A → B, A ∨ C, C ⊢ B ∨ C         ∨I2
+         └─ A → B, A ∨ C, C ⊢ C          Hyp c
+
+error in ∧E1 at root:
+  the premise must prove a conjunction, but it proves `A → B`
+error in Hyp at root.2:
+  no assumption named `u` is available here (none are)
+error in →E at root.1:
+  the implication is `A → C`, so the argument must prove `A`, but it proves `B`
+
+A B │ A ∧ B → B ∧ A
+F F │ T
+F T │ T
+T F │ T
+T T │ T
+A ∨ B → A is false when A = F, B = T

@@ -1,0 +1,29 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.8, ranksep=0.8];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=12];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // Associativity square
+  MMM  [label="M (M (M A))"];
+  MM1  [label="M (M A)"];
+  MM2  [label="M (M A)"];
+  M1   [label="M A"];
+  {rank=same; MMM; MM1}
+  {rank=same; MM2; M1}
+  MMM -> MM1 [label="  M μ  (map join)  "];
+  MMM -> MM2 [label="μ  (join)  "];
+  MM1 -> M1 [label="  μ"];
+  MM2 -> M1 [label="  μ  "];
+
+  // Unit triangles
+  L   [label="M A"];
+  MMU [label="M (M A)"];
+  R   [label="M A"];
+  OUT [label="M A"];
+  {rank=same; L; MMU; R}
+  L -> MMU [label="η  (pure)", color="#15803d", fontcolor="#15803d"];
+  MMU -> R [label="M η  (map pure)", dir=back, color="#15803d", fontcolor="#15803d"];
+  MMU -> OUT [label="  μ"];
+  L -> OUT [label="id", style=dashed];
+  R -> OUT [label="id", style=dashed];
+}

@@ -1,0 +1,15 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.4, rankdir=BT];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  ipl [label="intuitionistic logic\n(the rules of Chapter 4)", fillcolor="#dbeafe", color="#1d4ed8"];
+  kc  [label="+ weak excluded middle  ¬P ∨ ¬¬P\nor, equivalently, the De Morgan law\n¬(P ∧ Q) → ¬P ∨ ¬Q"];
+  lc  [label="+ linearity  (P → Q) ∨ (Q → P)\n(Gödel–Dummett logic)"];
+  cpl [label="classical logic\n+ any one of  P ∨ ¬P,  ¬¬P → P,\n((P → Q) → P) → P", fillcolor="#dbeafe", color="#1d4ed8"];
+
+  ipl -> kc [label=" separated by the fork "];
+  kc -> lc [label=" separated by a four-world diamond "];
+  lc -> cpl [label=" separated by the two-world model "];
+}

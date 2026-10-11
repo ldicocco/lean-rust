@@ -1,0 +1,20 @@
+error[E0004]: non-exhaustive patterns: `&Payment::Voucher(_)` not covered
+  --> compile_fail/ch11_non_exhaustive.rs:13:11
+   |
+13 |     match p {
+   |           ^ pattern `&Payment::Voucher(_)` not covered
+   |
+note: `Payment` defined here
+  --> compile_fail/ch11_non_exhaustive.rs:6:6
+   |
+ 6 | enum Payment {
+   |      ^^^^^^^
+...
+ 9 |     Voucher(u32),
+   |     ------- not covered
+   = note: the matched value is of type `&Payment`
+help: ensure that all possible cases are being handled by adding a match arm with a wildcard pattern or an explicit pattern as shown
+   |
+15 ~         Payment::Invoice { days } => format!("invoice, due in {days} days"),
+16 ~         &Payment::Voucher(_) => todo!(),
+   |

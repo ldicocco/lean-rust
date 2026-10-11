@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  book:
+    name: Book sources
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check includes, anchors, math and image links
+        run: python3 tools/build_book.py check
+      - name: Check that the generated Markdown and README are up to date
+        run: |
+          python3 tools/build_book.py md
+          python3 tools/build_book.py readme
+          git diff --exit-code -- book/chapters README.md
+
+  rust:
+    name: Rust examples, diagnostics and tests
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: -D warnings
+    steps:
+      - uses: actions/checkout@v5
+      # The toolchain is pinned in code/rust/rust-toolchain.toml; rustup on the
+      # runner installs it on first use.
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: code/rust
+      - name: Formatting
+        working-directory: code/rust
+        run: cargo fmt --all --check
+      - name: Examples (outputs), compile-fail programs (diagnostics), crate tests
+        run: python3 tools/run_examples.py --rust --compile-fail --tests
+
+  lean:
+    name: Lean proofs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch prebuilt Mathlib
+        working-directory: code/lean
+        run: lake exe cache get
+      - name: Build every Lean file (no messages allowed)
+        run: python3 tools/run_examples.py --lean

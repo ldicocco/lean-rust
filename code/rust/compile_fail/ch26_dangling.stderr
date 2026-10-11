@@ -1,0 +1,11 @@
+error[E0597]: `reading` does not live long enough
+  --> compile_fail/ch26_dangling.rs:10:13
+   |
+ 9 |         let reading = 42;
+   |             ------- binding `reading` declared here
+10 |         r = &reading;
+   |             ^^^^^^^^ borrowed value does not live long enough
+11 |     }
+   |     - `reading` dropped here while still borrowed
+12 |     println!("{r}");
+   |                - borrow later used here

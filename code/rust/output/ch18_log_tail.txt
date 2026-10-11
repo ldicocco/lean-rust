@@ -1,0 +1,5 @@
+#0998 INFO  request 998 handled
+#0999 INFO  request 999 handled
+#1000 ERROR request 1000 handled
+render called 1000 times (map, then latest)
+render called 3 times (latest, then map)

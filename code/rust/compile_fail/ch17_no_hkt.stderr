@@ -1,0 +1,13 @@
+error[E0109]: type arguments are not allowed on type parameter `F`
+ --> compile_fail/ch17_no_hkt.rs:9:15
+  |
+9 |     values: F<String>,
+  |             - ^^^^^^ type argument not allowed
+  |             |
+  |             not allowed on type parameter `F`
+  |
+note: type parameter `F` defined here
+ --> compile_fail/ch17_no_hkt.rs:8:15
+  |
+8 | struct Column<F> {
+  |               ^

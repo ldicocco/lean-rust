@@ -1,0 +1,15 @@
+identity(7)              = 7
+konst("kept")(42)        = kept
+compose(inc, double)(5)  = 12
+Rust is call-by-value: both arguments are evaluated first
+  evaluating the argument "a"
+  evaluating the argument "b"
+  result: a
+A closure delays evaluation, as call-by-name would:
+  evaluating the argument "a"
+  result: a
+Church numerals at type u64:
+  two = 2, three = 3
+  plus(two, three)  = 5
+  times(two, three) = 6
+double_it!(x) with x = 10 is 20, not 2 * 2 = 4

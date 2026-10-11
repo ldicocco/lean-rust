@@ -1,0 +1,5 @@
+twice:            n = 2
+twice_explicit:   n = 2
+twice_generic:    n = 1
+twice_calculus:   n = 2
+read_then_push:   first = 1, v = [1, 2, 3, 4]

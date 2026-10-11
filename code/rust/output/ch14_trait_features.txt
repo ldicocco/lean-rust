@@ -1,0 +1,9 @@
+21.5 °C = Fahrenheit(70.7) = Kelvin(294.65)
+sample:  [Celsius(4.5), Celsius(5.0), Celsius(3.5), Celsius(4.5)]
+peak:    Some(Celsius(5.0))
+default: ["fridge: Celsius(5.0)", "fridge: Celsius(3.5)"]
+custom:  ["lab door is open", "lab door is open"]
+dictionary versions agree: ["lab door is closed", "lab door is closed"]
+[log] 42
+[log] door opened
+[log] -18.0 °C

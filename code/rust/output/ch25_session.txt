@@ -1,0 +1,4 @@
+Client = Send<u32, Recv<f64, Send<f64, Recv<bool, End>>>>
+Server = Recv<u32, Send<f64, Recv<f64, Send<bool, End>>>>
+sensor 7: reading 21.5, corrected 21
+in range: true

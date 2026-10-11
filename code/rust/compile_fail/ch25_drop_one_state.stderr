@@ -1,0 +1,12 @@
+error[E0366]: `Drop` impls cannot be specialized
+  --> compile_fail/ch25_drop_one_state.rs:14:1
+   |
+14 | impl Drop for Instrument<Measuring> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `Measuring` is not a generic parameter
+note: use the same sequence of generic lifetime, type and const parameters as the struct definition
+  --> compile_fail/ch25_drop_one_state.rs:8:1
+   |
+ 8 | pub struct Instrument<S> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,40 @@
+fn maybe_archive(_1: bool) -> () {
+    debug urgent => _1;
+    let mut _0: ();
+    let _2: std::string::String;
+    let _3: usize;
+    let mut _4: std::string::String;
+    let mut _5: bool;
+    scope 1 {
+        debug job => _2;
+    }
+
+    bb0: {
+        _5 = const false;
+        _5 = const true;
+        _2 = <String as From<&str>>::from(const "backup") -> [return: bb1, unwind continue];
+    }
+
+    bb1: {
+        switchInt(copy _1) -> [0: bb3, otherwise: bb2];
+    }
+
+    bb2: {
+        _5 = const false;
+        _4 = move _2;
+        _3 = archive(move _4) -> [return: bb3, unwind continue];
+    }
+
+    bb3: {
+        switchInt(copy _5) -> [0: bb4, otherwise: bb5];
+    }
+
+    bb4: {
+        _5 = const false;
+        return;
+    }
+
+    bb5: {
+        drop(_2) -> [return: bb4, unwind continue];
+    }
+}

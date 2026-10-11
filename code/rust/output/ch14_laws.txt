@@ -1,0 +1,17 @@
+law checks on samples:
+  Sum       ok (357 checks)
+  String    ok (72 checks)
+  Stats     ok (357 checks)
+  Diff      FAILED: left identity fails: empty ⋄ Diff(-7) = Diff(7)
+  FloatSum  FAILED: associativity fails for FloatSum(0.1), FloatSum(0.2), FloatSum(0.3)
+            (a ⋄ b) ⋄ c = FloatSum(0.6000000000000001), a ⋄ (b ⋄ c) = FloatSum(0.6)
+left fold vs tree fold:
+  Sum       left: Sum(21)                       tree: Sum(21)
+  Diff      left: Diff(-21)                     tree: Diff(-3)
+  FloatSum  left: FloatSum(0.6000000000000001)  tree: FloatSum(0.6)
+walkthrough:
+  batch 0: Stats { count: 4, total: 873, min: 215, max: 221 }
+  batch 1: Stats { count: 2, total: 401, min: 199, max: 202 }
+  batch 2: Stats { count: 3, total: 691, min: 228, max: 233 }
+  merged : Stats { count: 9, total: 1965, min: 199, max: 233 }
+  one pass agrees: true

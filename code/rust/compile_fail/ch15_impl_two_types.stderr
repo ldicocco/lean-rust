@@ -1,0 +1,23 @@
+error[E0308]: `if` and `else` have incompatible types
+  --> compile_fail/ch15_impl_two_types.rs:39:9
+   |
+36 | /     if fast {
+37 | |         Stride { value: 0, by: 10 }
+   | |         --------------------------- expected because of this
+38 | |     } else {
+39 | |         Simple(0)
+   | |         ^^^^^^^^^ expected `Stride`, found `Simple`
+40 | |     }
+   | |_____- `if` and `else` have incompatible types
+   |
+help: you could change the return type to be a boxed trait object
+   |
+35 - fn make_counter(fast: bool) -> impl Counter {
+35 + fn make_counter(fast: bool) -> Box<dyn Counter> {
+   |
+help: if you change the return type to expect trait objects, box the returned expressions
+   |
+37 ~         Box::new(Stride { value: 0, by: 10 })
+38 |     } else {
+39 ~         Box::new(Simple(0))
+   |

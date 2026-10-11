@@ -1,0 +1,29 @@
+error: generic parameters may not be used in const operations
+  --> compile_fail/ch30_const_arithmetic.rs:14:15
+   |
+14 | ) -> Matrix<{ R1 + R2 }, C> {
+   |               ^^ cannot perform const operation using `R1`
+   |
+   = help: const parameters may only be used as standalone arguments here, i.e. `R1`
+
+error: generic parameters may not be used in const operations
+  --> compile_fail/ch30_const_arithmetic.rs:14:20
+   |
+14 | ) -> Matrix<{ R1 + R2 }, C> {
+   |                    ^^ cannot perform const operation using `R2`
+   |
+   = help: const parameters may only be used as standalone arguments here, i.e. `R2`
+
+error[E0770]: the type of const parameters must not depend on other generic parameters
+  --> compile_fail/ch30_const_arithmetic.rs:21:54
+   |
+21 | pub struct Shape<const N: usize, const DIMS: [usize; N]>;
+   |                                                      ^ the type must not depend on the parameter `N`
+
+error: `[usize; N]` is forbidden as the type of a const generic parameter
+  --> compile_fail/ch30_const_arithmetic.rs:21:46
+   |
+21 | pub struct Shape<const N: usize, const DIMS: [usize; N]>;
+   |                                              ^^^^^^^^^^
+   |
+   = note: the only supported types are integers, `bool`, and `char`

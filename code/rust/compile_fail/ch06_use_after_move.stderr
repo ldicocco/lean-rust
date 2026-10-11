@@ -1,0 +1,25 @@
+error[E0382]: use of moved value: `coupon`
+  --> compile_fail/ch06_use_after_move.rs:16:25
+   |
+14 | pub fn checkout(coupon: Coupon) -> u32 {
+   |                 ------ move occurs because `coupon` has type `Coupon`, which does not implement the `Copy` trait
+15 |     let first = redeem(coupon);
+   |                        ------ value moved here
+16 |     let second = redeem(coupon);
+   |                         ^^^^^^ value used here after move
+   |
+note: consider changing this parameter type in function `redeem` to borrow instead if owning the value isn't necessary
+  --> compile_fail/ch06_use_after_move.rs:9:23
+   |
+ 9 | pub fn redeem(coupon: Coupon) -> u32 {
+   |        ------         ^^^^^^ this parameter takes ownership of the value
+   |        |
+   |        in this function
+note: if `Coupon` implemented `Clone`, you could clone the value
+  --> compile_fail/ch06_use_after_move.rs:5:1
+   |
+ 5 | pub struct Coupon {
+   | ^^^^^^^^^^^^^^^^^ consider implementing `Clone` for this type
+...
+15 |     let first = redeem(coupon);
+   |                        ------ you could clone this value

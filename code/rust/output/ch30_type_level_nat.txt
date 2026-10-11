@@ -1,0 +1,10 @@
+Two + Three = S<S<S<S<S<Z>>>>>
+            = 5 (as a value)
+names       = ["ada", "alan", "grace"], len 3
+head        = ada
+zipped      = [("ada", 1815), ("alan", 1912), ("grace", 1906)]
+tail        = [("alan", 1912), ("grace", 1906)]
+appended    = [1, 2, 3, 4, 5], len 5
+some vector of length 1: [7]
+some vector of length 5: [1, 2, 3, 4, 5]
+some vector of length 0: []

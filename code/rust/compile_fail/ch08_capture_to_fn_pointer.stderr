@@ -1,0 +1,15 @@
+error[E0308]: mismatched types
+ --> compile_fail/ch08_capture_to_fn_pointer.rs:7:33
+  |
+7 |     let shift: fn(u32) -> u32 = |x| x + offset;
+  |                --------------   ^^^^^^^^^^^^^^ expected fn pointer, found closure
+  |                |
+  |                expected due to this
+  |
+  = note: expected fn pointer `fn(u32) -> u32`
+                found closure `{closure@compile_fail/ch08_capture_to_fn_pointer.rs:7:33: 7:36}`
+note: closures can only be coerced to `fn` types if they do not capture any variables
+ --> compile_fail/ch08_capture_to_fn_pointer.rs:7:41
+  |
+7 |     let shift: fn(u32) -> u32 = |x| x + offset;
+  |                                         ^^^^^^ `offset` captured here

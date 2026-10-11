@@ -1,0 +1,14 @@
+left  = [30, 4, 1]
+right = [6, 2, 9, 5, 10]
+all   = [30, 4, 1, 6, 2, 9, 5, 10]
+thermometer: 20.1, 20.2, 20.3 after 3 reads
+squares(6) = [0, 1, 4, 9, 16, 25]
+shout("safe abstraction") = "SAFE ABSTRACTION"
+port(8080) = Some(8080), port(0) = None
+size_of: u32 = 4, Option<u32> = 8, Option<NonZeroU32> = 4
+sum_first_three([5, 6, 7, 8]) = Some(18)
+sum_first_three([5, 6]) = None
+sat_sub(5, 3) = 2, sat_sub(3, 5) = 0
+bad_sub(5, 3) = 2 (never call bad_sub(3, 5))
+cells = [20, 10, 0]
+all assertions passed

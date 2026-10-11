@@ -1,0 +1,10 @@
+chosen: from the config file
+shrink_ref, shrink_ref_ref: static
+shrink_mut, then a write through it: replaced
+shrink_box, shrink_vec, shrink_option: boxed ["a", "b"] Some("some")
+shrink_result: a static string
+grow_argument: 18
+shrink_twice: 6
+order 4217 belongs to customer 42
+Id<Rc<String>> is Send + Sync
+view[1] = Some(4.0), view[3] = None

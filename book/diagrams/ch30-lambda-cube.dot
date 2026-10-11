@@ -1,0 +1,36 @@
+// The λ-cube (Barendregt). Three independent extensions of the simply typed
+// λ-calculus: terms depending on types (back), types depending on types (up),
+// types depending on terms (right). Rust reaches λ→ and λ2 (rank-1) and parts
+// of λω and λP; Lean sits beyond the far corner λC.
+digraph G {
+  graph [layout=neato, bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.3,
+         splines=line, outputorder=edgesfirst];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=12,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06",
+         width=0.9, height=0.4, fixedsize=false];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // front face
+  stlc   [label="λ→",        pos="0,0!",     fillcolor="#fee2e2", color="#b91c1c"];
+  lp     [label="λP",        pos="4.2,0!",   fillcolor="#fee2e2", color="#b91c1c", style="rounded,filled,dashed"];
+  lwu    [label=<λ<U>ω</U>>,  pos="0,2.4!",   fillcolor="#fee2e2", color="#b91c1c", style="rounded,filled,dashed"];
+  lpwu   [label=<λP<U>ω</U>>, pos="4.2,2.4!"];
+  // back face
+  l2     [label="λ2",        pos="1.5,1.1!", fillcolor="#fee2e2", color="#b91c1c"];
+  lp2    [label="λP2",       pos="5.7,1.1!"];
+  lw     [label="λω",        pos="1.5,3.5!", fillcolor="#fee2e2", color="#b91c1c", style="rounded,filled,dashed"];
+  lc     [label="λC",        pos="5.7,3.5!", fillcolor="#f3e8ff", color="#7e22ce", penwidth=2];
+
+  stlc -> l2   [label="terms depend\non types        ", fontcolor="#475569"];
+  stlc -> lwu  [label="types depend\non types      ", fontcolor="#475569"];
+  stlc -> lp   [label="types depend on terms", fontcolor="#475569"];
+  lp -> lp2; lp -> lpwu; l2 -> lp2; l2 -> lw; lwu -> lw; lwu -> lpwu;
+  lw -> lc; lp2 -> lc; lpwu -> lc;
+
+  legend [shape=plaintext, style="", pos="2.9,-1.1!", fontsize=10, label=<
+    <TABLE BORDER="0" CELLSPACING="2">
+      <TR><TD ALIGN="LEFT">solid red: in Rust (λ2 as rank-1 generics)</TD></TR>
+      <TR><TD ALIGN="LEFT">dashed red: only fragments in Rust (generic types, GATs, const generics)</TD></TR>
+      <TR><TD ALIGN="LEFT">purple: the Calculus of Constructions; Lean's type theory extends it</TD></TR>
+    </TABLE>>];
+}

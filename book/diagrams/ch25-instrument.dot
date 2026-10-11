@@ -1,0 +1,16 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.7, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  idle [label="Idle\n(final)", style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d"];
+  cal  [label="Calibrated\noffset", fillcolor="#dcfce7", color="#15803d"];
+  meas [label="Measuring\noffset, samples", fillcolor="#dcfce7", color="#15803d"];
+
+  idle -> cal [label="calibrate"];
+  cal -> meas [label="start"];
+  meas -> meas [label="sample"];
+  meas -> cal [label="stop"];
+  cal -> idle [label="powerDown"];
+}

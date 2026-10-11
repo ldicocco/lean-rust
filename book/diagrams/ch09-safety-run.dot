@@ -1,0 +1,25 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.55, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  t0 [label="t₀ : τ", fillcolor="#ffedd5", color="#c2410c"];
+  t1 [label="t₁ : τ", fillcolor="#ffedd5", color="#c2410c"];
+  t2 [label="t₂ : τ", fillcolor="#ffedd5", color="#c2410c"];
+  dots [label="…", shape=plaintext, style=""];
+  v  [label="v : τ\na value", fillcolor="#dcfce7", color="#15803d"];
+
+  t0 -> t1 [label="one step\n(preservation:\nstill τ)"];
+  t1 -> t2 [label="one step\n(preservation:\nstill τ)"];
+  t2 -> dots;
+  dots -> v;
+
+  // Progress: at every state that is not a value, some rule applies.
+  p0 [label="progress: t₀ is a value\nor some rule applies", shape=plaintext, style="", fontsize=10];
+  p1 [label="progress again,\nbecause t₁ : τ", shape=plaintext, style="", fontsize=10];
+  p0 -> t0 [style=dotted, arrowhead=none];
+  p1 -> t1 [style=dotted, arrowhead=none];
+  {rank=same; t0; p0}
+  {rank=same; t1; p1}
+}

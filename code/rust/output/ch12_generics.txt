@@ -1,0 +1,14 @@
+7 seven 42 [1, 4, 9, 16]
+compose: 42!
+  running ch12_generics::largest<i32>
+  running ch12_generics::largest<char>
+  running ch12_generics::largest<f64>
+results: 9 z 2.5
+u8                      1 bytes
+(u8, u32)               8 bytes
+alloc::string::String  24 bytes
+&str                   16 bytes
+dyn:     1, two, 3.5
+generic: 1, 2, 3
+size_of::<&i32>()          = 8
+size_of::<&dyn Display>()  = 16

@@ -1,0 +1,28 @@
+Church numerals
+  0 = λf. λx. x
+  1 = λf. λx. f x
+  3 = λf. λx. f (f (f x))
+
+succ 1, step by step (normal order):
+    (λn. λf. λx. f (n f x)) (λf. λx. f x)
+  → λf. λx. f ((λf. λx. f x) f x)
+  → λf. λx. f ((λx. f x) x)
+  → λf. λx. f (f x)
+
+program             result   steps
+plus 2 3                 5       6
+times 2 3                6       7
+power 2 3                8      16
+pred 3                   2      36
+sub 5 2                  3     106
+iszero 0              true       3
+iszero 2             false       4
+and true false       false       4
+fst (pair 1 2)           1       6
+Y fact_step 3            6    1525
+
+Y fact_step 3 with de Bruijn indices: 1525 steps, same normal form: true
+
+false = λt. λf. f
+0     = λf. λx. x
+α-equivalent: true

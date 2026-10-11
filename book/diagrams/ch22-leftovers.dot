@@ -1,0 +1,30 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=LR, newrank=true];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_share {
+    label="sharing: with(e₁, e₂)"; fontname="Helvetica"; fontsize=11; color="#94a3b8"; style="rounded";
+    g2  [label="Γ\nc, f"];
+    a1  [label="check e₁\nbuy_coffee(c)", fillcolor="#ffedd5", color="#c2410c"];
+    a2  [label="check e₂\nbuy_tea(c)", fillcolor="#ffedd5", color="#c2410c"];
+    l1  [label="Δ₁\nf"];
+    l2  [label="Δ₂\nf"];
+    m   [label="meet Δ₁ Δ₂\nf"];
+    g2 -> a1 -> l1 -> m;
+    g2 -> a2 -> l2 -> m;
+    { rank=same; a1; a2; }
+    a2 -> a1 [style=invis];
+  }
+  subgraph cluster_split {
+    label="splitting: (e₁, e₂)"; fontname="Helvetica"; fontsize=11; color="#94a3b8"; style="rounded";
+    g1  [label="Γ\nc, s, t"];
+    e1  [label="check e₁\nsend(c, s)", fillcolor="#ffedd5", color="#c2410c"];
+    d1  [label="Δ₁\nt"];
+    e2  [label="check e₂\nt", fillcolor="#ffedd5", color="#c2410c"];
+    d2  [label="Δ₂\n(empty)"];
+    g1 -> e1 -> d1 -> e2 -> d2;
+  }
+
+}

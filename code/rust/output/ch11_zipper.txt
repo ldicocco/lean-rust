@@ -1,0 +1,7 @@
+start: ((x + 0) * (y + (z * 1)))
+root           focus = ((x + 0) * (y + (z * 1))) context = [ ]
+left           focus = (x + 0)    context = ([ ] * (y + (z * 1)))
+simplify       focus = x          context = ([ ] * (y + (z * 1)))
+right, right   focus = (z * 1)    context = (x * (y + [ ]))
+simplify       focus = z          context = (x * (y + [ ]))
+result: (x * (y + z))

@@ -1,0 +1,3 @@
+fn dup(s: String) -> (String, String) {
+    (s, s)
+}

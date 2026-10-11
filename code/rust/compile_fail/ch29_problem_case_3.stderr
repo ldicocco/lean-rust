@@ -1,0 +1,34 @@
+error[E0499]: cannot borrow `*cache` as mutable more than once at a time
+  --> compile_fail/ch29_problem_case_3.rs:12:13
+   |
+ 8 |   fn get_default<'r>(cache: &'r mut HashMap<u32, String>, key: u32) -> &'r mut String {
+   |                  -- lifetime `'r` defined here
+ 9 |       match cache.get_mut(&key) {
+   |       -     ----- first mutable borrow occurs here
+   |  _____|
+   | |
+10 | |         Some(value) => value,
+11 | |         None => {
+12 | |             cache.insert(key, String::new());
+   | |             ^^^^^ second mutable borrow occurs here
+...  |
+15 | |     }
+   | |_____- returning this value requires that `*cache` is borrowed for `'r`
+
+error[E0499]: cannot borrow `*cache` as mutable more than once at a time
+  --> compile_fail/ch29_problem_case_3.rs:13:13
+   |
+ 8 |   fn get_default<'r>(cache: &'r mut HashMap<u32, String>, key: u32) -> &'r mut String {
+   |                  -- lifetime `'r` defined here
+ 9 |       match cache.get_mut(&key) {
+   |       -     ----- first mutable borrow occurs here
+   |  _____|
+   | |
+10 | |         Some(value) => value,
+11 | |         None => {
+12 | |             cache.insert(key, String::new());
+13 | |             cache.get_mut(&key).unwrap()
+   | |             ^^^^^ second mutable borrow occurs here
+14 | |         }
+15 | |     }
+   | |_____- returning this value requires that `*cache` is borrowed for `'r`

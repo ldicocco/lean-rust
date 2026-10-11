@@ -1,0 +1,10 @@
+error[E0282]: type annotations needed
+ --> compile_fail/ch08_closure_needs_annotation.rs:7:16
+  |
+7 |     let len = |s| s.len();
+  |                ^  - type must be known at this point
+  |
+help: consider giving this closure parameter an explicit type
+  |
+7 |     let len = |s: /* Type */| s.len();
+  |                 ++++++++++++

@@ -1,0 +1,13 @@
+error[E0184]: the trait `Copy` cannot be implemented for this type; the type has a destructor
+  --> compile_fail/ch23_copy_with_drop.rs:7:8
+   |
+ 6 | #[derive(Clone, Copy)]
+   |                 ---- in this derive macro expansion
+ 7 | struct Token {
+   |        ^^^^^ `Copy` not allowed on types with destructors
+   |
+note: destructor declared here
+  --> compile_fail/ch23_copy_with_drop.rs:12:5
+   |
+12 |     fn drop(&mut self) {
+   |     ^^^^^^^^^^^^^^^^^^

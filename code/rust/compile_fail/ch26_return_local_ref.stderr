@@ -1,0 +1,5 @@
+error[E0515]: cannot return reference to local variable `loud`
+ --> compile_fail/ch26_return_local_ref.rs:8:5
+  |
+8 |     &loud
+  |     ^^^^^ returns a reference to data owned by the current function

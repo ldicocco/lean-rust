@@ -1,0 +1,13 @@
+swap:        (File("a.txt"), "report")
+swap_fields: (File("b.txt"), "notes")
+vouchers: Coffee, Tea
+offers:   Coffee, Tea
+messages sent: 3
+log: first: start
+log: close c.txt
+log: first: returned "kept"
+log: send "ship order 17"
+log: send "refund order 18"
+log: send "goodbye"
+log: close a.txt
+log: close b.txt

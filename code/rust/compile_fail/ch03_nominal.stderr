@@ -1,0 +1,18 @@
+error[E0308]: arguments to this function are incorrect
+  --> compile_fail/ch03_nominal.rs:13:5
+   |
+13 |     speed(Seconds(8.0), Meters(100.0))
+   |     ^^^^^ ------------  ------------- expected `Seconds`, found `Meters`
+   |           |
+   |           expected `Meters`, found `Seconds`
+   |
+note: function defined here
+  --> compile_fail/ch03_nominal.rs:8:4
+   |
+ 8 | fn speed(distance: Meters, time: Seconds) -> f64 {
+   |    ^^^^^
+help: swap these arguments
+   |
+13 -     speed(Seconds(8.0), Meters(100.0))
+13 +     speed(Meters(100.0), Seconds(8.0))
+   |

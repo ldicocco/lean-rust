@@ -1,0 +1,18 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.6, ranksep=0.9, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#15803d", fillcolor="#dcfce7", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#c2410c", fontname="Helvetica", fontsize=10, arrowsize=0.7, fontcolor="#c2410c"];
+
+  S [label="String"];
+  N [label="ℕ"];
+  B [label="Bool"];
+
+  S -> N [label="len"];
+  N -> B [label="isEven"];
+  S -> B [label="isEven ∘ len", style=dashed];
+
+  S -> S [label="id", color="#475569", fontcolor="#475569"];
+  N -> N [label="double"];
+  B -> B [label="id", color="#475569", fontcolor="#475569"];
+}

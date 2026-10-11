@@ -1,0 +1,18 @@
+error[E0382]: use of moved value: `send`
+  --> compile_fail/ch08_fnonce_twice.rs:10:18
+   |
+ 9 |     let first = send();
+   |                 ------ `send` moved due to this call
+10 |     let second = send();
+   |                  ^^^^ value used here after move
+   |
+note: closure cannot be invoked more than once because it moves the variable `report` out of its environment
+  --> compile_fail/ch08_fnonce_twice.rs:8:24
+   |
+ 8 |     let send = move || report; // returns `report`, moving it out
+   |                        ^^^^^^
+note: this value implements `FnOnce`, which causes it to be moved when called
+  --> compile_fail/ch08_fnonce_twice.rs:9:17
+   |
+ 9 |     let first = send();
+   |                 ^^^^

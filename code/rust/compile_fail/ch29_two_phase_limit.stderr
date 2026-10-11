@@ -1,0 +1,19 @@
+error[E0499]: cannot borrow `*stack` as mutable more than once at a time
+ --> compile_fail/ch29_two_phase_limit.rs:6:16
+  |
+6 |     stack.push(stack.pop().unwrap());
+  |     ----- ---- ^^^^^ second mutable borrow occurs here
+  |     |     |
+  |     |     first borrow later used by call
+  |     first mutable borrow occurs here
+  |
+help: try adding a local storing this argument...
+ --> compile_fail/ch29_two_phase_limit.rs:6:16
+  |
+6 |     stack.push(stack.pop().unwrap());
+  |                ^^^^^^^^^^^
+help: ...and then using that local as the argument to this call
+ --> compile_fail/ch29_two_phase_limit.rs:6:5
+  |
+6 |     stack.push(stack.pop().unwrap());
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,14 @@
+error[E0381]: used binding `offset` is possibly-uninitialized
+  --> compile_fail/ch29_maybe_uninit.rs:10:5
+   |
+ 6 |     let offset: i32;
+   |         ------ binding declared here but left uninitialized
+ 7 |     if warm {
+   |        ---- if this `if` condition is `false`, `offset` is not initialized
+ 8 |         offset = 2;
+ 9 |     }
+   |      - an `else` arm might be missing here, initializing `offset`
+10 |     offset
+   |     ^^^^^^ `offset` used here but it is possibly-uninitialized
+   |
+   = note: when checking initialization, the compiler describes possible control-flow paths without evaluating whether branch conditions can actually have the values shown

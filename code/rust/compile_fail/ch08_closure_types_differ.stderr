@@ -1,0 +1,25 @@
+error[E0308]: `if` and `else` have incompatible types
+ --> compile_fail/ch08_closure_types_differ.rs:9:34
+  |
+7 |     let times_k = move |x| x * k;
+  |                   -------- the expected closure
+8 |     let plus_k = move |x| x + k;
+  |                  -------- the found closure
+9 |     if double { times_k } else { plus_k }
+  |                 -------          ^^^^^^ expected closure, found a different closure
+  |                 |
+  |                 expected because of this
+  |
+  = note: expected closure `{closure@compile_fail/ch08_closure_types_differ.rs:7:19: 7:27}`
+             found closure `{closure@compile_fail/ch08_closure_types_differ.rs:8:18: 8:26}`
+  = note: no two closures, even if identical, have the same type
+  = help: consider boxing your closure and/or using it as a trait object
+help: you could change the return type to be a boxed trait object
+  |
+6 - pub fn scaler(double: bool, k: u32) -> impl Fn(u32) -> u32 {
+6 + pub fn scaler(double: bool, k: u32) -> Box<dyn Fn(u32) -> u32> {
+  |
+help: if you change the return type to expect trait objects, box the returned expressions
+  |
+9 |     if double { Box::new(times_k) } else { Box::new(plus_k) }
+  |                 +++++++++       +          +++++++++      +

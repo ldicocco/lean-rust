@@ -1,0 +1,7 @@
+Sum                trait: Sum(14)                dict: Sum(14)
+Product            trait: Product(60)            dict: Product(60)
+String             trait: "dictionary-passing"   dict: "dictionary-passing"
+Vec<i32>           trait: [1, 2, 3]              dict: [1, 2, 3]
+(Sum, Max)         trait: (Sum(14), Max(5))      dict: (Sum(14), Max(5))
+batches of Sum     trait: Sum(14)                dict: Sum(14)
+empty (Sum, Prod)  trait: (Sum(0), Product(1))   dict: (Sum(0), Product(1))

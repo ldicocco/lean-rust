@@ -1,0 +1,9 @@
+error[E0382]: use of partially moved value: `p`
+  --> compile_fail/ch22_partial_move.rs:10:9
+   |
+ 9 |     let s = p.0;
+   |             --- value partially moved here
+10 |     (s, p)
+   |         ^ value used here after partial move
+   |
+   = note: partial move occurs because `p.0` has type `String`, which does not implement the `Copy` trait

@@ -1,0 +1,9 @@
+fn send(c: Conn, msg: String) -> Conn;
+
+fn route(m: Either<String, String>, c: Conn, log: String) -> (Conn, String) {
+    let c = match m {
+        Left(order) => send(c, log),
+        Right(refund) => send(c, refund),
+    };
+    (c, log)
+}

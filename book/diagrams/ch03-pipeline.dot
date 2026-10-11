@@ -1,0 +1,20 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  text  [label="source text\n\"let x = 3 in ...\""];
+  ast   [label="abstract syntax\nExpr", fillcolor="#ffedd5", color="#c2410c"];
+  deriv [label="derivation\nΓ ⊢ e : τ", fillcolor="#dbeafe", color="#1d4ed8"];
+  terr  [label="type error\n(no derivation)", fillcolor="#fee2e2", color="#b91c1c"];
+  value [label="value\nv : τ", fillcolor="#dcfce7", color="#15803d"];
+  stuck [label="stuck", fillcolor="#fee2e2", color="#b91c1c"];
+
+  text -> ast [label="parse"];
+  ast -> deriv [label="check"];
+  ast -> terr [label="check"];
+  ast -> value [label="eval"];
+  ast -> stuck [label="eval", style=dashed];
+  deriv -> value [label="safety", style=dotted, arrowhead=none];
+}

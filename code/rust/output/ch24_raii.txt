@@ -1,0 +1,26 @@
+lock guard:
+  inside: locked by us? true
+  after the block: free? true
+  balance = 70
+transactions:
+  rollback: 1 pending row(s) discarded
+  table = ["order 1: 3 x sensor", "order 2: 1 x cable"]
+buffered writer:
+  buffered, not yet written: 17 bytes
+  after the drop, written: 17 bytes
+unwinding:
+  drop probe guard
+  caught a panic: true
+needs_drop (does the type have drop glue?):
+  u64                  false
+  &String              false
+  String               true
+  (u64, String)        true
+  Option<Box<u8>>      true
+  Noisy                true
+  ManuallyDrop<String> false
+ManuallyDrop:
+  holding wrapped
+  holding unwrapped
+  end of scope
+  drop unwrapped

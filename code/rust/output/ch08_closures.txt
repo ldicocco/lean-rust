@@ -1,0 +1,26 @@
+add_one: type ch08_closures::add_one, size 0
+table[1]: type fn(u32) -> u32, size 8
+table[1](21) = 42
+closure type: ch08_closures::main::{{closure}}
+sizes: nothing 0, by_ref 8, by_value 2, owns_label 24
+total = 245, and prices is still usable: [120, 80, 45]
+calls = 2
+sent: Q3 report
+call_twice(reads)     = 42
+call_twice_mut(reads) = 42
+call_twice_mut(bumps) = 30
+call_twice(greet)     = 10
+greet is still callable: 5
+pipeline(25000) = 23100
+size of Box<dyn Fn(u64) -> u64> = 16
+fee(3, 2000)            = 60
+fee_curried(3)(2000)    = 60
+curry(fee)(3)(2000)     = 60
+size of fee_curried(3)  = 8
+size of curry(fee)(3)   = 16 (plus a heap allocation)
+[audit] opened
+[audit] approved
+[audit] closed
+clones of the captured Tracked: 3
+size of add(3) = 8
+twice(add(3))(4) = 10

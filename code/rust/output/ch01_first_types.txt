@@ -1,0 +1,10 @@
+add(2, 3) = 5
+inside the block, width = 3
+area    = 12   : i32
+nothing = ()   : ()
+sign(-7) = negative
+sign(0) = zero
+sign(42) = positive
+parse_digit('7') = 7
+swap((1, "one")) = ("one", 1)
+sum_to(n) == gauss(n) for every n in 0..=10000

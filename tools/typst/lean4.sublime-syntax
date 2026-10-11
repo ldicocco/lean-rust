@@ -1,0 +1,51 @@
+%YAML 1.2
+---
+# A small Lean 4 grammar for Typst's syntax highlighter (used for ```lean blocks
+# in the PDF). It covers comments, strings, keywords, tactics, sorts and numbers;
+# it is deliberately simple rather than complete.
+name: Lean 4
+file_extensions: [lean, lean4]
+scope: source.lean4
+
+contexts:
+  main:
+    - match: '/-'
+      scope: punctuation.definition.comment.lean4
+      push: block_comment
+    - match: '--.*$'
+      scope: comment.line.double-dash.lean4
+    - match: '"'
+      scope: punctuation.definition.string.begin.lean4
+      push: string
+    - match: "'[^'\\\\]'"
+      scope: constant.character.lean4
+    - match: '#[a-z_]+'
+      scope: keyword.other.command.lean4
+    - match: '@\[[^\]]*\]'
+      scope: meta.attribute.lean4
+    - match: '\b(def|theorem|lemma|example|abbrev|instance|structure|class|inductive|coinductive|where|extends|deriving|namespace|section|end|open|variable|universe|import|export|private|protected|noncomputable|partial|unsafe|mutual|axiom|opaque|macro|syntax|notation|infix|infixl|infixr|prefix|postfix|set_option|attribute|local|scoped)\b'
+      scope: keyword.declaration.lean4
+    - match: '\b(fun|let|have|show|from|if|then|else|match|with|do|return|for|in|unless|try|catch|finally|mut|break|continue|by|at|calc|termination_by|decreasing_by|nomatch|nofun)\b'
+      scope: keyword.control.lean4
+    - match: '\b(intro|intros|exact|apply|refine|rfl|simp|simp_all|omega|decide|cases|rcases|obtain|induction|constructor|left|right|exists|use|rw|rewrite|unfold|subst|contradiction|exfalso|assumption|trivial|grind|aesop|split|next|case|all_goals|any_goals|repeat|first|exact\?|apply\?|specialize|generalize|injection|congr|funext|ext|norm_num|linarith|show_term|native_decide|positivity|sorry|admit)\b'
+      scope: support.function.tactic.lean4
+    - match: '\b(Prop|Type|Sort)\b'
+      scope: storage.type.lean4
+    - match: '\b[0-9]+(\.[0-9]+)?\b'
+      scope: constant.numeric.lean4
+    - match: '[∀∃λΠΣ→←↔∧∨¬≠≤≥×⟨⟩▸∘⊢⊗⊸]|=>|:=|<\|>|\|>\.|<\||\|>'
+      scope: keyword.operator.lean4
+
+  block_comment:
+    - meta_scope: comment.block.lean4
+    - match: '/-'
+      push: block_comment
+    - match: '-/'
+      pop: true
+
+  string:
+    - meta_scope: string.quoted.double.lean4
+    - match: '\\.'
+      scope: constant.character.escape.lean4
+    - match: '"'
+      pop: true

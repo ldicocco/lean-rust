@@ -1,0 +1,7 @@
+error[E0308]: mismatched types
+ --> compile_fail/ch03_infallible.rs:9:5
+  |
+8 | fn absurd(x: Infallible) -> u32 {
+  |                             --- expected `u32` because of return type
+9 |     x
+  |     ^ expected `u32`, found `Infallible`

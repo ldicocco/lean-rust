@@ -1,0 +1,9 @@
+error[E0382]: use of moved value: `log`
+ --> compile_fail/ch26_mut_ref_moves.rs:8:18
+  |
+6 | pub fn two_writers(log: &mut String) {
+  |                    --- move occurs because `log` has type `&mut String`, which does not implement the `Copy` trait
+7 |     let first = log;
+  |                 --- value moved here
+8 |     let second = log;
+  |                  ^^^ value used here after move

@@ -1,0 +1,17 @@
+let a = 42               : i32 = 42
+let b = 2.5              : f64 = 2.5
+let c = 42 (later u8)    : u8 = 42
+small                    : u8 = 42
+total (+= 3_u64)         : u64 = 3
+log                      : Vec<&str> = ["started", "stopped"]
+add_one(8079_u16)        : u16 = 8080
+identity(5)              : i32 = 5
+identity("five")         : &str = "five"
+identity::<Vec<u8>>(..)  : Vec<u8> = []
+words                    : Vec<&str> = ["to", "be", "or", "not", "to", "be"]
+distinct                 : BTreeSet<&str> = {"be", "not", "or", "to"}
+joined                   : String = "tobeornottobe"
+lengths                  : Vec<usize> = [2, 2, 2, 3, 2, 2]
+ports                    : Result<Vec<u16>, ParseIntError> = Ok([80, 443])
+bad                      : Result<Vec<u16>, ParseIntError>
+                         = Err(ParseIntError { kind: InvalidDigit })

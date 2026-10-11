@@ -1,0 +1,42 @@
+⊢ 1 + 2 : Nat   [T-Add]
+  ⊢ 1 : Nat   [T-Num]
+  ⊢ 2 : Nat   [T-Num]
+(3 rules, height 2; value 3)
+
+⊢ let x = 3 in if x == 3 then x + 1 else 0 : Nat   [T-Let]
+  ⊢ 3 : Nat   [T-Num]
+  x : Nat ⊢ if x == 3 then x + 1 else 0 : Nat   [T-If]
+    x : Nat ⊢ x == 3 : Bool   [T-Eq]
+      x : Nat ⊢ x : Nat   [T-Var]
+      x : Nat ⊢ 3 : Nat   [T-Num]
+    x : Nat ⊢ x + 1 : Nat   [T-Add]
+      x : Nat ⊢ x : Nat   [T-Var]
+      x : Nat ⊢ 1 : Nat   [T-Num]
+    x : Nat ⊢ 0 : Nat   [T-Num]
+(10 rules, height 4; value 4)
+
+⊢ let x = true in let x = 5 in x + 1 : Nat   [T-Let]
+  ⊢ true : Bool   [T-Bool]
+  x : Bool ⊢ let x = 5 in x + 1 : Nat   [T-Let]
+    x : Bool ⊢ 5 : Nat   [T-Num]
+    x : Bool, x : Nat ⊢ x + 1 : Nat   [T-Add]
+      x : Bool, x : Nat ⊢ x : Nat   [T-Var]
+      x : Bool, x : Nat ⊢ 1 : Nat   [T-Num]
+(7 rules, height 4; value 6)
+
+1 + true
+  type error: T-Add: `true` should have type Nat, but has type Bool
+  if run anyway: stuck: `1 + true` cannot use the value true
+if 1 then 2 else 3
+  type error: T-If: `1` should have type Bool, but has type Nat
+  if run anyway: stuck: `if 1 then 2 else 3` cannot use the value 1
+let x = 1 in y
+  type error: T-Var: `y` is not in the context
+  if run anyway: stuck: `y` has no value
+if 1 == 1 then 1 else false
+  type error: T-If: `1` : Nat and `false` : Bool should have the same type
+  if run anyway: value 1
+
+18446744073709551615 + 1
+  type: Nat
+  run: overflow in `18446744073709551615 + 1`

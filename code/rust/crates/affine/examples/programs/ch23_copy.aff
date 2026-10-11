@@ -1,0 +1,29 @@
+#[derive(Clone, Copy)]
+struct Point { x: i32, y: i32 }
+
+struct Reading { sensor: String, value: i32 }
+
+// A Copy struct can be used twice, and its fields read freely.
+fn mirror(p: Point) -> (Point, Point) {
+    (p, Point { x: p.y, y: p.x })
+}
+
+// Copy fields are copied out; the String field stays where it is.
+fn values(r: Reading) -> ((i32, i32), Reading) {
+    ((r.value, r.value), r)
+}
+
+// A shared reference is Copy.
+fn readers(r: &String) -> (&String, &String) {
+    (r, r)
+}
+
+// Clone is explicit, and leaves the original in place.
+fn backup(s: String) -> (String, String) {
+    (s.clone(), s)
+}
+
+// Cloning an Rc copies a pointer and counts the copies.
+fn share(cfg: Rc<Config>) -> (Rc<Config>, Rc<Config>) {
+    (cfg.clone(), cfg)
+}

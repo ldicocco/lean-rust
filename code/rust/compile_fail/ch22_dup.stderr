@@ -1,0 +1,14 @@
+error[E0382]: use of moved value: `s`
+ --> compile_fail/ch22_dup.rs:6:9
+  |
+5 | fn dup(s: String) -> (String, String) {
+  |        - move occurs because `s` has type `String`, which does not implement the `Copy` trait
+6 |     (s, s)
+  |      -  ^ value used here after move
+  |      |
+  |      value moved here
+  |
+help: consider cloning the value if the performance cost is acceptable
+  |
+6 |     (s.clone(), s)
+  |       ++++++++

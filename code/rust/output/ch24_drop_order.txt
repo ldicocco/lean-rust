@@ -1,0 +1,35 @@
+locals:
+  end of scope
+  drop c
+  drop b
+  drop a
+fields:
+  end of scope
+  drop t.0
+  drop t.1
+  drop Pair(first, second)
+  drop first
+  drop second
+temporaries:
+  drop temporary
+  after the call, len = 9
+  drop underscore
+  after `let _ =`
+  end of scope
+  drop kept
+moves (send = true):
+  consume(x)
+  drop x
+  end of scope (send = true)
+  drop y
+moves (send = false):
+  end of scope (send = false)
+  drop y
+  drop x
+early:
+  slot holds old
+  drop old
+  slot holds new
+  drop guard
+  end of scope
+  drop new

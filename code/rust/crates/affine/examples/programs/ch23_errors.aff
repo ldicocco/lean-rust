@@ -1,0 +1,21 @@
+#[derive(Clone, Copy)]
+struct Reading { sensor: String, value: f64 }
+
+#[derive(Clone, Copy)]
+struct Token { id: u64 }
+
+impl Drop for Token {}
+
+fn writers(w: &mut String) -> (&mut String, &mut String) {
+    let a = w;
+    let b = w;
+    (a, b)
+}
+
+fn backup(f: File) -> (File, File) {
+    (f.clone(), f)
+}
+
+fn share(cfg: Rc<Config>) -> (Rc<Config>, Rc<Config>) {
+    (cfg, cfg)
+}

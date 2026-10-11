@@ -1,0 +1,11 @@
+error[E0499]: cannot borrow `*accounts` as mutable more than once at a time
+ --> compile_fail/ch26_two_mut.rs:8:19
+  |
+7 |     let from = &mut accounts[0];
+  |                     -------- first mutable borrow occurs here
+8 |     let to = &mut accounts[1];
+  |                   ^^^^^^^^ second mutable borrow occurs here
+9 |     *from -= amount;
+  |     --------------- first borrow later used here
+  |
+  = help: use `.split_at_mut(position)` to obtain two mutable non-overlapping sub-slices

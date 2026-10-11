@@ -1,0 +1,17 @@
+pointer type              words
+&u32                      1
+&[u32; 4]                 1
+Box<Simple>               1
+fn(u32) -> u32            1
+&[u32]                    2
+&str                      2
+&dyn Counter              2
+&mut dyn Counter          2
+Box<dyn Counter>          2
+Rc<dyn Counter>           2
+Option<Box<dyn Counter>>  2
+&dyn Fn(u32) -> u32       2
+value  1: hidden type of size 2 and alignment 2
+value  1: hidden type of size 4 and alignment 4
+value 10: hidden type of size 8 and alignment 4
+slices of length 2 and 4: both 2 words

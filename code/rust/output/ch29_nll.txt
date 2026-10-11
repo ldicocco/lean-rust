@@ -1,0 +1,20 @@
+program                lexical      NLL, no 2PB  NLL          Polonius
+maybe_archive          ok           ok           ok           ok
+conditional_move       E0382        E0382        E0382        E0382
+first_then_push        E0502        ok           ok           ok
+still_used             E0502        E0502        E0502        E0502
+branch_borrow          E0499,E0505  ok           ok           ok
+assign_while_borrowed  E0506        E0506        E0506        E0506
+record_count           E0502        E0502        ok           ok
+rotate_top             E0499        E0499        E0499        E0499
+get_default            E0499,E0499  E0499,E0499  E0499,E0499  ok
+
+error[E0502]: cannot borrow `readings` as mutable because it is also borrowed as immutable
+ --> compile_fail/ch29_still_used.rs:8:5
+  |
+7 |     let first = &readings[0];
+  |                  -------- immutable borrow occurs here
+8 |     readings.push(40);
+  |     ^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+9 |     println!("first = {first}");
+  |                        ----- immutable borrow later used here

@@ -1,0 +1,7 @@
+first = 10
+first_then_push() = 4
+record_count() = [0]
+branch_borrow(true) = [1]
+branch_borrow(false) = [2]
+more_two_phase: v = [7, 1, 1], banner = abAB
+cache = [(1, "one!"), (2, "two")]

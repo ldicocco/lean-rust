@@ -1,0 +1,10 @@
+an i32: 42
+a String of length 6
+something else
+not_identity: 42 "unchanged" 41
+request id: Some(7)
+operator:   Some("ada")
+a u8:       None
+   215: ok: 215
+  21.5: not a number (invalid digit found in string)
+ -3000: invalid reading (below absolute zero)

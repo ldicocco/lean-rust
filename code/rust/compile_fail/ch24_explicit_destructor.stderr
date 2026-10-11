@@ -1,0 +1,11 @@
+error[E0040]: explicit use of destructor method
+  --> compile_fail/ch24_explicit_destructor.rs:15:10
+   |
+15 |     lock.drop();
+   |          ^^^^ explicit destructor calls not allowed
+   |
+help: consider using `drop` function
+   |
+15 -     lock.drop();
+15 +     drop(lock);
+   |

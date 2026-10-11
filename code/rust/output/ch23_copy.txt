@@ -1,0 +1,114 @@
+== ch23_twice.aff, pure λ^aff (Chapter 22)
+error[E0382]: use of moved value: `n`
+ --> ch23_twice.aff:2:9
+  |
+1 | fn twice(n: i32) -> (i32, i32) {
+  |          - move occurs because `n` has type `i32`, which does not implement the `Copy` trait
+2 |     (n, n)
+  |      -  ^ value used here after move
+  |      |
+  |      value moved here
+== ch23_twice.aff, with Copy (Chapter 23)
+ok: fn twice(n: i32) -> (i32, i32)
+[A-Pair] n: i32 ⊢ (n, n) : (i32, i32)
+  [A-Var] n: i32 ⊢ n : i32
+  [A-Var] n: i32 ⊢ n : i32
+== ch23_copy.aff, with Copy
+ok: fn mirror(p: Point) -> (Point, Point)
+ok: fn values(r: Reading) -> ((i32, i32), Reading)
+ok: fn readers(r: &String) -> (&String, &String)
+ok: fn backup(s: String) -> (String, String)
+ok: fn share(cfg: Rc<Config>) -> (Rc<Config>, Rc<Config>)
+== ch23_errors.aff, with Copy
+error[E0204]: the trait `Copy` cannot be implemented for this type
+ --> ch23_errors.aff:2:8
+  |
+1 | #[derive(Clone, Copy)]
+  |                 ---- in this derive macro expansion
+2 | struct Reading { sensor: String, value: f64 }
+  |        ^^^^^^^   -------------- this field does not implement `Copy`
+
+error[E0184]: the trait `Copy` cannot be implemented for this type; the type has a destructor
+ --> ch23_errors.aff:5:8
+  |
+4 | #[derive(Clone, Copy)]
+  |                 ---- in this derive macro expansion
+5 | struct Token { id: u64 }
+  |        ^^^^^ `Copy` not allowed on types with destructors
+  |
+note: destructor declared here
+ --> ch23_errors.aff:7:1
+  |
+7 | impl Drop for Token {}
+  | ^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0382]: use of moved value: `w`
+  --> ch23_errors.aff:11:13
+   |
+ 9 | fn writers(w: &mut String) -> (&mut String, &mut String) {
+   |            - move occurs because `w` has type `&mut String`, which does not implement the `Copy` trait
+10 |     let a = w;
+   |             - value moved here
+11 |     let b = w;
+   |             ^ value used here after move
+
+error[E0599]: no method named `clone` found for `File` in the current scope
+  --> ch23_errors.aff:16:8
+   |
+16 |     (f.clone(), f)
+   |        ^^^^^ method not found in `File`
+   |
+   = note: `clone` is the method of the trait `Clone`, which this type does not implement
+
+error[E0382]: use of moved value: `cfg`
+  --> ch23_errors.aff:20:11
+   |
+19 | fn share(cfg: Rc<Config>) -> (Rc<Config>, Rc<Config>) {
+   |          --- move occurs because `cfg` has type `Rc<Config>`, which does not implement the `Copy` trait
+20 |     (cfg, cfg)
+   |      ---  ^^^ value used here after move
+   |      |
+   |      value moved here
+   |
+   = help: consider cloning the value if the performance cost is acceptable
+== ch23_session.aff, with Copy
+ok: fn session(dev: Dev, ch: i32, op: String) -> ((Rec, Rec), Dev)
+[A-LetPair] dev, ch, op ⊢ let (a, dev2) = measure(dev, ch); … : ((Rec, Rec), Dev)
+  [Call] dev, ch ⊢ measure(dev, ch) : (Sample, Dev)
+    [A-Var] dev ⊢ dev : Dev
+    [A-Var] ch ⊢ ch : i32
+  [A-LetPair] ch, op, a, dev2 ⊢ let (b, dev3) = measure(dev2, ch); … : ((Rec, Rec), Dev)
+    [Call] ch, dev2 ⊢ measure(dev2, ch) : (Sample, Dev)
+      [A-Var] dev2 ⊢ dev2 : Dev
+      [A-Var] ch ⊢ ch : i32
+    [A-Pair] op, a, b, dev3 ⊢ (…, dev3) : ((Rec, Rec), Dev)
+      [A-Pair] op, a, b ⊢ (label(op.clone(), a), label(op, b)) : (Rec, Rec)
+        [Call] op, a ⊢ label(op.clone(), a) : Rec
+          [Clone] op ⊢ op.clone() : String
+          [A-Var] a ⊢ a : Sample
+        [Call] op, b ⊢ label(op, b) : Rec
+          [A-Var] op ⊢ op : String
+          [A-Var] b ⊢ b : Sample
+      [A-Var] dev3 ⊢ dev3 : Dev
+error[E0382]: use of moved value: `op`
+  --> ch23_session.aff:18:27
+   |
+15 | fn session_unlabeled(dev: Dev, ch: i32, op: String) -> ((Rec, Rec), Dev) {
+   |                                         -- move occurs because `op` has type `String`, which does not implement the `Copy` trait
+...
+18 |     ((label(op, a), label(op, b)), dev3)
+   |             --            ^^ value used here after move
+   |             |
+   |             value moved here
+   |
+   = help: consider cloning the value if the performance cost is acceptable
+
+error[E0382]: use of moved value: `dev`
+  --> ch23_session.aff:24:29
+   |
+22 | fn session_stale(dev: Dev, ch: i32, op: String) -> ((Rec, Rec), Dev) {
+   |                  --- move occurs because `dev` has type `Dev`, which does not implement the `Copy` trait
+23 |     let (a, dev2) = measure(dev, ch);
+   |                             --- value moved here
+24 |     let (b, dev3) = measure(dev, ch);
+   |                             ^^^ value used here after move

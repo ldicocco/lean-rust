@@ -1,0 +1,44 @@
+The library, with synthesized types:
+  twice  : (Nat → Nat) → Nat → Nat
+  add    : Nat → Nat → Nat
+  mul    : Nat → Nat → Nat
+  iszero : Nat → Bool
+  pred   : Nat → Nat
+  swap   : Nat × Bool → Bool × Nat
+
+Checking λf. λx. f (f x) against (Nat → Nat) → Nat → Nat:
+  ⊢ λf. λx. f (f x) ⇐ (Nat → Nat) → Nat → Nat
+    f: Nat → Nat ⊢ λx. f (f x) ⇐ Nat → Nat
+      f: Nat → Nat, x: Nat ⊢ f (f x) ⇐ Nat
+        f: Nat → Nat, x: Nat ⊢ f (f x) ⇒ Nat
+          f: Nat → Nat, x: Nat ⊢ f ⇒ Nat → Nat
+          f: Nat → Nat, x: Nat ⊢ f x ⇐ Nat
+            f: Nat → Nat, x: Nat ⊢ f x ⇒ Nat
+              f: Nat → Nat, x: Nat ⊢ f ⇒ Nat → Nat
+              f: Nat → Nat, x: Nat ⊢ x ⇐ Nat
+                f: Nat → Nat, x: Nat ⊢ x ⇒ Nat
+
+Evaluation:
+  twice (add 3) 4  :  Nat  ⇓  10
+  mul 6 7  :  Nat  ⇓  42
+  pred 10  :  Nat  ⇓  9
+  iszero 0  :  Bool  ⇓  true
+  swap (7, true)  :  Bool × Nat  ⇓  (true, 7)
+  case (inr true : Nat + Bool) of inl n => n | inr b => 1  :  Nat  ⇓  1
+  add 3  :  Nat → Nat  ⇓  <closure λn. iter m n (λk: Nat. succ k) | m = 3>
+
+Rejected by the checker:
+  3 4
+      `3` has type Nat; it is not a function
+  λx. x
+      cannot synthesize a type for `λx. x` (an unannotated λ can only be checked)
+  if true then 1 else false
+      `false` has type Bool, but Nat was expected
+  (λx. x : Nat)
+      `λx. x` is a function, but Nat was expected
+  λx: Nat → Nat. x x
+      `x` has type Nat → Nat, but Nat was expected
+
+Run without checking:
+  3 4  ⇓  stuck: cannot call 3: it is not a function
+  if 0 then 1 else 2  ⇓  stuck: `if` on 0, which is not a boolean

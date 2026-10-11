@@ -1,0 +1,27 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.6, ranksep=0.35, newrank=true];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=11];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_lft {
+    label="lifetimes: arrow = outlives"; fontname="Helvetica"; fontsize=10; color="#475569"; style="rounded";
+    s [label="'static"]; a [label="'a"]; b [label="'b"];
+  }
+  subgraph cluster_ref {
+    label="covariant &'x T: arrow = subtype of"; fontname="Helvetica"; fontsize=10; color="#15803d"; style="rounded";
+    rs [label="&'static T"]; ra [label="&'a T"]; rb [label="&'b T"];
+  }
+  subgraph cluster_fn {
+    label="contravariant fn(&'x T): arrows reversed"; fontname="Helvetica"; fontsize=10; color="#1d4ed8"; style="rounded";
+    fs [label="fn(&'static T)"]; fa [label="fn(&'a T)"]; fb [label="fn(&'b T)"];
+  }
+  { rank=same; s; a; b; }
+  { rank=same; rs; ra; rb; }
+  { rank=same; fs; fa; fb; }
+  s -> a -> b;
+  rs -> ra -> rb;
+  fs -> fa [dir=back];
+  fa -> fb [dir=back];
+  s -> rs [style=invis]; a -> ra [style=invis]; b -> rb [style=invis];
+  rs -> fs [style=invis]; ra -> fa [style=invis]; rb -> fb [style=invis];
+}

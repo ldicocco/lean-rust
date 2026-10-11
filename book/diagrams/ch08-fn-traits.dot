@@ -1,0 +1,23 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#c2410c", fillcolor="#ffedd5", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_once {
+    label="FnOnce: call(self), at most once";
+    style="rounded,filled"; color="#b91c1c"; fillcolor="#fff7f7"; fontcolor="#b91c1c";
+    send [label="move || report\n(moves a capture out)"];
+    subgraph cluster_mut {
+      label="FnMut: call(&mut self), many times, one at a time";
+      style="rounded,filled"; color="#b91c1c"; fillcolor="#fee2e2"; fontcolor="#b91c1c";
+      count [label="|| count += 1\n(mutates a capture)"];
+      subgraph cluster_fn {
+        label="Fn: call(&self), many times, even at once";
+        style="rounded,filled"; color="#b91c1c"; fillcolor="#fecaca"; fontcolor="#b91c1c";
+        reads [label="|| base + 1\n(only reads)"];
+        item  [label="fn items and\nfn pointers", fillcolor="#f1f5f9", color="#475569"];
+      }
+    }
+  }
+}

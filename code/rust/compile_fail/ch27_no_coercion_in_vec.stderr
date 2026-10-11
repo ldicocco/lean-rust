@@ -1,0 +1,10 @@
+error[E0308]: mismatched types
+ --> compile_fail/ch27_no_coercion_in_vec.rs:7:5
+  |
+6 | pub fn names(owned: Vec<&String>) -> Vec<&str> {
+  |                                      --------- expected `Vec<&str>` because of return type
+7 |     owned
+  |     ^^^^^ expected `Vec<&str>`, found `Vec<&String>`
+  |
+  = note: expected struct `Vec<&str>`
+             found struct `Vec<&String>`

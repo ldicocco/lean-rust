@@ -1,0 +1,49 @@
+error: infinite type: `a` would have to equal `a -> b`
+ --> self-application:1:10
+  |
+1 | fun x -> x x
+  |          ^^^ in this application
+  |
+  = note: the function `x` has type `a`
+  = note: its argument `x` has type `a`
+  = note: no finite type satisfies `a = a -> b` (the occurs check)
+
+error: mismatched types
+ --> fun-bound:1:22
+  |
+1 | (fun id -> (id 1, id true)) (fun x -> x)
+  |                   -- ^^^^ expected `Int`, found `Bool`
+  |                   |
+  |                   this function has type `Int -> a`
+  |
+  = note: `id` is a parameter of `fun`, so all its uses share one type
+  = help: bind `id` with `let` to make it polymorphic
+
+error: mismatched types
+ --> not-generalized:1:31
+  |
+1 | fun x -> let y = x in (y 1, y true)
+  |                             - ^^^^ expected `Int`, found `Bool`
+  |                             |
+  |                             this function has type `Int -> a`
+  |
+  = note: `y` was not generalized: its type variables occur in the environment
+
+error: `if` and `else` have incompatible types
+ --> branches:1:27
+  |
+1 | fun b -> if b then 1 else false
+  |                    -      ^^^^^ expected `Int`, found `Bool`
+  |                    |
+  |                    expected because of this
+
+error: mismatched types
+ --> polymorphic-recursion:1:43
+  |
+1 | let rec f x = if true then 0 else f 1 + f true in f
+  |                                         - ^^^^ expected `Int`, found `Bool`
+  |                                         |
+  |                                         this function has type `Int -> Int`
+  |
+  = note: `f` is used in its own definition, where it is not yet polymorphic
+

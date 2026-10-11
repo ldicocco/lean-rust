@@ -1,0 +1,8 @@
+⊗: Coffee { paid_with: 1 } and Tea { paid_with: 2 }
+&: chose Tea { paid_with: 3 }
+&: chose Coffee { paid_with: 4 }
+&: chose Coffee { paid_with: 5 } and Tea { paid_with: 6 }
+⊕: served tea (coin 7), filed 107
+⊕: served coffee (coin 8), filed 108
+⊸: Coffee { paid_with: 9 }
+1: a coin discarded, () returned

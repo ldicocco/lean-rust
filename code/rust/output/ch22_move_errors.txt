@@ -1,0 +1,63 @@
+error[E0382]: use of moved value: `s`
+ --> ch22_dup.aff:2:9
+  |
+1 | fn dup(s: String) -> (String, String) {
+  |        - move occurs because `s` has type `String`, which does not implement the `Copy` trait
+2 |     (s, s)
+  |      -  ^ value used here after move
+  |      |
+  |      value moved here
+
+error[E0382]: use of moved value: `c`
+ --> ch22_coin.aff:5:29
+  |
+4 | fn both(c: Coin) -> (Coffee, Tea) {
+  |         - move occurs because `c` has type `Coin`, which does not implement the `Copy` trait
+5 |     (buy_coffee(c), buy_tea(c))
+  |                 -           ^ value used here after move
+  |                 |
+  |                 value moved here
+
+error[E0382]: use of moved value: `log`
+ --> ch22_route.aff:8:9
+  |
+3 | fn route(m: Either<String, String>, c: Conn, log: String) -> (Conn, String) {
+  |                                              --- move occurs because `log` has type `String`, which does not implement the `Copy` trait
+4 |     let c = match m {
+5 |         Left(order) => send(c, log),
+  |                                --- value moved here
+...
+8 |     (c, log)
+  |         ^^^ value used here after move
+
+error[E0382]: use of partially moved value: `p`
+ --> ch22_split.aff:3:9
+  |
+2 |     let s = p.0;
+  |             --- value partially moved here
+3 |     (s, p)
+  |         ^ value used here after partial move
+  |
+  = note: partial move occurs because `p.0` has type `String`, which does not implement the `Copy` trait
+
+error[E0382]: use of moved value: `msg`
+ --> ch22_capture.aff:5:9
+  |
+3 | fn capture(c: Conn, msg: String) -> (FnOnce(()) -> Conn, String) {
+  |                     --- move occurs because `msg` has type `String`, which does not implement the `Copy` trait
+4 |     let f = |u: ()| send(c, msg);
+  |             -------         --- variable moved due to use in closure
+  |             |
+  |             value moved into closure here
+5 |     (f, msg)
+  |         ^^^ value used here after move
+
+error[E0382]: use of moved value: `f`
+ --> ch22_twice.aff:2:12
+  |
+1 | fn twice(f: FnOnce(String) -> Conn, a: String, b: String) -> (Conn, Conn) {
+  |          - move occurs because `f` has type `FnOnce(String) -> Conn`, which does not implement the `Copy` trait
+2 |     (f(a), f(b))
+  |      ----  ^ value used here after move
+  |      |
+  |      `f` moved due to this call

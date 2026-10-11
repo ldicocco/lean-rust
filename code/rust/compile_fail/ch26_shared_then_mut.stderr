@@ -1,0 +1,9 @@
+error[E0502]: cannot borrow `*orders` as mutable because it is also borrowed as immutable
+ --> compile_fail/ch26_shared_then_mut.rs:8:5
+  |
+7 |     let first = &orders[0];
+  |                  ------ immutable borrow occurs here
+8 |     orders.push(99);
+  |     ^^^^^^^^^^^^^^^ mutable borrow occurs here
+9 |     println!("first order: {first}");
+  |                             ----- immutable borrow later used here

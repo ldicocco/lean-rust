@@ -1,0 +1,21 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.5, ranksep=0.5];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#c2410c", fillcolor="#ffedd5", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  t   [label="(λx. x x) ((λy. y) z)"];
+  u   [label="((λy. y) z) ((λy. y) z)"];
+  v   [label="(λx. x x) z"];
+  w1  [label="z ((λy. y) z)"];
+  w2  [label="((λy. y) z) z"];
+  nf  [label="z z", fillcolor="#dcfce7", color="#15803d"];
+
+  t -> u  [label=" outer redex first"];
+  t -> v  [label=" argument first"];
+  u -> w1;
+  u -> w2;
+  w1 -> nf;
+  w2 -> nf;
+  v -> nf;
+}

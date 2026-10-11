@@ -1,0 +1,24 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.45, ranksep=0.5, rankdir=BT];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_two {
+    label="two worlds: refutes P ∨ ¬P, ¬¬P → P, Peirce"; fontname="Helvetica"; fontsize=11;
+    color="#cbd5e1"; style="rounded";
+    now   [label="now\nnothing known\n⊩ ¬¬P,  ⊮ P,  ⊮ ¬P", fillcolor="#dbeafe", color="#1d4ed8"];
+    later [label="later\nP known\n⊩ P", fillcolor="#dbeafe", color="#1d4ed8"];
+    now -> later [label=" ≤ "];
+  }
+
+  subgraph cluster_fork {
+    label="a fork: refutes ¬(P ∧ Q) → ¬P ∨ ¬Q"; fontname="Helvetica"; fontsize=11;
+    color="#cbd5e1"; style="rounded";
+    root  [label="root\nnothing known\n⊩ ¬(P ∧ Q),  ⊮ ¬P,  ⊮ ¬Q", fillcolor="#dbeafe", color="#1d4ed8"];
+    left  [label="left\nP known\n⊩ ¬Q", fillcolor="#dbeafe", color="#1d4ed8"];
+    right [label="right\nQ known\n⊩ ¬P", fillcolor="#dbeafe", color="#1d4ed8"];
+    root -> left [label=" ≤ "];
+    root -> right [label=" ≤ "];
+  }
+}

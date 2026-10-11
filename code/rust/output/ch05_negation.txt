@@ -1,0 +1,9 @@
+size_of::<Void>() = 0
+size_of::<Infallible>() = 0
+parse_name("  Ada ").0 = "ada"
+only_none(None) = None
+digit_value('7') = 7
+k received Right(refutation)
+k applies the refutation to 42
+k received Left(42)
+result: A holds, witness 42

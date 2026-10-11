@@ -1,0 +1,5 @@
+# The book shows real compiler diagnostics, so the exact compiler is pinned.
+# rustup installs it automatically the first time you run cargo here.
+[toolchain]
+channel = "1.99.0"
+components = ["rustfmt"]

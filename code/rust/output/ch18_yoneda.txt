@@ -1,0 +1,8 @@
+Value(42).run(show) = <42>
+lower_cps(Value(42)) = 42
+lower_cps(Deferred(|| 6 * 7)) = 42
+lower(Lift([3, 1, 2])) = [3, 1, 2]
+Countdown(3).run(show)        = ["<3>", "<2>", "<1>"]
+Lift(lower(Countdown(3))).run = ["<3>", "<2>", "<1>"]
+Picky([3, 1, 2]).run(show)        = []
+Lift(lower(Picky([3, 1, 2]))).run = ["<3>", "<1>", "<2>"]

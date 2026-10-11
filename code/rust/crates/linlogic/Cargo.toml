@@ -1,0 +1,7 @@
+[package]
+name = "linlogic"
+description = "Proof search in the sequent calculus of linear and affine propositional logic."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true

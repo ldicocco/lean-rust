@@ -1,0 +1,15 @@
+error[E0382]: use of moved value: `offer`
+  --> compile_fail/ch21_offer_twice.rs:31:22
+   |
+30 | pub fn both(offer: Offer) -> (Coffee, Tea) {
+   |             ----- move occurs because `offer` has type `Offer`, which does not implement the `Copy` trait
+31 |     (offer.coffee(), offer.tea())
+   |            --------  ^^^^^ value used here after move
+   |            |
+   |            `offer` moved due to this method call
+   |
+note: `Offer::coffee` takes ownership of the receiver `self`, which moves `offer`
+  --> compile_fail/ch21_offer_twice.rs:18:19
+   |
+18 |     pub fn coffee(self) -> Coffee {
+   |                   ^^^^

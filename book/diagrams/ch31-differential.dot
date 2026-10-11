@@ -1,0 +1,24 @@
+// Model in Lean, implement in Rust: how the verified model's outputs reach
+// the Rust tests.
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  spec   [label="specification\nsorted ∧ permutation\nfound ↔ present", fillcolor="#dbeafe", color="#1d4ed8"];
+  model  [label="Lean model\nisort, search", fillcolor="#f3e8ff", color="#7e22ce"];
+  proofs [label="theorems\n(checked by the kernel)", fillcolor="#dbeafe", color="#1d4ed8"];
+  table  [label="expected outputs\n#eval + #guard_msgs\nDifferential.lean", fillcolor="#f3e8ff", color="#7e22ce"];
+  rust   [label="Rust implementation\ninsertion_sort,\nbinary_search", fillcolor="#fee2e2", color="#b91c1c"];
+  diff   [label="differential test\n24 cases", fillcolor="#ffedd5", color="#c2410c"];
+  prop   [label="property tests\n10,000 random lists", fillcolor="#ffedd5", color="#c2410c"];
+
+  spec -> proofs [label="stated as types"];
+  model -> proofs [label="satisfies"];
+  model -> table [label="runs on fixed inputs"];
+  table -> diff [label="include_str!"];
+  rust -> diff;
+  rust -> prop;
+  spec -> prop [style=dashed, label="checked on samples"];
+}

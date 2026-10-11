@@ -1,0 +1,28 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.3, ranksep=0.35, rankdir=TB];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  src   [label="source text", fillcolor="#ffedd5", color="#c2410c"];
+  ast   [label="AST\nmacro expansion, name resolution"];
+  hir   [label="HIR\ndesugared: for, ?, if let, method calls"];
+  tc    [label="type checking on HIR\ntypes inferred; lifetimes in bodies left open", fillcolor="#dcfce7", color="#15803d"];
+  thir  [label="THIR\nfully typed, explicit autoref and deref"];
+  mir   [label="MIR (built)\nbasic blocks, places, StorageLive/Dead, drop", fillcolor="#fee2e2", color="#b91c1c"];
+  bck   [label="borrow checker on MIR\nmove analysis · liveness\nregion inference · loans and conflicts", fillcolor="#fee2e2", color="#b91c1c", style="rounded,filled,bold"];
+  opt   [label="drop elaboration (drop flags)\nMIR optimizations"];
+  llvm  [label="LLVM IR → machine code"];
+
+  e_tc   [shape=plaintext, style="", label="E0308, E0282, E0599 ..."];
+  e_thir [shape=plaintext, style="", label="E0004 (non-exhaustive match)"];
+  e_bck  [shape=plaintext, style="", label="E0382, E0499, E0502,\nE0505, E0506, E0597 ..."];
+
+  src -> ast -> hir -> tc -> thir -> mir -> bck -> opt -> llvm;
+  tc -> e_tc [style=dashed, arrowhead=none];
+  thir -> e_thir [style=dashed, arrowhead=none];
+  bck -> e_bck [style=dashed, arrowhead=none];
+  {rank=same; tc; e_tc}
+  {rank=same; thir; e_thir}
+  {rank=same; bck; e_bck}
+}

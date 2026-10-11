@@ -1,0 +1,55 @@
+== One run, step by step ==
+   (λ:(nat → nat). λ:nat. #1 (#1 #0)) (λ:nat. #0 + 2) 3  : nat
+⟶  (λ:nat. (λ:nat. #0 + 2) ((λ:nat. #0 + 2) #0)) 3  : nat
+      by E-AppL(E-Beta)
+⟶  (λ:nat. #0 + 2) ((λ:nat. #0 + 2) 3)  : nat
+      by E-Beta
+⟶  (λ:nat. #0 + 2) (3 + 2)  : nat
+      by E-AppR(E-Beta)
+⟶  (λ:nat. #0 + 2) 5  : nat
+      by E-AppR(E-AddLit)
+⟶  5 + 2  : nat
+      by E-Beta
+⟶  7  : nat
+      by E-AddLit
+   (a value)
+
+== Ill-typed terms ==
+true + 1
+   rejected: the left operand of `+` should be nat, found bool
+   it is stuck at true + 1 after 0 steps
+(λ:nat. #0 + 1) true
+   rejected: the argument should be nat, found bool
+   it is stuck at true + 1 after 1 step
+if true then 1 else false
+   rejected: the branches of `if` differ: nat and bool
+   it reaches the value 1 in 1 step
+(λ:bool. #0 #0) (λ:bool. #0 #0)
+   rejected: applying a non-function of type bool
+   it is still running after 100 steps
+
+== Property test: random well-typed terms ==
+terms        : 10000 (seed 2024)
+types        : 3389 bool, 3263 nat, 3348 function
+largest term : 68 constructors
+steps        : 32305 in total, longest run 19
+progress     : held in all 42305 states visited
+preservation : held for all 32305 steps
+determinism  : one rule at most in every state, as the evaluator chose
+
+== Random closed terms, ignoring types ==
+well typed   : 3380
+ill typed    : 6620
+   stuck              : 5299
+   reached a value    : 1321
+   ran out of fuel    : 0
+
+== The same test, with the broken rule for `if` ==
+term #3 (29 constructors) violates preservation
+shrunk to    : if false then 0 else false : nat
+   preservation fails: if false then 0 else false : nat  ⟶  false : bool
+and the counterexample from Safety.lean:
+   (if false then 1 else true) + 2  : nat
+⟶  true + 2  : ill typed: the left operand of `+` should be nat, found bool
+      by E-AddL(E-IfFalse)
+   (stuck)

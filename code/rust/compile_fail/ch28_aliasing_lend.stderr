@@ -1,0 +1,23 @@
+error[E0382]: use of moved value: `v`
+  --> compile_fail/ch28_aliasing_lend.rs:20:31
+   |
+19 | pub fn aliasing_lend(v: Box<Vec<i32>>) -> i32 {
+   |                      - move occurs because `v` has type `Box<Vec<i32>>`, which does not implement the `Copy` trait
+20 |     let (_v, first) = lend(v, |f| {
+   |                            -  ^^^ value used here after move
+   |                            |
+   |                            value moved here
+21 |         let (_v2, ()) = lend_mut(v, |m| m.push(4));
+   |                                  - use occurs due to use in closure
+   |
+note: consider changing this parameter type in function `lend` to borrow instead if owning the value isn't necessary
+  --> compile_fail/ch28_aliasing_lend.rs:5:22
+   |
+ 5 | fn lend<T, S>(owner: Box<T>, body: impl for<'a> FnOnce(&'a T) -> S) -> (Box<T>, S) {
+   |    ----              ^^^^^^ this parameter takes ownership of the value
+   |    |
+   |    in this function
+help: consider cloning the value if the performance cost is acceptable
+   |
+20 |     let (_v, first) = lend(v.clone(), |f| {
+   |                             ++++++++

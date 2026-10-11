@@ -1,0 +1,19 @@
+# The root package holds the single-file examples (examples/chNN_*.rs); the
+# crates in crates/ are the larger programs: the toy languages, checkers and
+# analyses that the book builds. Everything uses the standard library only.
+[package]
+name = "book-examples"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+publish = false

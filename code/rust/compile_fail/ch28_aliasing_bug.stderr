@@ -1,0 +1,9 @@
+error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
+  --> compile_fail/ch28_aliasing_bug.rs:9:5
+   |
+ 8 |     let first: &i32 = &v[0];
+   |                        - immutable borrow occurs here
+ 9 |     v.push(4);
+   |     ^^^^^^^^^ mutable borrow occurs here
+10 |     println!("{first}");
+   |                ----- immutable borrow later used here

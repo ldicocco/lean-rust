@@ -1,0 +1,16 @@
+error[E0308]: mismatched types
+  --> compile_fail/ch17_gat_composition.rs:19:13
+   |
+12 | fn comp_law<F, B, C>(x: F, f: impl Fn(F::Elem) -> B, g: impl Fn(B) -> C) -> bool
+   |             - expected this type parameter
+...
+19 |     once == twice
+   |             ^^^^^ expected type parameter `F`, found associated type
+   |
+   = note: expected associated type `<F as Functor>::Wrapped<_>`
+              found associated type `<<F as Functor>::Wrapped<B> as Functor>::Wrapped<_>`
+   = note: an associated type was expected, but a different one was found
+help: consider further restricting this bound
+   |
+14 |     F: Functor<Wrapped<B> = F> + Clone,
+   |               ++++++++++++++++

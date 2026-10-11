@@ -1,0 +1,11 @@
+program              rustc   the calculus
+twice                ok      ok: Unit
+aliasing             E0502   error: `v` is used while it is borrowed
+read_then_push       ok      ok: Int
+two_mut              E0499   error: `v` is used while it is borrowed
+dangling             E0505   error: borrowed value does not live long enough
+drop_while_borrowed  E0505   error: `b` is used while it is borrowed
+use_after_move       E0382   error: use of moved value: `b`
+share                ok      ok: &'a Int ⊗ &'a Int
+move_out             E0507   error: cannot move out of a shared reference
+write_shared         E0594   error: cannot assign through a shared reference

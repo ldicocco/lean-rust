@@ -1,0 +1,18 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  goal  [label="v : Box Int ⊢ borrow f = &'a v in …\nonly rule T-Borrow applies", fillcolor="#ffedd5", color="#c2410c"];
+  ctx   [label="Γ = v : Box Int\nsplit into Γ₁ ⊎ Γ₂", fillcolor="#dbeafe", color="#1d4ed8"];
+  left  [label="Γ₁ ⊢ v : Box Int\nthe borrowed owner needs v", fillcolor="#ffedd5", color="#c2410c"];
+  right [label="Γ₂, f : &'a Int ⊢ … &'b mut v … *f\nthe body needs v too", fillcolor="#ffedd5", color="#c2410c"];
+  no    [label="v in both Γ₁ and Γ₂ requires Copy(Box Int),\nwhich does not hold: no split, no derivation", fillcolor="#fee2e2", color="#b91c1c"];
+
+  goal -> ctx;
+  ctx -> left [label=" v ∈ Γ₁"];
+  ctx -> right [label=" v ∈ Γ₂"];
+  left -> no [style=dashed];
+  right -> no [style=dashed];
+}

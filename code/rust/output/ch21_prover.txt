@@ -1,0 +1,51 @@
+sequent                            linear  affine  shows
+A ⊢ A ⊗ A                          no      no      contraction
+A ⊗ B ⊢ A                          no      yes     weakening
+A & B ⊢ A                          yes     yes     a choice
+A ⊢ A & A                          yes     yes     sharing
+A ⊗ B ⊢ B ⊗ A                      yes     yes     exchange
+A ⊗ B ⊢ A & B                      no      yes     & from ⊗ needs weakening
+A & B ⊢ A ⊗ B                      no      no      ⊗ from & needs contraction
+A ⊢ B ⊸ A                          no      yes     the K combinator
+A ⊸ A ⊸ B ⊢ A ⊸ B                  no      no      the W combinator
+A ⊸ B ⊸ C ⊢ (A ⊗ B) ⊸ C            yes     yes     currying
+⊤ ⊢ 1                              no      yes     1 from ⊤ needs weakening
+A ⊗ (B ⊕ C) ⊢ (A ⊗ B) ⊕ (A ⊗ C)    yes     yes     distributivity
+
+lin  aff  sequent
+yes  yes  coin, coin ⊸ (coffee & tea) ⊢ coffee
+no   no   coin, coin ⊸ (coffee & tea) ⊢ coffee ⊗ tea
+yes  yes  coin, coin, coin ⊸ (coffee & tea), coin ⊸ (coffee & tea) ⊢ coffee ⊗ tea
+no   no   coin, coin ⊸ (coffee ⊕ tea) ⊢ coffee
+yes  yes  coin, coin ⊸ (coffee ⊕ tea) ⊢ coffee ⊕ tea
+
+linear proof of A ⊗ B ⊢ B ⊗ A:
+⊗L   A ⊗ B ⊢ B ⊗ A
+⊗R     A, B ⊢ B ⊗ A
+Ax       B ⊢ B
+Ax       A ⊢ A
+
+affine proof of A ⊗ B ⊢ A:
+⊗L   A ⊗ B ⊢ A
+W      A, B ⊢ A
+Ax       A ⊢ A
+
+linear proof of coin, coin ⊸ (coffee & tea) ⊢ coffee:
+⊸L   coin, coin ⊸ (coffee & tea) ⊢ coffee
+Ax     coin ⊢ coin
+&L1    coffee & tea ⊢ coffee
+Ax       coffee ⊢ coffee
+
+no linear proof of A ⊢ A ⊗ A; the rules that apply:
+  ⊗R   ⊢ A (fails);  A ⊢ A (provable)
+  ⊗R   A ⊢ A (provable);  ⊢ A (fails)
+  (3 sequents examined)
+
+no linear proof of coin, coin ⊸ (coffee & tea) ⊢ coffee ⊗ tea; the rules that apply:
+  ⊗R   ⊢ coffee (fails);  coin, coin ⊸ (coffee & tea) ⊢ tea (provable)
+  ⊗R   coin ⊢ coffee (fails);  coin ⊸ (coffee & tea) ⊢ tea (fails)
+  ⊗R   coin ⊸ (coffee & tea) ⊢ coffee (fails);  coin ⊢ tea (fails)
+  ⊗R   coin, coin ⊸ (coffee & tea) ⊢ coffee (provable);  ⊢ tea (fails)
+  ⊸L   ⊢ coin (fails);  coin, coffee & tea ⊢ coffee ⊗ tea (fails)
+  ⊸L   coin ⊢ coin (provable);  coffee & tea ⊢ coffee ⊗ tea (fails)
+  (26 sequents examined)

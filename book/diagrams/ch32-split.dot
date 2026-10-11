@@ -1,0 +1,23 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.5];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  whole [label="slice: &'a mut [T]\nptArr l vs", fillcolor="#fee2e2", color="#b91c1c"];
+  left  [label="left: &'a mut [T]\nptArr l (take mid vs)", fillcolor="#fee2e2", color="#b91c1c"];
+  right [label="right: &'a mut [T]\nptArr (l + mid) (drop mid vs)", fillcolor="#fee2e2", color="#b91c1c"];
+  mem   [shape=plaintext, style="", margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="6" color="#15803d">
+      <tr>
+        <td port="a" bgcolor="#dcfce7">l</td><td bgcolor="#dcfce7">l+1</td><td bgcolor="#dcfce7">l+2</td>
+        <td port="b" bgcolor="#dbeafe">l+3</td><td bgcolor="#dbeafe">l+4</td><td bgcolor="#dbeafe">l+5</td>
+        <td bgcolor="#dbeafe">l+6</td><td bgcolor="#dbeafe">l+7</td>
+      </tr>
+    </table>>];
+
+  whole -> left  [label="split (∗)"];
+  whole -> right [label="split (∗)"];
+  left  -> mem:a [style=dashed, label="owns [0, mid)"];
+  right -> mem:b [style=dashed, label="owns [mid, len)"];
+}

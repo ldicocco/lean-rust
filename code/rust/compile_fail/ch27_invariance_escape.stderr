@@ -1,0 +1,17 @@
+error[E0521]: borrowed data escapes outside of function
+ --> compile_fail/ch27_invariance_escape.rs:8:5
+  |
+7 | pub fn remember(log: &mut Vec<&'static str>, line: &str) {
+  |                 ---                          ----  - let's call the lifetime of this reference `'1`
+  |                 |                            |
+  |                 |                            `line` is a reference that is only valid in the function body
+  |                 `log` declared here, outside of the function body
+8 |     log.push(line);
+  |     ^^^^^^^^^^^^^^
+  |     |
+  |     `line` escapes the function body here
+  |     argument requires that `'1` must outlive `'static`
+  |
+  = note: requirement occurs because of a mutable reference to `Vec<&str>`
+  = note: mutable references are invariant over their type parameter
+  = help: see <https://doc.rust-lang.org/nomicon/subtyping.html> for more information about variance

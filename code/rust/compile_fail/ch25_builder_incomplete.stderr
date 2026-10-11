@@ -1,0 +1,10 @@
+error[E0599]: no method named `build` found for struct `RequestBuilder<Method, NoUrl>` in the current scope
+  --> compile_fail/ch25_builder_incomplete.rs:41:41
+   |
+10 | pub struct RequestBuilder<M, U> {
+   | ------------------------------- method `build` not found for this struct
+...
+41 |     RequestBuilder::new().method("GET").build()
+   |                                         ^^^^^ method not found in `RequestBuilder<Method, NoUrl>`
+   |
+   = note: the method was found for `RequestBuilder<Method, Url>`

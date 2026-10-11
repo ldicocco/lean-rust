@@ -1,0 +1,12 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=1.4, ranksep=0.9];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=12];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  { rank=same; AB [label="A × B"]; EB [label="(B → C) × B"]; }
+  C [label="C"];
+
+  AB -> EB [label="  curry f × id  ", style=dashed, color="#c2410c", fontcolor="#c2410c"];
+  EB -> C  [label="  eval  "];
+  AB -> C  [label="  f  "];
+}

@@ -1,0 +1,33 @@
+== principal types ==
+fun x -> x
+  : forall a. a -> a
+fun x y -> x
+  : forall a b. a -> b -> a
+fun f x -> f (f x)
+  : forall a. (a -> a) -> a -> a
+fun f g x -> f (g x)
+  : forall a b c. (a -> b) -> (c -> a) -> c -> b
+fun p -> (snd p, fst p)
+  : forall a b. a * b -> b * a
+fun x -> x + 1
+  : Int -> Int
+let rec length xs =
+  if null xs then 0 else 1 + length (tail xs)
+in length
+  : forall a. List a -> Int
+let rec map f xs =
+  if null xs then [] else f (head xs) :: map f (tail xs)
+in map
+  : forall a b. (a -> b) -> List a -> List b
+let rec map f xs =
+  if null xs then [] else f (head xs) :: map f (tail xs)
+in map (fun n -> n < 3) [1, 2, 3]
+  : List Bool
+
+== let versus fun ==
+let id = fun x -> x in (id 1, id true)
+  : Int * Bool
+(fun id -> (id 1, id true)) (fun x -> x)
+  error: mismatched types
+fun x -> let y = x in (y 1, y true)
+  error: mismatched types

@@ -1,0 +1,10 @@
+error[E0499]: cannot borrow `counter` as mutable more than once at a time
+  --> compile_fail/ch26_data_race.rs:11:18
+   |
+10 |     let first = &mut counter;
+   |                 ------------ first mutable borrow occurs here
+11 |     let second = &mut counter;
+   |                  ^^^^^^^^^^^^ second mutable borrow occurs here
+12 |     thread::scope(|s| {
+13 |         s.spawn(move || *first += 1);
+   |                         ------ first borrow later captured here by closure

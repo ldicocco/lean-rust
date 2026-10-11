@@ -1,0 +1,14 @@
+reverse:  ([4, 3, 2, 1], ["gamma", "beta", "alpha"])
+take 2:   ([1, 2], ["alpha", "beta"])
+rotate 1: ([2, 3, 4, 1], ["beta", "gamma", "alpha"])
+host = "db.internal"; port = 5432; verbose = false; retries = [100, 200, 400]
+inline bytes of the fields: 51
+2 + 3 = 5
+2 * 3 = 6
+>ababab
+2^3 = 8
+self-application: still the identity
+trim:       11
+first word: 5
+with sugar: 5
+fn pointer: 3

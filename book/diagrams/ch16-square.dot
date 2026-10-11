@@ -1,0 +1,13 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=1.4, ranksep=0.8];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=12, fontcolor="#15803d"];
+  edge  [color="#c2410c", fontname="Helvetica", fontsize=10, arrowsize=0.7, fontcolor="#c2410c"];
+
+  { rank=same; LL [label="List ℕ × List ℕ"]; L [label="List ℕ"]; }
+  { rank=same; NN [label="ℕ × ℕ"]; N [label="ℕ"]; }
+
+  LL -> L  [label="appendPair"];
+  LL -> NN [label="lengths"];
+  L  -> N  [label="length"];
+  NN -> N  [label="addPair"];
+}

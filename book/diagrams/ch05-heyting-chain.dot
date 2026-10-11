@@ -1,0 +1,21 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.6, ranksep=0.4, rankdir=BT];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_bool {
+    label="Bool (Boolean)"; fontname="Helvetica"; fontsize=11; color="#cbd5e1"; style="rounded";
+    f [label="false\n¬false = true", fillcolor="#dcfce7", color="#15803d"];
+    t [label="true\n¬true = false", fillcolor="#dcfce7", color="#15803d"];
+    f -> t [arrowhead=none];
+  }
+
+  subgraph cluster_three {
+    label="Three (Heyting, not Boolean)"; fontname="Helvetica"; fontsize=11; color="#cbd5e1"; style="rounded";
+    z [label="0\n¬0 = 1", fillcolor="#dcfce7", color="#15803d"];
+    h [label="½\n¬½ = 0,  ¬¬½ = 1\n½ ∨ ¬½ = ½", fillcolor="#fee2e2", color="#b91c1c"];
+    o [label="1\n¬1 = 0", fillcolor="#dcfce7", color="#15803d"];
+    z -> h -> o [arrowhead=none];
+  }
+}

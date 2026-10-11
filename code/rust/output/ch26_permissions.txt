@@ -1,0 +1,8 @@
+share                  ok
+dangling               event 2: cannot free `reading` while `r` is live
+shared_then_mut        event 2: cannot write `orders` while `first` is live
+copy_out_first         ok
+two_mut                event 2: cannot borrow `accounts` uniquely while `from` is live
+iterator_invalidation  event 3: cannot write `orders` while `iter` is live
+write_through_shared   event 2: cannot write through shared loan `r`
+lend_and_return        ok

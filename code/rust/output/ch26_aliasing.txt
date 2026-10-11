@@ -1,0 +1,14 @@
+r1 = "sensor report", r2 = "sensor report", same address: true
+max Some(15), min Some(11), total 38
+first order: 120, now 4 orders
+orders after repeating the large ones: [120, 80, 300, 99, 120, 300]
+accounts after transfer: [70, 80]
+counters from two threads: [10, 20]
+longer: north station
+tokens: ["GET", "/index.html", "HTTP/1.1"]
+pick: default
+threshold = 17
+statics: 30
+thermometer: read twice through two shared references, 2 reads, sum 84
+while reading: try_borrow_mut is Err(BorrowMutError)
+after the reader is gone: ["boot", "ready"]

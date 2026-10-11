@@ -1,0 +1,23 @@
+error[E0382]: borrow of moved value: `job`
+  --> compile_fail/ch29_conditional_move.rs:14:5
+   |
+10 |     let job = String::from("backup");
+   |         --- move occurs because `job` has type `String`, which does not implement the `Copy` trait
+11 |     if urgent {
+12 |         archive(job);
+   |                 --- value moved here
+13 |     }
+14 |     job.len()
+   |     ^^^ value borrowed here after move
+   |
+note: consider changing this parameter type in function `archive` to borrow instead if owning the value isn't necessary
+  --> compile_fail/ch29_conditional_move.rs:4:17
+   |
+ 4 | fn archive(job: String) -> usize {
+   |    -------      ^^^^^^ this parameter takes ownership of the value
+   |    |
+   |    in this function
+help: consider cloning the value if the performance cost is acceptable
+   |
+12 |         archive(job.clone());
+   |                    ++++++++

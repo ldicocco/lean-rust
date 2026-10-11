@@ -1,0 +1,3 @@
+fn twice(f: FnOnce(String) -> Conn, a: String, b: String) -> (Conn, Conn) {
+    (f(a), f(b))
+}

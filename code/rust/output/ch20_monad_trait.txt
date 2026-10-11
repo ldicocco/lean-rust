@@ -1,0 +1,7 @@
+read_qty("12")  = Some(12)
+read_qty("500") = None
+variants("tee") = ["tee/S/red", "tee/S/blue", "tee/M/red", "tee/M/blue"]
+pair, Option  = Some((3, "bolts"))
+pair, Vec     = [(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')]
+sequence, Option = Some([1, 2, 3]) and None
+sequence, Vec    = [["S", "red"], ["S", "blue"], ["M", "red"], ["M", "blue"]]

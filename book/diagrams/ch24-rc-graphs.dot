@@ -1,0 +1,30 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  subgraph cluster_tree {
+    label="a tree: strong down, weak up"; fontsize=11; color="#cbd5e1"; style="rounded";
+    s1 [label="local `lab`", shape=plaintext, style="", fillcolor="white"];
+    s2 [label="local `probe`", shape=plaintext, style="", fillcolor="white"];
+    lab   [label="lab\nstrong 1, weak 1", fillcolor="#fee2e2", color="#b91c1c"];
+    probe [label="probe\nstrong 2, weak 0", fillcolor="#fee2e2", color="#b91c1c"];
+    s1 -> lab;
+    s2 -> probe;
+    lab -> probe [label=" children"];
+    probe -> lab [label=" parent", style=dashed, constraint=false];
+  }
+
+  subgraph cluster_cycle {
+    label="a cycle: strong both ways"; fontsize=11; color="#cbd5e1"; style="rounded";
+    s3 [label="local `a`", shape=plaintext, style="", fillcolor="white"];
+    s4 [label="local `b`", shape=plaintext, style="", fillcolor="white"];
+    a [label="a\nstrong 2", fillcolor="#fee2e2", color="#b91c1c"];
+    b [label="b\nstrong 2", fillcolor="#fee2e2", color="#b91c1c"];
+    s3 -> a;
+    s4 -> b;
+    a -> b [label=" children"];
+    b -> a [label=" children", constraint=false];
+  }
+}

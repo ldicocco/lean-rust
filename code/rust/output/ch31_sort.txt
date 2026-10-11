@@ -1,0 +1,6 @@
+Lean model: 24 expected results read
+  sort:   9 cases agree with the Lean model
+  search: 15 cases agree with the Lean model
+property tests: 10000 random lists sorted correctly
+property tests: 650000 searches satisfy the specification
+search [7, 7, 7, 7] 7: ours Some(2), std Ok(3)

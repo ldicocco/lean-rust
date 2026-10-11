@@ -1,0 +1,7 @@
+block_as_lets() = 10
+log = ["-3 is negative"]
+first_even(&[3, 5, 8, 9]) = 8
+first_even(&[1, 3]) = 0
+use_parse_len() = 5
+speed = 12.5
+swap_pair = (2.0, 1.0)

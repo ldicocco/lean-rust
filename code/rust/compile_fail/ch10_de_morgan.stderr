@@ -1,0 +1,21 @@
+error[E0382]: use of moved value: `n`
+  --> compile_fail/ch10_de_morgan.rs:17:35
+   |
+13 | fn de_morgan_or<A, B, N>(n: N) -> (impl FnOnce(A) -> Void, impl FnOnce(B) -> Void)
+   |                          - move occurs because `n` has type `N`, which does not implement the `Copy` trait
+...
+17 |     (move |a| n(Either::Left(a)), move |b| n(Either::Right(b)))
+   |      -------- -                   ^^^^^^^^ - use occurs due to use in closure
+   |      |        |                   |
+   |      |        |                   value used here after move
+   |      |        variable moved due to use in closure
+   |      value moved into closure here
+   |
+help: if `N` implemented `Clone`, you could clone the value
+  --> compile_fail/ch10_de_morgan.rs:13:23
+   |
+13 | fn de_morgan_or<A, B, N>(n: N) -> (impl FnOnce(A) -> Void, impl FnOnce(B) -> Void)
+   |                       ^ consider constraining this type parameter with `Clone`
+...
+17 |     (move |a| n(Either::Left(a)), move |b| n(Either::Right(b)))
+   |               - you could clone this value

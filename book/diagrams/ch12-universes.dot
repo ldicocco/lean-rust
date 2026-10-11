@@ -1,0 +1,30 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=BT];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7, label="  :"];
+
+  // Universes (Lean-specific)
+  prop  [label="Prop  =  Sort 0", fillcolor="#f3e8ff", color="#7e22ce"];
+  type0 [label="Type  =  Sort 1", fillcolor="#f3e8ff", color="#7e22ce"];
+  type1 [label="Type 1  =  Sort 2", fillcolor="#f3e8ff", color="#7e22ce"];
+  type2 [label="Type 2  =  Sort 3", fillcolor="#f3e8ff", color="#7e22ce"];
+  dots  [label="...", shape=plaintext, style=""];
+
+  // Inhabitants
+  eq    [label="2 + 2 = 4\n∀ p : Prop, p → p", fillcolor="#dbeafe", color="#1d4ed8"];
+  nat   [label="ℕ    Bool    ℕ → ℕ\nList String", fillcolor="#dcfce7", color="#15803d"];
+  poly  [label="(α : Type) → α → α\nChurch    List Type", fillcolor="#dcfce7", color="#15803d"];
+  proof [label="rfl  (proof of 2 + 2 = 4)", fillcolor="#ffedd5", color="#c2410c"];
+  three [label="3    true    fun n => n + 1", fillcolor="#ffedd5", color="#c2410c"];
+
+  proof -> eq;
+  eq -> prop;
+  three -> nat;
+  nat -> type0;
+  poly -> type1;
+  prop -> type0;
+  type0 -> type1;
+  type1 -> type2;
+  type2 -> dots;
+}

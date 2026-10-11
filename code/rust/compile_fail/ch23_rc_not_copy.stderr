@@ -1,0 +1,15 @@
+error[E0382]: the type `Rc` does not implement `Copy`
+ --> compile_fail/ch23_rc_not_copy.rs:9:11
+  |
+8 | fn share(cfg: Rc<String>) -> (Rc<String>, Rc<String>) {
+  |          --- this move could be avoided by cloning the original `Rc`, which is inexpensive
+9 |     (cfg, cfg)
+  |      ---  ^^^ value used here after move
+  |      |
+  |      value moved here
+  |
+  = note: consider using `Rc::clone`
+help: clone the value to increment its reference count
+  |
+9 |     (cfg.clone(), cfg)
+  |         ++++++++

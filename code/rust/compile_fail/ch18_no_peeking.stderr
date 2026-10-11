@@ -1,0 +1,12 @@
+error[E0369]: binary operation `==` cannot be applied to type `T`
+ --> compile_fail/ch18_no_peeking.rs:7:10
+  |
+7 |     if a == b { Some(a) } else { None }
+  |        - ^^ - T
+  |        |
+  |        T
+  |
+help: consider restricting type parameter `T` with trait `PartialEq`
+  |
+6 | fn keep_if_same<T: std::cmp::PartialEq>(a: T, b: T) -> Option<T> {
+  |                  +++++++++++++++++++++

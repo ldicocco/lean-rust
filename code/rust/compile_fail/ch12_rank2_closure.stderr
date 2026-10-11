@@ -1,0 +1,22 @@
+error[E0308]: mismatched types
+  --> compile_fail/ch12_rank2_closure.rs:10:20
+   |
+ 6 | fn lengths_after<A, B, F>(f: F, a: Vec<A>, b: Vec<B>) -> (usize, usize)
+   |                  -  - found type parameter
+   |                  |
+   |                  expected type parameter
+...
+10 |     (f(a).len(), f(b).len())
+   |                  - ^ expected `Vec<A>`, found `Vec<B>`
+   |                  |
+   |                  arguments to this function are incorrect
+   |
+   = note: expected struct `Vec<A>`
+              found struct `Vec<B>`
+   = note: a type parameter was expected, but a different one was found; you might be missing a type parameter or trait bound
+   = note: for more information, visit https://doc.rust-lang.org/book/ch10-02-traits.html#traits-as-parameters
+note: callable defined here
+  --> compile_fail/ch12_rank2_closure.rs:8:8
+   |
+ 8 |     F: Fn(Vec<A>) -> Vec<A>,
+   |        ^^^^^^^^^^^^^^^^^^^^

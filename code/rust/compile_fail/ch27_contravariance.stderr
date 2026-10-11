@@ -1,0 +1,11 @@
+error[E0597]: `msg` does not live long enough
+  --> compile_fail/ch27_contravariance.rs:16:29
+   |
+15 |     let msg = String::from("built at run time");
+   |         --- binding `msg` declared here
+16 |     call_with(needs_static, &msg);
+   |               ------------  ^^^^ borrowed value does not live long enough
+   |               |
+   |               coercion requires that `msg` is borrowed for `'static`
+17 | }
+   | - `msg` dropped here while still borrowed

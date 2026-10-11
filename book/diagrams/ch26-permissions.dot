@@ -1,0 +1,15 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.4, ranksep=0.5, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  owner  [label="owner  T\nread, write, free\nnot Copy", fillcolor="#fee2e2", color="#b91c1c"];
+  unique [label="&'a mut T\nread, write, for 'a\nunique, not Copy", fillcolor="#ffedd5", color="#c2410c"];
+  shared [label="&'a T\nread, for 'a\nshared, Copy", fillcolor="#dcfce7", color="#15803d"];
+
+  owner -> unique [label="lend\n&mut x"];
+  unique -> shared [label="weaken\n&*r"];
+  owner -> shared [label="lend\n&x"];
+  unique -> unique [label="reborrow\n&mut *r"];
+}

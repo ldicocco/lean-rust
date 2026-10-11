@@ -1,0 +1,39 @@
+maybe-uninitialized, on entry (7 block visits)
+  bb0: {_0, _2, _3, _4, _5}
+  bb1: {_0, _3, _4, _5}
+  bb2: {_0, _4, _5}
+  bb3: {_0, _2, _5}
+  bb4: {_0, _4, _5}
+  bb5: {_2, _4, _5}
+  bb6: {_2, _3, _4, _5}
+maybe-initialized, on entry (7 block visits)
+  bb0: {_1}
+  bb1: {_1, _2}
+  bb2: {_1, _2, _3}
+  bb3: {_1, _3, _4}
+  bb4: {_1, _2, _3}
+  bb5: {_0, _1, _2, _3}
+  bb6: {_0, _1}
+live, on exit (7 block visits)
+  bb0: {_1, _2}
+  bb1: {_2}
+  bb2: {_2}
+  bb3: {_0, _2}
+  bb4: {_0, _2}
+  bb5: {_0}
+  bb6: {}
+drop elaboration:
+  maybe_archive: bb5[1] drop(_2) is Conditional
+  record_count: bb3[4] drop(_1) is Dead
+
+error[E0382]: borrow of moved value: `job`
+  --> compile_fail/ch29_conditional_move.rs:14:5
+   |
+10 |     let job = String::from("backup");
+   |         --- move occurs because `job` has type `String`, which does not implement the `Copy` trait
+11 |     if urgent {
+12 |         archive(job);
+   |                 --- value moved here
+13 |     }
+14 |     job.len()
+   |     ^^^ value borrowed here after move

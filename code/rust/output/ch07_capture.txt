@@ -1,0 +1,17 @@
+(λy. x)[x := y]
+  naive:            λy. y
+  capture-avoiding: λy'. y
+
+(λx. λy. x) y z
+  with naive substitution:            z
+  with capture-avoiding substitution: y
+
+(λx. λy. x) y  is  (λ. λ. 1) 0  in the naming context [y]
+  with the shift:    λ. 1
+  without the shift: λ. 0
+
+α-equivalence is equality of de Bruijn terms:
+  λx. λy. x  ↦ λ. λ. 1    α-equivalent to λx. λy. x: true
+  λa. λb. a  ↦ λ. λ. 1    α-equivalent to λx. λy. x: true
+  λx. λy. y  ↦ λ. λ. 0    α-equivalent to λx. λy. x: false
+  λy. λx. y  ↦ λ. λ. 1    α-equivalent to λx. λy. x: true

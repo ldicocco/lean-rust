@@ -1,0 +1,13 @@
+error[E0594]: cannot assign to `count`, as it is a captured variable in a `Fn` closure
+  --> compile_fail/ch08_fn_mutates.rs:13:19
+   |
+ 6 | fn call_twice<F: Fn()>(f: F) {
+   |                           - change this to accept `FnMut` instead of `Fn`
+...
+12 |     let mut count = 0;
+   |         --------- `count` declared here, outside the closure
+13 |     call_twice(|| count += 1);
+   |     ---------- -- ^^^^^^^^^^ cannot assign
+   |     |          |
+   |     |          in this closure
+   |     expects `Fn` instead of `FnMut`

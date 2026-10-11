@@ -1,0 +1,7 @@
+error[E0277]: the `?` operator can only be used on `Result`s, not `Option`s, in a function that returns `Result`
+ --> compile_fail/ch20_question_mark_option.rs:6:30
+  |
+5 | pub fn first_qty(lines: &[&str]) -> Result<u32, String> {
+  | ------------------------------------------------------- this function returns a `Result`
+6 |     let first = lines.first()?;
+  |                              ^ use `.ok_or(...)?` to provide an error compatible with `Result<u32, String>`

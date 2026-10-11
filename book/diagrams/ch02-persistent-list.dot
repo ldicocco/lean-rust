@@ -1,0 +1,25 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  // Names (Lean-specific)
+  ys     [label="1 :: primes", fillcolor="#f3e8ff", color="#7e22ce"];
+  primes [label="primes", fillcolor="#f3e8ff", color="#7e22ce"];
+
+  // Cells of the lists (values)
+  c1  [label="1"];
+  c2  [label="2"];
+  c3  [label="3"];
+  c5  [label="5"];
+  c7  [label="7"];
+  nil [label="[]", shape=plaintext, style=""];
+
+  ys -> c1;
+  c1 -> c2 [label="tail"];
+  primes -> c2;
+  c2 -> c3 -> c5 -> c7 -> nil;
+
+  { rank=same; ys; primes; }
+}

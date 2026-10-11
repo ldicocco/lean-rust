@@ -1,0 +1,27 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#c2410c", fillcolor="#ffedd5", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  let  [label="let x"];
+  n3a  [label="3"];
+  ite  [label="if"];
+  eq   [label="=="];
+  x1   [label="x"];
+  n3b  [label="3"];
+  add  [label="+"];
+  x2   [label="x"];
+  n1   [label="1"];
+  n0   [label="0"];
+
+  let -> n3a [label="bound"];
+  let -> ite [label="body"];
+  ite -> eq  [label="cond"];
+  ite -> add [label="then"];
+  ite -> n0  [label="else"];
+  eq -> x1;
+  eq -> n3b;
+  add -> x2;
+  add -> n1;
+}

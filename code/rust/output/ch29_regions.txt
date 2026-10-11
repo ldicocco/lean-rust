@@ -1,0 +1,22 @@
+record_count: outlives constraints
+  '?2: '?0  at bb1[3]
+  '?3: '?1  at bb1[6]
+record_count: region values (2 passes)
+  '?0 = {bb1[4..=7], bb2[0..=1]}   type of _3
+  '?1 = {bb1[7]}                   type of _5
+  '?2 = {bb1[3..=7], bb2[0..=1]}   loan L0 = &'?2 mut _1 at bb1[3]
+  '?3 = {bb1[6..=7]}               loan L1 = &'?3 _1 at bb1[6]
+first_then_push: loan L0 = &'?2 _1 at bb1[3]
+  NLL     '?2 = {bb1[3..=4], bb2[0..=5]}
+  lexical '?2 = {bb1[2..=4], bb2[0..=5], bb3[0..=5], bb4[0..=4], bb5[0..=1]}
+error[E0502]: cannot borrow `readings` as mutable because it is also borrowed as immutable
+  --> examples/ch29_nll_accepts.rs:24:5
+   |
+22 |     let first = &readings[0];
+   |                  -------- immutable borrow occurs here
+23 |     println!("first = {first}");
+24 |     readings.push(40);
+   |     ^^^^^^^^ mutable borrow occurs here
+25 |     readings.len()
+26 | }
+   | - immutable borrow ends here

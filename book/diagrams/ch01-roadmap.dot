@@ -1,0 +1,24 @@
+digraph G {
+  graph [bgcolor="white", fontname="Helvetica", fontsize=11, pad=0.2, nodesep=0.35, ranksep=0.45, rankdir=LR];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+         color="#475569", fillcolor="#f1f5f9", penwidth=1.2, margin="0.12,0.06"];
+  edge  [color="#475569", fontname="Helvetica", fontsize=10, arrowsize=0.7];
+
+  p1 [label="I  Foundations\njudgments, natural deduction,\nintuitionism, structural rules", fillcolor="#dbeafe", color="#1d4ed8"];
+  p2 [label="II  Programs as Proofs\nλ-calculus, STLC, type safety,\nCurry–Howard, ADTs", fillcolor="#ffedd5", color="#c2410c"];
+  p3 [label="III  Abstraction\npolymorphism, inference,\ntraits, existentials", fillcolor="#dcfce7", color="#15803d"];
+  p4 [label="IV  Categories\nfunctors, naturality,\nCCCs, monads", fillcolor="#f3e8ff", color="#7e22ce"];
+  p5 [label="V  Ownership as Logic\nlinear and affine logic,\nCopy, Drop, typestate", fillcolor="#fee2e2", color="#b91c1c"];
+  p6 [label="VI  Borrowing and Regions\nregions, variance,\na borrow calculus, NLL", fillcolor="#fee2e2", color="#b91c1c"];
+  p7 [label="VII  Beyond\ndependent types, verified\nprograms, semantic types", fillcolor="#f1f5f9", color="#475569"];
+  v  [label="Chapter 33\nThe Verdict", shape=box, style="rounded,filled,bold", fillcolor="#ffffff"];
+
+  p1 -> p2 -> p3 -> p4;
+  p2 -> p5;
+  p1 -> p5 [style=dashed];
+  p5 -> p6 -> v;
+  p3 -> p7;
+  p4 -> p7 [style=dashed];
+  p6 -> p7 [style=dashed];
+  p7 -> v;
+}

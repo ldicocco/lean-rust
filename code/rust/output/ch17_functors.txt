@@ -1,0 +1,16 @@
+laws: Option, Vec, Result, (E, _) and fn(E) -> _ pass on samples
+gat: double_all(Some(21))      = Some(42)
+gat: double_all(vec![1, 2, 3]) = [2, 4, 6]
+gat: double_all(Ok(5))         = Ok(10)
+gat: double_all(tree) has root = Some(4)
+gat: double_all(Box::new(4))   = Some(8)
+family: OptionFamily  identity holds, composition holds
+family: VecFamily     identity holds, composition holds
+family: ResultFamily  identity holds, composition holds
+family: TreeFamily    identity holds, composition holds
+family: ReversingVec  identity FAILS, composition FAILS
+contravariant: is_long("abc") = false, is_long("abcd") = true
+contravariant: sorted by length = ["id", "map", "functor", "category"]
+bifunctor: Ok(20) -> Ok(21)
+bifunctor: Err(404) -> Err("error 404")
+bifunctor: bimap_pair = (11, 22)

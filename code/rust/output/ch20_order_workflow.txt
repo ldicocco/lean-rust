@@ -1,0 +1,3 @@
+plain,  good order: Ok(5), stock {"bolts": 7, "nuts": 2}
+plain,  bad order : Err(OutOfStock { item: "nuts", wanted: 9, available: 4 }), stock {"bolts": 7, "nuts": 4}
+atomic, bad order : Err(OutOfStock { item: "nuts", wanted: 9, available: 4 }), stock {"bolts": 10, "nuts": 4}
