@@ -44,9 +44,10 @@ You do not need to choose a Rust version. The file
 ```toml
 # The book shows real compiler diagnostics, so the exact compiler is pinned.
 # rustup installs it automatically the first time you run cargo here.
+# rust-src is the standard library's source, which rust-analyzer needs.
 [toolchain]
 channel = "1.99.0"
-components = ["rustfmt"]
+components = ["rustfmt", "rust-src"]
 ```
 
 The first time you run `cargo` inside `code/rust`, rustup notices the file and

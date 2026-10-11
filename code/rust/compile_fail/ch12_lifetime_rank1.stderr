@@ -15,4 +15,7 @@ error[E0597]: `lowered` does not live long enough
    | - `lowered` dropped here while still borrowed
    |
 note: requirement that the value outlives `'a` introduced here
-  --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:76:33
+  --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:76:34
+   |
+76 | pub const trait Fn<Args: Tuple>: [const] FnMut<Args> {
+   |                                  ^^^^^^^^^^^^^^^^^^^

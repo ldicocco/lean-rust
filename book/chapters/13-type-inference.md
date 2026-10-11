@@ -2067,21 +2067,24 @@ fn parse_ports(text: &str) {
 
 ```text
 error[E0283]: type annotations needed
- --> compile_fail/ch13_collect_needs_type.rs:6:9
-  |
-6 |     let ports = text
-  |         ^^^^^
+    --> compile_fail/ch13_collect_needs_type.rs:6:9
+     |
+   6 |     let ports = text
+     |         ^^^^^
 ...
-9 |         .collect();
-  |          ------- type must be known at this point
-  |
-  = note: the type must implement `FromIterator<u16>`
+   9 |         .collect();
+     |          ------- type must be known at this point
+     |
+     = note: the type must implement `FromIterator<u16>`
 note: required by a bound in `collect`
- --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/iter/traits/iterator.rs:2073:4
+    --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/iter/traits/iterator.rs:2073:19
+     |
+2073 |     fn collect<B: FromIterator<Self::Item>>(self) -> B
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `Iterator::collect`
 help: consider giving `ports` an explicit type
-  |
-6 |     let ports: Vec<_> = text
-  |              ++++++++
+     |
+   6 |     let ports: Vec<_> = text
+     |              ++++++++
 ```
 
 The fix is to say which collection, and only that:

@@ -19,7 +19,9 @@ Rust programs that must NOT compile (code/rust/compile_fail/*.rs)
         // harness: compile-fail "lifetime may not live long enough"
     They are compiled with rustc on their own; the diagnostics are compared with
     code/rust/compile_fail/<name>.stderr (included by the book). `--bless`
-    rewrites those files. `--codes-only` checks only the error codes.
+    rewrites those files. `--codes-only` checks only the error codes. Paths into
+    the local copy of the standard library's source are written as rustc's
+    machine-independent /rustc/<commit-hash>/library/... .
 
 Lean files (code/lean/Book/**/*.lean)
     are built with `lake build`. Every message Lean prints (info, warning or
@@ -41,6 +43,7 @@ Honours CARGO_TARGET_DIR.
 from __future__ import annotations
 
 import argparse
+import functools
 import os
 import re
 import shlex
@@ -194,7 +197,21 @@ TRAILER_RE = re.compile(
 )
 
 
+@functools.cache
+def std_source_paths() -> tuple[str, str]:
+    """The local path of the standard library's source (the rust-src component),
+    which depends on the machine, and the path rustc shows without it."""
+    def rustc(*args: str) -> str:
+        return subprocess.run(["rustc", *args], cwd=RUST, capture_output=True,
+                              text=True, check=True).stdout
+    sysroot = Path(rustc("--print", "sysroot").strip())
+    commit = re.search(r"^commit-hash: (\S+)$", rustc("-vV"), re.M).group(1)
+    return str(sysroot / "lib" / "rustlib" / "src" / "rust"), f"/rustc/{commit}"
+
+
 def normalize_stderr(text: str) -> str:
+    local, portable = std_source_paths()
+    text = text.replace(local, portable)
     lines = [ln.rstrip() for ln in text.splitlines()]
     lines = [ln for ln in lines if not TRAILER_RE.match(ln)]
     while lines and not lines[-1].strip():

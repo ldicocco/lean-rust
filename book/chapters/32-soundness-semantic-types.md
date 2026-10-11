@@ -1016,27 +1016,33 @@ pub fn bump_in_two_threads(counter: &MyCell<u32>) {
 
 ```text
 error[E0277]: `UnsafeCell<u32>` cannot be shared between threads safely
-  --> compile_fail/ch32_cell_not_sync.rs:22:17
-   |
-22 |         s.spawn(|| counter.bump());
-   |           ----- ^^^^^^^^^^^^^^^^^ `UnsafeCell<u32>` cannot be shared between threads safely
-   |           |
-   |           required by a bound introduced by this call
-   |
-   = help: within `MyCell<u32>`, the trait `Sync` is not implemented for `UnsafeCell<u32>`
+   --> compile_fail/ch32_cell_not_sync.rs:22:17
+    |
+ 22 |         s.spawn(|| counter.bump());
+    |           ----- ^^^^^^^^^^^^^^^^^ `UnsafeCell<u32>` cannot be shared between threads safely
+    |           |
+    |           required by a bound introduced by this call
+    |
+    = help: within `MyCell<u32>`, the trait `Sync` is not implemented for `UnsafeCell<u32>`
 note: required because it appears within the type `MyCell<u32>`
-  --> compile_fail/ch32_cell_not_sync.rs:8:12
-   |
- 8 | pub struct MyCell<T> {
-   |            ^^^^^^
-   = note: required for `&MyCell<u32>` to implement `Send`
+   --> compile_fail/ch32_cell_not_sync.rs:8:12
+    |
+  8 | pub struct MyCell<T> {
+    |            ^^^^^^
+    = note: required for `&MyCell<u32>` to implement `Send`
 note: required because it's used within this closure
-  --> compile_fail/ch32_cell_not_sync.rs:22:17
-   |
-22 |         s.spawn(|| counter.bump());
-   |                 ^^
+   --> compile_fail/ch32_cell_not_sync.rs:22:17
+    |
+ 22 |         s.spawn(|| counter.bump());
+    |                 ^^
 note: required by a bound in `Scope::<'scope, 'env>::spawn`
-  --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/scoped.rs:201:4
+   --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/scoped.rs:203:28
+    |
+201 |     pub fn spawn<F, T>(&'scope self, f: F) -> ScopedJoinHandle<'scope, T>
+    |            ----- required by a bound in this associated function
+202 |     where
+203 |         F: FnOnce() -> T + Send + 'scope,
+    |                            ^^^^ required by this bound in `Scope::<'scope, 'env>::spawn`
 ```
 
 Within one thread, a sensor that counts its own reads can be shared freely:
